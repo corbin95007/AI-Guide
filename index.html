@@ -2,7 +2,6 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AI 开发者技术栈参考矩阵 (2026版)</title>
     <style>
@@ -52,18 +51,6 @@
                 --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
                 --shadow-lg: 0 10px 30px rgba(0,0,0,0.5);
             }
-=======
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 小白超车指南（互动版）</title>
-    <style>
-        :root {
-            --primary-color: #4F46E5;
-            --secondary-color: #9333EA;
-            --bg-color: #F8FAFC;
-            --text-main: #1E293B;
-            --text-muted: #64748B;
-            --card-bg: #FFFFFF;
->>>>>>> ddd2f3a7c6ef2d1d6cd3650b0010f181ec5b7c5f
         }
 
         * {
@@ -73,7 +60,6 @@
         }
 
         body {
-<<<<<<< HEAD
             font-family: var(--font-sans);
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -82,26 +68,12 @@
         }
 
         /* 顶部导航栏 (Tab) - 毛玻璃效果 */
-=======
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
-            background-size: 20px 20px;
-            /* 预留顶部导航栏的空间，防止内容被遮挡 */
-            padding-top: 60px; 
-        }
-
-        /* 顶部固定导航栏样式 */
->>>>>>> ddd2f3a7c6ef2d1d6cd3650b0010f181ec5b7c5f
         .nav-tabs {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 60px;
-<<<<<<< HEAD
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -119,21 +91,10 @@
             }
         }
 
-=======
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            display: flex;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            z-index: 1000;
-        }
-
-        /* 导航按钮样式 */
->>>>>>> ddd2f3a7c6ef2d1d6cd3650b0010f181ec5b7c5f
         .nav-btn {
             flex: 1;
             background: none;
             border: none;
-<<<<<<< HEAD
             font-size: 0.95rem;
             color: var(--text-secondary);
             cursor: pointer;
@@ -519,6 +480,214 @@
             line-height: 1.6;
         }
 
+        /* 厂商生态系统样式 */
+        .vendor-ecosystem {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .vendor-item {
+            background: var(--card-bg);
+            padding: 16px 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-green);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .vendor-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+            border-left-color: var(--accent-orange);
+        }
+
+        .vendor-item h5 {
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+
+        .vendor-item p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* 定价表格样式 */
+        .pricing-table {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .pricing-table table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pricing-table thead {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+        }
+
+        .pricing-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .pricing-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background-color 0.2s ease;
+        }
+
+        .pricing-table tbody tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .pricing-table tbody tr:nth-child(even) {
+                background-color: rgba(255, 255, 255, 0.02);
+            }
+        }
+
+        .pricing-table tbody tr:hover {
+            background-color: rgba(99, 102, 241, 0.05);
+        }
+
+        .pricing-table td {
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-table td:first-child {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .pricing-table .price {
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+
+        .pricing-table .tokens {
+            font-family: var(--font-mono);
+            color: var(--accent-purple);
+        }
+
+        /* 开源模型对比表格样式 */
+        .opensource-table {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .opensource-table table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .opensource-table thead {
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            color: white;
+        }
+
+        .opensource-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .opensource-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background-color 0.2s ease;
+        }
+
+        .opensource-table tbody tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .opensource-table tbody tr:nth-child(even) {
+                background-color: rgba(255, 255, 255, 0.02);
+            }
+        }
+
+        .opensource-table tbody tr:hover {
+            background-color: rgba(16, 185, 129, 0.05);
+        }
+
+        .opensource-table td {
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .opensource-table td:first-child {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .opensource-table .license {
+            font-family: var(--font-mono);
+            color: var(--accent-orange);
+        }
+
+        .opensource-table .size {
+            font-family: var(--font-mono);
+            color: var(--accent-purple);
+        }
+
+        /* 模型获取渠道样式 */
+        .distribution-channels {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .channel-item {
+            background: var(--card-bg);
+            padding: 16px 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-orange);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .channel-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+            border-left-color: var(--accent-blue);
+        }
+
+        .channel-item h5 {
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+
+        .channel-item p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
         /* 图标样式 */
         .icon {
             width: 24px;
@@ -650,225 +819,18 @@
             }
         }
 
-        /* 主题切换按钮 */
-        .theme-toggle {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--card-bg);
-            border: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-secondary);
-        }
-
-        .theme-toggle:hover {
-            background: var(--card-hover);
-            color: var(--accent-purple);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: var(--shadow-md);
-        }
-
-        .theme-icon {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        .theme-icon .moon {
-            display: none;
-        }
-
-        .theme-icon .sun {
-            display: block;
-        }
-
-        /* 深色模式下的图标显示 */
-        .dark-mode .theme-icon .moon {
-            display: block;
-        }
-
-        .dark-mode .theme-icon .sun {
-            display: none;
-        }
-
-        /* 深色模式类 */
-        .dark-mode {
-            color-scheme: dark;
-        }
-
-        .dark-mode .nav-tabs {
-            background: rgba(30, 41, 59, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .dark-mode .theme-toggle {
-            background: rgba(51, 65, 85, 0.8);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-=======
-            border-bottom: 3px solid transparent;
-            font-size: 1rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        /* 导航按钮激活（点击后）的样式 */
-        .nav-btn.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
-            font-weight: 700;
-            background: linear-gradient(to top, rgba(79, 70, 229, 0.05), transparent);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            padding: 40px 0 20px 0;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            color: var(--text-muted);
-        }
-
-        /* 板块内容区样式控制 */
-        .tab-content {
-            display: none; /* 默认全部隐藏 */
-            animation: fadeIn 0.4s ease; /* 切换时的淡入动画 */
-        }
-
-        .tab-content.active {
-            display: block; /* 只有加上 active 的板块才会显示 */
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 以下是卡片内部的布局样式（保持不变） */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding-bottom: 40px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        }
-
-        .card-icon {
-            font-size: 2rem;
-            display: inline-block;
-            width: 60px;
-            height: 60px;
-            line-height: 60px;
-            text-align: center;
-            border-radius: 50%;
-            background: #EEF2FF;
-            margin-bottom: 16px;
-        }
-
-        .card h3 { font-size: 1.25rem; margin-bottom: 8px; }
-        .card-tag { font-size: 0.9rem; font-weight: bold; color: var(--text-muted); margin-bottom: 12px; display: block; }
-
-        .tool-card {
-            display: flex;
-            flex-wrap: wrap;
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        }
-
-        .tool-indicator { width: 8px; background-color: #10A37F; }
-        .tool-indicator.mj { background-color: #8B5CF6; }
-        .tool-indicator.cursor { background-color: #3B82F6; }
-
-        .tool-content {
-            flex: 1;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .tool-content { grid-template-columns: 1fr 1fr 1fr; }
-            h1 { font-size: 2.5rem; }
-        }
-
-        .tool-header { border-bottom: 1px solid #E2E8F0; padding-bottom: 10px; margin-bottom: 5px; }
-        ul { list-style-type: none; padding-left: 0; }
-        li { position: relative; padding-left: 15px; margin-bottom: 8px; color: var(--text-muted); font-size: 0.95rem; }
-        li::before { content: "•"; position: absolute; left: 0; color: var(--text-main); }
-
-        .list-box {
-            border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            background: #F8FAFC;
-        }
->>>>>>> ddd2f3a7c6ef2d1d6cd3650b0010f181ec5b7c5f
     </style>
 </head>
 <body>
 
-<<<<<<< HEAD
 <div class="nav-tabs">
     <button class="nav-btn active" onclick="switchTab('tab1', this)">技术规范</button>
     <button class="nav-btn" onclick="switchTab('tab2', this)">开发工具链</button>
     <button class="nav-btn" onclick="switchTab('tab3', this)">基座大模型</button>
-    <button id="theme-toggle" class="theme-toggle" aria-label="切换深色/浅色模式">
-        <svg class="theme-icon" viewBox="0 0 24 24" width="18" height="18">
-            <path class="sun" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-            <path class="moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-    </button>
-=======
-<!-- 固定在顶部的导航栏 -->
-<div class="nav-tabs">
-    <!-- onclick 属性就是用来触发我们下面写的 JavaScript 交互代码的 -->
-    <button class="nav-btn active" onclick="switchTab('tab1', this)">基础概念</button>
-    <button class="nav-btn" onclick="switchTab('tab2', this)">AI 工具</button>
-    <button class="nav-btn" onclick="switchTab('tab3', this)">大模型</button>
->>>>>>> ddd2f3a7c6ef2d1d6cd3650b0010f181ec5b7c5f
 </div>
 
 <div class="container">
     <header>
-<<<<<<< HEAD
         <h1>AI 开发者技术栈参考矩阵</h1>
         <p class="subtitle">Architecture & Ecosystem Review (截止 2026-04-07)</p>
     </header>
@@ -877,11 +839,7 @@
         <details class="tech-card">
             <summary>
                 <div class="summary-info">
-                    <h3><svg class="icon icon-robot" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm2 11.58V16h-4v-2.42c-1.43-.9-2.5-2.5-2.5-4.42 0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.92-1.07 3.52-2.5 4.42z"/>
-                        <circle cx="9" cy="9" r="1.5"/>
-                        <circle cx="15" cy="9" r="1.5"/>
-                    </svg> LLM (Large Language Model)</h3>
+                    <h3> LLM (Large Language Model)</h3>
                     <p>大语言模型底层基础</p>
                 </div>
             </summary>
@@ -890,6 +848,8 @@
                 <p>基于 Transformer 架构的自回归概率分布模型。通过在海量语料上进行无监督预训练，建立高维向量空间中的词汇关联网络。随后通过 SFT (监督微调) 与 RLHF (基于人类反馈的强化学习) 对齐指令。</p>
                 <h4>作用机制</h4>
                 <p>输入文本经过分词 (Tokenization) 转化为向量，通过自注意力机制 (Self-Attention) 并行计算上下文中各元素的依赖关系权重，自回归地计算并输出下一个最优 Token 的概率分布矩阵。</p>
+                <h4>令牌经济学</h4>
+                <p>Token 是机器注意力的原子单位，可代表字符、词根或字节组合。API 以每百万 Token 计费，输出 Token 成本是输入的 3-10 倍，推动“令牌效率优化”成为核心设计理念。</p>
             </div>
         </details>
 
@@ -905,6 +865,8 @@
                 <p>具备环境感知、自主决策与物理/数字环境执行能力的计算实体。以 LLM 为核心逻辑控制器，辅以记忆系统（短期 Context 与长期 Vector DB）和推理框架（如 ReAct 或分层任务分解）。</p>
                 <h4>作用机制</h4>
                 <p>接收主干指令后，触发内部推理循环：评估当前状态 -> 规划步骤 -> 决定调用的外部工具接口 -> 解析工具返回结果 -> 更新上下文并迭代，直至达成终止条件。</p>
+                <h4>推理与行动闭环</h4>
+                <p>将 LLM 的推理能力置于无限循环（While Loop）中，实现“推理与行动”的自主循环机制，形成智能体工作流（Workflow）的动态网络。</p>
             </div>
         </details>
 
@@ -920,6 +882,88 @@
                 <p>标准化的大语言模型与本地/外部数据源的双向通信层协议。通过统一定义文件系统、代码库、数据库的读取权限与工具执行规范，消除应用间的隔离壁垒。</p>
                 <h4>作用机制</h4>
                 <p>IDE 或客户端作为 Host，外部工具提供 MCP Server 暴露功能。当 LLM 需读取外部环境时，通过标准的 JSON-RPC 通信协议与服务器握手，授权并在安全沙箱内执行底层操作。</p>
+                <h4>三大通信协议体系</h4>
+                <p>与 A2A（智能体对智能体协议）和 ACP（智能体通信协议）共同构成三大协议体系，打破智能体系统孤岛，实现多专长模型协作与轻量级异步消息传递。</p>
+            </div>
+        </details>
+
+        <!-- 新增概念卡片 1: Token -->
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Token - 令牌经济学</h3>
+                    <p>机器注意力的原子单位与AI经济核心</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>Token 是机器注意力的原子单位，可代表字符、词根或字节组合。它是大语言模型处理信息的基本单元，将自然语言文本转化为机器可计算的离散符号。</p>
+                <h4>作用机制</h4>
+                <p>API 以每百万输入/输出 Token 计费，输出 Token 成本远高于输入 Token（3-10 倍）。这种基于令牌的算力消耗逻辑，推动“令牌效率优化”成为系统设计的核心理念，直接影响AI应用的经济可行性。</p>
+            </div>
+        </details>
+
+        <!-- 新增概念卡片 2: Prompt & Context -->
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Prompt & Context - 提示词与上下文工程</h3>
+                    <p>驱动LLM的系统级配置与注意力预算管理</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>Prompt 是驱动 LLM 的系统级配置指令集，用于构建智能体的人格、设定执行约束、定义格式化输出。Context 是 LLM 有限的注意力预算空间，包含系统指令、API定义、RAG文档、对话历史。</p>
+                <h4>作用机制</h4>
+                <p>当输入信息过度膨胀时，模型会出现“迷失在中间”效应，导致推理能力下降。通过“渐进式披露”机制动态控制信息加载，使用压缩算法精简历史记录，在有限的注意力预算内最大化有效信号密度。</p>
+            </div>
+        </details>
+
+        <!-- 新增概念卡片 3: Workflow -->
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Workflow - 智能体工作流</h3>
+                    <p>推理与行动的连续自主执行机制</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>将 LLM 的推理能力置于无限循环（While Loop）中的连续自主执行机制。智能体通过“推理与行动”闭环，实现对复杂任务的动态分解与迭代执行。</p>
+                <h4>作用机制</h4>
+                <p>不再是基于硬编码规则的线性脚本，而是能够处理多步骤任务中的错误级联、状态管理以及多智能体协同的动态网络。开发者从“编写代码”转向“塑造问题”，定义目标与约束，让智能体自主决定最优执行路径。</p>
+            </div>
+        </details>
+
+        <!-- 新增概念卡片 4: Skills -->
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Skills - 技能模块化架构</h3>
+                    <p>赋予智能体特定领域专业知识的模块化组件</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>具有明确作用域的 .md 或 .json 文件，赋予智能体特定领域的专业知识。技能模块化架构避免了将海量 API 文档直接塞入上下文导致的注意力涣散。</p>
+                <h4>作用机制</h4>
+                <p>系统仅在判断智能体需要某项能力时，才动态加载相应的技能模块。这种按需加载机制有效避免了上下文臃肿，同时保持了智能体的专业能力扩展性。</p>
+            </div>
+        </details>
+
+        <!-- 新增概念卡片 5: A2A & ACP -->
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>A2A & ACP - 智能体通信协议</h3>
+                    <p>打破智能体系统孤岛的三大协议体系</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>A2A（智能体对智能体协议）协调多个具备不同专长的模型进行协作；ACP（智能体通信协议）提供轻量级的异步消息传递机制，允许分布式智能体网络进行低延迟信息交换。</p>
+                <h4>作用机制</h4>
+                <p>与 MCP（模型上下文协议）共同构成三大协议体系，打破智能体系统孤岛，实现真正的互联互通。这些标准协议使得智能体能够跨越底层框架限制，在企业级应用中实现规模化部署。</p>
             </div>
         </details>
     </div>
@@ -937,6 +981,16 @@
                 <p>开源的 agent-native 网关服务，内置基于 `SKILL.md` 的技能编排树与工具调用鉴权模块。结合 x402 协议的微支付模块进行低延迟推理路由分发。</p>
                 <h4>作用机制</h4>
                 <p>以后台守护进程方式驻留，截获消息通讯协议（如 Telegram/Discord）的载荷，通过内置提示词工程解析用户意图，将指令分发至本地 Ollama 或云端 API，执行网络搜索或本地系统命令后回传结果。</p>
+                <h4>核心特点</h4>
+                <p>数据主权、本地运行、30万星标、免费本地LLM。支持完全本地化运行，通过网关和技能插件接管操作系统深层权限。</p>
+                <h4>主要缺点</h4>
+                <p>底层架构复杂，对非技术人员极度不友好，运行环境配置极易出错，深度系统访问权限带来巨大安全隐患。</p>
+                <h4>适用人群</h4>
+                <p>注重隐私的个人开发者、极客群体、需要在企业内网搭建“虚拟员工团队”的中小企业主。</p>
+                <h4>下载与安装</h4>
+                <p>打开终端执行官方下载脚本：<code>curl -fsSL https://openclaw.bot/install.sh | bash</code>。Windows用户需先安装WSL2。</p>
+                <h4>避雷要点</h4>
+                <p>1. 安装时注意环境变量PATH配置，避免"command not found"错误。<br>2. Docker安装需分配至少2GB RAM，防止内存溢出。<br>3. 切勿将网关暴露于公网，必须绑定到127.0.0.1环回地址。<br>4. 从ClawHub下载技能时存在供应链攻击风险，需开启"仅限工作区文件系统访问"权限。</p>
             </div>
         </details>
 
@@ -952,6 +1006,16 @@
                 <p>建立在 VS Code 开源分支上，集成嵌入级向量数据库（Vector DB）实现代码库级的上下文感知检索，并通过抽象语法树（AST）解析确保大模型输出的语法结构完整性。</p>
                 <h4>作用机制</h4>
                 <p>隐式捕获编辑器的光标位置、错误诊断信息（LSP Diagnostics）及相邻文件变更，将其打包作为 Prompt 发送至云端推理服务器，返回高精度的差异补丁（Diffs）并内联应用于源码。</p>
+                <h4>核心特点</h4>
+                <p>Composer多文件编辑引擎、本地向量库索引、30秒内响应、支持多模型灵活切换（Claude处理复杂逻辑，GPT-5处理创意代码）。</p>
+                <h4>主要缺点</h4>
+                <p>高昂且不透明的成本（Pro计划$20实际可飙至$40-50）、闭源平台绑定、代码发送至第三方API存在安全风险。</p>
+                <h4>适用人群</h4>
+                <p>追求高效率的单兵开发者、初创团队、习惯于同步审核代码的学生群体。</p>
+                <h4>下载与安装</h4>
+                <p>前往 <a href="https://cursor.sh" target="_blank">Cursor官网</a> 下载对应的安装包并直接运行。首次启动时会提示导入现有VS Code的扩展、快捷键和配置文件。</p>
+                <h4>避雷要点</h4>
+                <p>1. 计费陷阱：默认"Auto"模式虽然免费调用内部小模型，但一旦开启高级云智能体或使用Claude/GPT-5执行后台任务，将迅速消耗高级积分。<br>2. 重度使用时必须密切关注后台请求状态，避免不知情的高额扣费。<br>3. 处理机密源码时需注意代码发送至第三方API的风险。</p>
             </div>
         </details>
 
@@ -967,6 +1031,16 @@
                 <p>突破单行代码补全的范式限制，底层引入任务编排与状态机逻辑。依托 Gemini 3.1 Pro 模型的超长上下文窗口，实现对复杂工程的多代理（Multi-Agent）并行调度与环境隔离。</p>
                 <h4>作用机制</h4>
                 <p>用户通过“控制中心（Manager Surface）”发布高阶架构需求。系统实例化多个专职 Agent 并行执行（如编码、测试、文献阅读），通过生成严格的可验证构件（Artifacts：截图、执行日志、计划书）供人类异步审核。</p>
+                <h4>核心特点</h4>
+                <p>Agent-first界面、管理器面板、无头Chrome预览、支持多代理并行调度、生成可验证构件供异步审核。</p>
+                <h4>主要缺点</h4>
+                <p>产品目前仍处于预览阶段，存在“过度自治”问题（擅自删除大量相关代码）、缺乏轻量级对话模式、处理简单问题时显得臃肿。</p>
+                <h4>适用人群</h4>
+                <p>全栈开发者、深耕谷歌云生态的工程师、需要复杂工程多代理协同的团队。</p>
+                <h4>下载与安装</h4>
+                <p>访问 <a href="https://antigravity.google/download" target="_blank">antigravity.google/download</a> 下载x64或ARM64版本的 .exe 安装包。安装时可能触发Windows Defender警告，需点击“更多信息”并选择“仍要运行”。</p>
+                <h4>避雷要点</h4>
+                <p>1. 使用前必须确保Git版本控制处于绝对干净且已提交的状态，防止智能体产生幻觉大面积删改文件导致无法回滚。<br>2. 智能体具有较高的代码修改自主权，需谨慎授权。<br>3. 目前仅对个人Gmail账号提供免费预览，企业使用需注意限制。</p>
             </div>
         </details>
 
@@ -982,6 +1056,16 @@
                 <p>OpenAI 开发的通用语言模型的代码微调分支，通过持续预训练（Continual Pre-training）海量公共代码仓库，深度拟合多种编程语言的抽象语法特征和逻辑分布。</p>
                 <h4>作用机制</h4>
                 <p>接收前置代码声明、文档注释作为输入序列条件，通过自回归解码机制计算后续可能代码块的联合概率分布，输出函数体、自动化测试或逻辑片段。</p>
+                <h4>核心特点</h4>
+                <p>云端沙盒异步执行、无限并发VM、自动提交PR、依靠 AGENTS.md 文件约束架构和测试规则。</p>
+                <h4>主要缺点</h4>
+                <p>黑盒运行无法学习、AGENTS.md配置不当会死循环、成本极其昂贵（$200/月Pro计划）。</p>
+                <h4>适用人群</h4>
+                <p>资金充足的企业团队、需要大规模重构庞大代码库的架构师、追求完全自动化开发流程的组织。</p>
+                <h4>下载与安装</h4>
+                <p>无需传统本地软件下载。用户必须在OpenAI平台注册并订阅服务。解锁并发能力和最高优先级需要订阅高达每月200美元的ChatGPT Pro计划。</p>
+                <h4>避雷要点</h4>
+                <p>1. 项目约束必须在项目根目录极其严谨地配置 AGENTS.md 文件。<br>2. 如果测试环境或Lint规则在 AGENTS.md 中配置不当，Codex将在云端陷入无限报错重试的死循环，消耗极其庞大的代币额度。<br>3. 由于黑盒运行机制，开发者无法在代码生成过程中学习其逻辑。</p>
             </div>
         </details>
 
@@ -997,6 +1081,16 @@
                 <p>基于 `llama.cpp` 核心实现 C/C++ 级的高效内存管理，采用 GGUF 格式对大模型权重进行动态降维量化（如 4-bit 量化），显著降低显存占用及内存带宽消耗。</p>
                 <h4>作用机制</h4>
                 <p>通过命令行 CLI 或 REST API 接收请求。将量化模型动态加载至系统 RAM 或 VRAM，通过调用底层硬件加速指令（如 CUDA, Metal, AVX）执行前向传播矩阵运算，返回流式 Token。</p>
+                <h4>核心特点</h4>
+                <p>一行命令部署、11434端口API、支持DeepSeek/Llama4等前沿开源模型、极度简化本地大模型部署复杂度。</p>
+                <h4>主要缺点</h4>
+                <p>严重的硬件依赖性：大模型必须将其权重完整加载到显存（VRAM）中，如果没有高昂的独立显卡集群，运行大型参数模型将面临极高的延迟甚至直接内存溢出。</p>
+                <h4>适用人群</h4>
+                <p>需要处理高度机密企业代码的研发部门、进行本地检索增强生成（RAG）研究的学者、受制于网络环境的开发者。</p>
+                <h4>下载与安装</h4>
+                <p>macOS: <code>brew install ollama</code><br>Linux: <code>curl -fsSL https://ollama.com/install.sh | sh</code><br>Windows: 访问 <a href="https://ollama.com" target="_blank">ollama.com</a> 下载可视化安装包。</p>
+                <h4>避雷要点</h4>
+                <p>1. 通过Docker安装时，必须正确映射数据卷（-v ollama:/root/.ollama）以确保持久化存储模型权重，否则每次重启容器都将重新下载几十GB的模型文件。<br>2. 默认的11434端口仅能在本地回环访问，外部局域网设备无法调用此API，需进行端口转发配置。<br>3. 测试安装成功与否：运行 <code>ollama run llama3.2</code> 观察是否能正常交互。</p>
             </div>
         </details>
 
@@ -1012,11 +1106,62 @@
                 <p>基于 Electron 架构与 Monaco 编辑器内核。核心技术为语言服务器协议 (LSP) 与调试适配器协议 (DAP) 的标准化解耦，将 UI 层与高 CPU 负载的语言解析层彻底分离。</p>
                 <h4>作用机制</h4>
                 <p>主进程控制生命周期与本地系统 I/O，渲染进程处理前端响应。所有的插件运行在独立的 Node.js 扩展宿主环境（Extension Host）中，确保主编辑器的帧率稳定与非阻塞输入。</p>
+                <h4>核心特点</h4>
+                <p>$10/月亲民价、后台智能体、/create-skill命令。在2026年的更新中，VSCode引入了强大的"后台智能体（Background Agents）"和"智能体技能（Agent Skills）"机制，开发者可以在聊天面板中直接使用 /create-skill 等斜杠命令，瞬间将复杂的重复性工作流打包为可复用的插件。</p>
+                <h4>主要缺点</h4>
+                <p>高峰期限流锁定、跨文件处理速度落后Cursor约30%、上下文污染。由于Copilot背靠微软巨大的企业客户池，个人Pro用户在高峰期经常遭遇极其严苛的"滚动窗口"限流，导致服务被锁定。此外，相比于Cursor，其子代理架构在处理跨文件复杂逻辑时速度较慢，平均任务解决时间落后近30%。</p>
+                <h4>适用人群</h4>
+                <p>任何不愿切换核心IDE的企业开发者及初学者。</p>
+                <h4>下载与安装</h4>
+                <p>下载标准版VS Code或VS 2026 Insiders，并在扩展商店中搜索安装 GitHub.copilot-chat。</p>
+                <h4>避雷要点</h4>
+                <p>1. 在使用大型解决方案时，单纯依赖聊天对话框会导致Copilot缺乏对整体编译常量和依赖树的理解。<br>2. 为了让Copilot准确抓取项目全局结构，必须在项目中维护一份良好的架构说明文档供其检索。<br>3. 在触发高算力后台智能体前，一定要清理不必要的测试文件或日志记录，防止上下文污染导致请求被拒绝。</p>
             </div>
         </details>
     </div>
 
     <div id="tab3" class="tab-content">
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>厂商生态全景</h3>
+                    <p>AI 基础设施与模型生态的七大核心玩家</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <div class="vendor-ecosystem">
+                    <div class="vendor-item">
+                        <h5>Nvidia</h5>
+                        <p>AI算力基础设施霸主，GPU硬件+CUDA生态护城河</p>
+                    </div>
+                    <div class="vendor-item">
+                        <h5>Microsoft</h5>
+                        <p>OpenAI战略投资方，GitHub Copilot+Azure云服务主导企业生态</p>
+                    </div>
+                    <div class="vendor-item">
+                        <h5>Alphabet/Google</h5>
+                        <p>全栈AI生态：TPU芯片→Gemini模型→Antigravity IDE</p>
+                    </div>
+                    <div class="vendor-item">
+                        <h5>OpenAI</h5>
+                        <p>闭源API标杆，GPT+o系列持续推高认知天花板</p>
+                    </div>
+                    <div class="vendor-item">
+                        <h5>Anthropic</h5>
+                        <p>安全对齐+超长上下文，Claude系列为软件工程行业标准</p>
+                    </div>
+                    <div class="vendor-item">
+                        <h5>Meta</h5>
+                        <p>开源AI领军，Llama系列打破闭源垄断</p>
+                    </div>
+                    <div class="vendor-item">
+                        <h5>DeepSeek</h5>
+                        <p>成本颠覆者，MoE架构极致优化引领全球AI成本崩塌</p>
+                    </div>
+                </div>
+            </div>
+        </details>
+
         <details class="tech-card">
             <summary>
                 <div class="summary-info">
@@ -1148,6 +1293,141 @@
                 </div>
             </div>
         </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>闭源模型定价表</h3>
+                    <p>主流闭源模型的 API 调用成本对比</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <div class="pricing-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>模型</th>
+                                <th>厂商</th>
+                                <th>核心优势</th>
+                                <th>输入价格/百万Token</th>
+                                <th>输出价格/百万Token</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>GPT-4o Mini</td>
+                                <td>OpenAI</td>
+                                <td>全能性价比之王</td>
+                                <td>$0.15</td>
+                                <td>$0.60</td>
+                            </tr>
+                            <tr>
+                                <td>o1-preview</td>
+                                <td>OpenAI</td>
+                                <td>高阶数理推理</td>
+                                <td>动态计费</td>
+                                <td>$600综合</td>
+                            </tr>
+                            <tr>
+                                <td>Gemini 3.1 Flash-Lite</td>
+                                <td>Google</td>
+                                <td>海量吞吐极速</td>
+                                <td>$0.25</td>
+                                <td>$1.50</td>
+                            </tr>
+                            <tr>
+                                <td>Claude Opus 4.6</td>
+                                <td>Anthropic</td>
+                                <td>软件工程大师(SWE-Bench 80.8%)</td>
+                                <td>$15.00</td>
+                                <td>$75.00</td>
+                            </tr>
+                            <tr>
+                                <td>Claude Haiku 4.5</td>
+                                <td>Anthropic</td>
+                                <td>响应速度标杆</td>
+                                <td>$1.00</td>
+                                <td>$5.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>开源模型对比表</h3>
+                    <p>主流开源模型的架构与性能对比</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <div class="opensource-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>模型</th>
+                                <th>架构/参数</th>
+                                <th>核心优势</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>DeepSeek V3.2</td>
+                                <td>MoE 671B总/37B激活</td>
+                                <td>性价比神话，GSM8K 96.0%</td>
+                            </tr>
+                            <tr>
+                                <td>MiniMax-M2.5</td>
+                                <td>MoE 229B总/10B激活</td>
+                                <td>极致推理能效，SWE-Bench 80.2%</td>
+                            </tr>
+                            <tr>
+                                <td>Llama 4 Scout</td>
+                                <td>109B总/17B激活</td>
+                                <td>1000万上下文窗口</td>
+                            </tr>
+                            <tr>
+                                <td>Qwen3 VL 235B</td>
+                                <td>235B多模态</td>
+                                <td>GUI自动化视觉识别</td>
+                            </tr>
+                            <tr>
+                                <td>Kimi K2.5</td>
+                                <td>1T总/32B激活</td>
+                                <td>UI设计草图→React代码</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>模型获取渠道</h3>
+                    <p>三种主流分发方式与使用建议</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <div class="distribution-channels">
+                    <div class="channel-item">
+                        <h5>官方直接订阅与API</h5>
+                        <p>前往厂商官网绑卡获取API Key，适用于企业级稳定生产环境。</p>
+                    </div>
+                    <div class="channel-item">
+                        <h5>AI聚合中转站</h5>
+                        <p>通过 OpenRouter/Fireworks.ai 等统一封装平台调用，支持多厂商模型切换与统一计费。</p>
+                    </div>
+                    <div class="channel-item">
+                        <h5>本地模型库下载</h5>
+                        <p>使用 HuggingFace/Ollama 终端下载开源权重，适合隐私敏感或离线场景。</p>
+                    </div>
+                </div>
+            </div>
+        </details>
     </div>
 </div>
 
@@ -1168,47 +1448,6 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 主题切换功能
-    function initTheme() {
-        const themeToggle = document.getElementById('theme-toggle');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        // 从 localStorage 读取主题偏好
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = prefersDark.matches;
-        
-        // 确定当前主题
-        let isDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
-        
-        // 应用主题
-        function applyTheme(dark) {
-            if (dark) {
-                document.documentElement.classList.add('dark-mode');
-                document.documentElement.style.colorScheme = 'dark';
-            } else {
-                document.documentElement.classList.remove('dark-mode');
-                document.documentElement.style.colorScheme = 'light';
-            }
-            localStorage.setItem('theme', dark ? 'dark' : 'light');
-        }
-        
-        // 初始化主题
-        applyTheme(isDark);
-        
-        // 切换主题
-        themeToggle.addEventListener('click', () => {
-            isDark = !isDark;
-            applyTheme(isDark);
-        });
-        
-        // 监听系统主题变化
-        prefersDark.addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-                applyTheme(e.matches);
-            }
-        });
-    }
-
     // 页面加载动画 - 卡片依次淡入
     document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.tech-card');
@@ -1227,181 +1466,8 @@
                 }
             });
         });
-        
-        // 初始化主题
-        initTheme();
     });
 </script>
 
 </body>
 </html>
-=======
-        <h1>AI 小白超车指南</h1>
-        <p class="subtitle">一网打尽：核心概念 × 主流工具 × 大模型生态</p>
-    </header>
-
-    <!-- 板块一：基础概念（加上 id="tab1"，默认 active 激活显示） -->
-    <div id="tab1" class="tab-content active">
-        <div class="grid-cards">
-            <article class="card">
-                <span class="card-icon">🧠</span>
-                <h3>LLM (大语言模型)</h3>
-                <span class="card-tag">本质：AI 的“大脑”</span>
-                <p>阅读了人类几乎所有文本后训练出的超级文字处理器。它不是搜索引擎，而是通过“概率预测”来接话茬的专家。</p>
-            </article>
-            <article class="card">
-                <span class="card-icon" style="background: #F0FDF4;">🤖</span>
-                <h3>Agent (智能体)</h3>
-                <span class="card-tag">本质：有手有脚的“数字员工”</span>
-                <p>如果 LLM 是大脑，Agent 就是装上了四肢的打工人，能自己思考目标，使用工具去完成复杂任务。</p>
-            </article>
-            <article class="card">
-                <span class="card-icon" style="background: #FFFBEB;">🗣️</span>
-                <h3>Prompt (提示词)</h3>
-                <span class="card-tag">本质：给 AI 下达的指令</span>
-                <p>你对 AI 说的话。指令越具体、背景越清晰，结果就越好。写提示词就像给外星人布置工作。</p>
-            </article>
-            <article class="card">
-                <span class="card-icon" style="background: #FAF5FF;">🧩</span>
-                <h3>Token (词元)</h3>
-                <span class="card-tag">本质：AI 的基本颗粒</span>
-                <p>AI 眼里的字不是字，而是 Token。一个英文单词通常是 1 个 Token，一个汉字大约占 1-2 个 Token。</p>
-            </article>
-            <article class="card">
-                <span class="card-icon" style="background: #FEF2F2;">📝</span>
-                <h3>Context (上下文)</h3>
-                <span class="card-tag">本质：短期记忆容量</span>
-                <p>当前对话中喂给 AI 的背景信息。一旦超出了它的“窗口”，AI 就会像鱼一样忘记前面说过的话。</p>
-            </article>
-            <article class="card">
-                <span class="card-icon" style="background: #F0F9FF;">🔌</span>
-                <h3>API (接口)</h3>
-                <span class="card-tag">本质：软件间的点菜员</span>
-                <p>通过代码直接调用 AI 能力的通道。有了 API，你可以把 AI 接入到自己的微信或软件中。</p>
-            </article>
-        </div>
-    </div>
-
-    <!-- 板块二：AI 工具（加上 id="tab2"，默认隐藏） -->
-    <div id="tab2" class="tab-content">
-        <article class="tool-card">
-            <div class="tool-indicator"></div>
-            <div class="tool-content">
-                <div class="tool-header">
-                    <h3 style="font-size: 1.2rem;">💬 ChatGPT (文字之王)</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">适用：所有人（职场人、学生）</p>
-                </div>
-                <div>
-                    <strong style="color: #10A37F;">✨ 优劣势</strong>
-                    <ul>
-                        <li>综合能力最强，响应快，插件多。</li>
-                        <li>需稳定网络，免费版受限。</li>
-                    </ul>
-                </div>
-                <div>
-                    <strong style="color: #4F46E5;">📥 怎么用</strong>
-                    <ul>
-                        <li>网页端访问 chatgpt.com。</li>
-                        <li>移动端去美区商店下载正版。</li>
-                    </ul>
-                </div>
-                <div>
-                    <strong style="color: #E11D48;">⚠️ 避雷区</strong>
-                    <ul>
-                        <li>警惕国内同名盗版付费APP。</li>
-                        <li>勿输入公司机密或个人隐私。</li>
-                    </ul>
-                </div>
-            </div>
-        </article>
-
-        <article class="tool-card">
-            <div class="tool-indicator mj"></div>
-            <div class="tool-content">
-                <div class="tool-header">
-                    <h3 style="font-size: 1.2rem;">🎨 Midjourney (绘画大师)</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">适用：设计师、自媒体、电商</p>
-                </div>
-                <div>
-                    <strong style="color: #8B5CF6;">✨ 优劣势</strong>
-                    <ul>
-                        <li>出图质量极高，艺术感强。</li>
-                        <li>需通过 Discord，英文提示词门槛高。</li>
-                    </ul>
-                </div>
-                <div>
-                    <strong style="color: #4F46E5;">📥 怎么用</strong>
-                    <ul>
-                        <li>下载 Discord 并加入服务器。</li>
-                        <li>频道内输入 /imagine 画图。</li>
-                    </ul>
-                </div>
-                <div>
-                    <strong style="color: #E11D48;">⚠️ 避雷区</strong>
-                    <ul>
-                        <li>新手易在公共频道丢失图片。</li>
-                        <li>建议拉入个人专属服务器操作。</li>
-                    </ul>
-                </div>
-            </div>
-        </article>
-    </div>
-
-    <!-- 板块三：大模型生态（加上 id="tab3"，默认隐藏） -->
-    <div id="tab3" class="tab-content">
-        <div class="list-box" style="border-color: #BBF7D0;">
-            <h4 style="color: #166534; font-size: 1.1rem; margin-bottom: 5px;">👑 OpenAI 家族 (GPT-4o)</h4>
-            <p><strong>优势：</strong>全球标杆，多模态（看图听音）最强。</p>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">代表作：GPT-4o, o1 (强化推理模型)</p>
-        </div>
-
-        <div class="list-box" style="border-color: #E9D5FF;">
-            <h4 style="color: #6B21A8; font-size: 1.1rem; margin-bottom: 5px;">👑 Anthropic (Claude 3.5)</h4>
-            <p><strong>优势：</strong>代码能力强，写作风格最像人类。</p>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">代表作：Claude 3.5 Sonnet</p>
-        </div>
-
-        <div class="list-box" style="border-color: #FECACA;">
-            <h4 style="color: #B91C1C; font-size: 1.1rem; margin-bottom: 5px;">👑 国产之光 (DeepSeek / Qwen)</h4>
-            <p><strong>优势：</strong>中文理解地道，价格便宜，国内免翻墙直连。</p>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">代表作：DeepSeek-V3, Qwen-Max</p>
-        </div>
-        
-        <div style="margin-top: 30px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-            获取渠道主要分为：官网按月订阅、购买 API 接口通过客户端使用，以及使用本地硬件运行开源模型。
-        </div>
-    </div>
-</div>
-
-<!-- 互动魔法：JavaScript 代码 -->
-<script>
-    // 定义一个名为 switchTab 的函数，用来处理点击切换事件
-    // tabId：你要展示的那个板块的 ID（比如 'tab2'）
-    // clickedBtn：你当前点击的那个按钮本身
-    function switchTab(tabId, clickedBtn) {
-        // 第一步：找到所有属于内容的盒子，把它们身上的 'active' 标签撕掉（隐藏它们）
-        let allContents = document.querySelectorAll('.tab-content');
-        allContents.forEach(function(content) {
-            content.classList.remove('active');
-        });
-
-        // 第二步：找到导航栏里所有的按钮，让它们都恢复普通状态（取消高亮）
-        let allButtons = document.querySelectorAll('.nav-btn');
-        allButtons.forEach(function(button) {
-            button.classList.remove('active');
-        });
-
-        // 第三步：找到你指定的那个内容盒子，贴上 'active' 标签（展示它）
-        document.getElementById(tabId).classList.add('active');
-
-        // 第四步：给你刚才点击的那个按钮贴上 'active' 标签（高亮它）
-        clickedBtn.classList.add('active');
-        
-        // 额外优化：切换内容后，自动将页面稍微滚动到顶部位置，提升体验
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-</script>
-
-</body>
-</html>
->>>>>>> ddd2f3a7c6ef2d1d6cd3650b0010f181ec5b7c5f
