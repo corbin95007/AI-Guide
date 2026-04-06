@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 小白超车指南（互动版）</title>
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --secondary-color: #9333EA;
+            --bg-color: #F8FAFC;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --card-bg: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+            background-size: 20px 20px;
+            /* 预留顶部导航栏的空间，防止内容被遮挡 */
+            padding-top: 60px; 
+        }
+
+        /* 顶部固定导航栏样式 */
+        .nav-tabs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        /* 导航按钮样式 */
+        .nav-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 1rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        /* 导航按钮激活（点击后）的样式 */
+        .nav-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            font-weight: 700;
+            background: linear-gradient(to top, rgba(79, 70, 229, 0.05), transparent);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* 板块内容区样式控制 */
+        .tab-content {
+            display: none; /* 默认全部隐藏 */
+            animation: fadeIn 0.4s ease; /* 切换时的淡入动画 */
+        }
+
+        .tab-content.active {
+            display: block; /* 只有加上 active 的板块才会显示 */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 以下是卡片内部的布局样式（保持不变） */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 50%;
+            background: #EEF2FF;
+            margin-bottom: 16px;
+        }
+
+        .card h3 { font-size: 1.25rem; margin-bottom: 8px; }
+        .card-tag { font-size: 0.9rem; font-weight: bold; color: var(--text-muted); margin-bottom: 12px; display: block; }
+
+        .tool-card {
+            display: flex;
+            flex-wrap: wrap;
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .tool-indicator { width: 8px; background-color: #10A37F; }
+        .tool-indicator.mj { background-color: #8B5CF6; }
+        .tool-indicator.cursor { background-color: #3B82F6; }
+
+        .tool-content {
+            flex: 1;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .tool-content { grid-template-columns: 1fr 1fr 1fr; }
+            h1 { font-size: 2.5rem; }
+        }
+
+        .tool-header { border-bottom: 1px solid #E2E8F0; padding-bottom: 10px; margin-bottom: 5px; }
+        ul { list-style-type: none; padding-left: 0; }
+        li { position: relative; padding-left: 15px; margin-bottom: 8px; color: var(--text-muted); font-size: 0.95rem; }
+        li::before { content: "•"; position: absolute; left: 0; color: var(--text-main); }
+
+        .list-box {
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #F8FAFC;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 固定在顶部的导航栏 -->
+<div class="nav-tabs">
+    <!-- onclick 属性就是用来触发我们下面写的 JavaScript 交互代码的 -->
+    <button class="nav-btn active" onclick="switchTab('tab1', this)">基础概念</button>
+    <button class="nav-btn" onclick="switchTab('tab2', this)">AI 工具</button>
+    <button class="nav-btn" onclick="switchTab('tab3', this)">大模型</button>
+</div>
+
+<div class="container">
+    <header>
+        <h1>AI 小白超车指南</h1>
+        <p class="subtitle">一网打尽：核心概念 × 主流工具 × 大模型生态</p>
+    </header>
+
+    <!-- 板块一：基础概念（加上 id="tab1"，默认 active 激活显示） -->
+    <div id="tab1" class="tab-content active">
+        <div class="grid-cards">
+            <article class="card">
+                <span class="card-icon">🧠</span>
+                <h3>LLM (大语言模型)</h3>
+                <span class="card-tag">本质：AI 的“大脑”</span>
+                <p>阅读了人类几乎所有文本后训练出的超级文字处理器。它不是搜索引擎，而是通过“概率预测”来接话茬的专家。</p>
+            </article>
+            <article class="card">
+                <span class="card-icon" style="background: #F0FDF4;">🤖</span>
+                <h3>Agent (智能体)</h3>
+                <span class="card-tag">本质：有手有脚的“数字员工”</span>
+                <p>如果 LLM 是大脑，Agent 就是装上了四肢的打工人，能自己思考目标，使用工具去完成复杂任务。</p>
+            </article>
+            <article class="card">
+                <span class="card-icon" style="background: #FFFBEB;">🗣️</span>
+                <h3>Prompt (提示词)</h3>
+                <span class="card-tag">本质：给 AI 下达的指令</span>
+                <p>你对 AI 说的话。指令越具体、背景越清晰，结果就越好。写提示词就像给外星人布置工作。</p>
+            </article>
+            <article class="card">
+                <span class="card-icon" style="background: #FAF5FF;">🧩</span>
+                <h3>Token (词元)</h3>
+                <span class="card-tag">本质：AI 的基本颗粒</span>
+                <p>AI 眼里的字不是字，而是 Token。一个英文单词通常是 1 个 Token，一个汉字大约占 1-2 个 Token。</p>
+            </article>
+            <article class="card">
+                <span class="card-icon" style="background: #FEF2F2;">📝</span>
+                <h3>Context (上下文)</h3>
+                <span class="card-tag">本质：短期记忆容量</span>
+                <p>当前对话中喂给 AI 的背景信息。一旦超出了它的“窗口”，AI 就会像鱼一样忘记前面说过的话。</p>
+            </article>
+            <article class="card">
+                <span class="card-icon" style="background: #F0F9FF;">🔌</span>
+                <h3>API (接口)</h3>
+                <span class="card-tag">本质：软件间的点菜员</span>
+                <p>通过代码直接调用 AI 能力的通道。有了 API，你可以把 AI 接入到自己的微信或软件中。</p>
+            </article>
+        </div>
+    </div>
+
+    <!-- 板块二：AI 工具（加上 id="tab2"，默认隐藏） -->
+    <div id="tab2" class="tab-content">
+        <article class="tool-card">
+            <div class="tool-indicator"></div>
+            <div class="tool-content">
+                <div class="tool-header">
+                    <h3 style="font-size: 1.2rem;">💬 ChatGPT (文字之王)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">适用：所有人（职场人、学生）</p>
+                </div>
+                <div>
+                    <strong style="color: #10A37F;">✨ 优劣势</strong>
+                    <ul>
+                        <li>综合能力最强，响应快，插件多。</li>
+                        <li>需稳定网络，免费版受限。</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong style="color: #4F46E5;">📥 怎么用</strong>
+                    <ul>
+                        <li>网页端访问 chatgpt.com。</li>
+                        <li>移动端去美区商店下载正版。</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong style="color: #E11D48;">⚠️ 避雷区</strong>
+                    <ul>
+                        <li>警惕国内同名盗版付费APP。</li>
+                        <li>勿输入公司机密或个人隐私。</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <article class="tool-card">
+            <div class="tool-indicator mj"></div>
+            <div class="tool-content">
+                <div class="tool-header">
+                    <h3 style="font-size: 1.2rem;">🎨 Midjourney (绘画大师)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">适用：设计师、自媒体、电商</p>
+                </div>
+                <div>
+                    <strong style="color: #8B5CF6;">✨ 优劣势</strong>
+                    <ul>
+                        <li>出图质量极高，艺术感强。</li>
+                        <li>需通过 Discord，英文提示词门槛高。</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong style="color: #4F46E5;">📥 怎么用</strong>
+                    <ul>
+                        <li>下载 Discord 并加入服务器。</li>
+                        <li>频道内输入 /imagine 画图。</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong style="color: #E11D48;">⚠️ 避雷区</strong>
+                    <ul>
+                        <li>新手易在公共频道丢失图片。</li>
+                        <li>建议拉入个人专属服务器操作。</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- 板块三：大模型生态（加上 id="tab3"，默认隐藏） -->
+    <div id="tab3" class="tab-content">
+        <div class="list-box" style="border-color: #BBF7D0;">
+            <h4 style="color: #166534; font-size: 1.1rem; margin-bottom: 5px;">👑 OpenAI 家族 (GPT-4o)</h4>
+            <p><strong>优势：</strong>全球标杆，多模态（看图听音）最强。</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">代表作：GPT-4o, o1 (强化推理模型)</p>
+        </div>
+
+        <div class="list-box" style="border-color: #E9D5FF;">
+            <h4 style="color: #6B21A8; font-size: 1.1rem; margin-bottom: 5px;">👑 Anthropic (Claude 3.5)</h4>
+            <p><strong>优势：</strong>代码能力强，写作风格最像人类。</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">代表作：Claude 3.5 Sonnet</p>
+        </div>
+
+        <div class="list-box" style="border-color: #FECACA;">
+            <h4 style="color: #B91C1C; font-size: 1.1rem; margin-bottom: 5px;">👑 国产之光 (DeepSeek / Qwen)</h4>
+            <p><strong>优势：</strong>中文理解地道，价格便宜，国内免翻墙直连。</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">代表作：DeepSeek-V3, Qwen-Max</p>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+            获取渠道主要分为：官网按月订阅、购买 API 接口通过客户端使用，以及使用本地硬件运行开源模型。
+        </div>
+    </div>
+</div>
+
+<!-- 互动魔法：JavaScript 代码 -->
+<script>
+    // 定义一个名为 switchTab 的函数，用来处理点击切换事件
+    // tabId：你要展示的那个板块的 ID（比如 'tab2'）
+    // clickedBtn：你当前点击的那个按钮本身
+    function switchTab(tabId, clickedBtn) {
+        // 第一步：找到所有属于内容的盒子，把它们身上的 'active' 标签撕掉（隐藏它们）
+        let allContents = document.querySelectorAll('.tab-content');
+        allContents.forEach(function(content) {
+            content.classList.remove('active');
+        });
+
+        // 第二步：找到导航栏里所有的按钮，让它们都恢复普通状态（取消高亮）
+        let allButtons = document.querySelectorAll('.nav-btn');
+        allButtons.forEach(function(button) {
+            button.classList.remove('active');
+        });
+
+        // 第三步：找到你指定的那个内容盒子，贴上 'active' 标签（展示它）
+        document.getElementById(tabId).classList.add('active');
+
+        // 第四步：给你刚才点击的那个按钮贴上 'active' 标签（高亮它）
+        clickedBtn.classList.add('active');
+        
+        // 额外优化：切换内容后，自动将页面稍微滚动到顶部位置，提升体验
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
