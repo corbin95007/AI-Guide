@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI 开发者技术栈参考矩阵 (2026版)</title>
+    <style>
+        /* 全局变量定义：极简工业风 */
+        :root {
+            --bg-color: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-main: #0F172A;
+            --text-secondary: #475569;
+            --border-color: #E2E8F0;
+            --accent-color: #2563EB;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-top: 60px;
+        }
+
+        /* 顶部导航栏 (Tab) */
+        .nav-tabs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            color: var(--text-main);
+        }
+
+        .nav-btn.active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* 页面主容器 */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        /* 选项卡内容区 */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= 核心折叠面板组件 (Accordion) ================= */
+        details.tech-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 16px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        details.tech-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        /* 折叠状态（可见部分） */
+        details.tech-card summary {
+            padding: 20px;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        details.tech-card summary::-webkit-details-marker {
+            display: none; /* 隐藏默认三角图标 */
+        }
+
+        /* 自定义折叠指示器 */
+        details.tech-card summary::after {
+            content: "+";
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-left: 15px;
+        }
+
+        details.tech-card[open] summary::after {
+            content: "−";
+        }
+
+        .summary-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .summary-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* 展开状态（详细内容部分） */
+        .details-content {
+            padding: 0 20px 20px 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 5px;
+            padding-top: 20px;
+        }
+
+        .details-content h4 {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .details-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        .details-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 标签样式 */
+        .badge {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            background: #F1F5F9;
+            color: #64748B;
+            border: 1px solid #CBD5E1;
+            font-weight: normal;
+        }
+        .badge.closed { border-color: #FCA5A5; color: #DC2626; background: #FEF2F2; }
+        .badge.open { border-color: #86EFAC; color: #16A34A; background: #F0FDF4; }
+
+        /* 大模型内部列表样式 */
+        .model-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .model-item {
+            background: #F8FAFC;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border-left: 3px solid var(--border-color);
+        }
+
+        .model-item h5 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .model-item p {
+            font-size: 0.85rem;
+            margin-bottom: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="nav-tabs">
+    <button class="nav-btn active" onclick="switchTab('tab1', this)">技术规范</button>
+    <button class="nav-btn" onclick="switchTab('tab2', this)">开发工具链</button>
+    <button class="nav-btn" onclick="switchTab('tab3', this)">基座大模型</button>
+</div>
+
+<div class="container">
+    <header>
+        <h1>AI 开发者技术栈参考矩阵</h1>
+        <p class="subtitle">Architecture & Ecosystem Review (截止 2026-04-07)</p>
+    </header>
+
+    <div id="tab1" class="tab-content active">
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>LLM (Large Language Model)</h3>
+                    <p>大语言模型底层基础</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>基于 Transformer 架构的自回归概率分布模型。通过在海量语料上进行无监督预训练，建立高维向量空间中的词汇关联网络。随后通过 SFT (监督微调) 与 RLHF (基于人类反馈的强化学习) 对齐指令。</p>
+                <h4>作用机制</h4>
+                <p>输入文本经过分词 (Tokenization) 转化为向量，通过自注意力机制 (Self-Attention) 并行计算上下文中各元素的依赖关系权重，自回归地计算并输出下一个最优 Token 的概率分布矩阵。</p>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Agent (Autonomous Agent)</h3>
+                    <p>自治智能体</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>具备环境感知、自主决策与物理/数字环境执行能力的计算实体。以 LLM 为核心逻辑控制器，辅以记忆系统（短期 Context 与长期 Vector DB）和推理框架（如 ReAct 或分层任务分解）。</p>
+                <h4>作用机制</h4>
+                <p>接收主干指令后，触发内部推理循环：评估当前状态 -> 规划步骤 -> 决定调用的外部工具接口 -> 解析工具返回结果 -> 更新上下文并迭代，直至达成终止条件。</p>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>MCP (Model Context Protocol)</h3>
+                    <p>模型上下文通信协议</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>标准化的大语言模型与本地/外部数据源的双向通信层协议。通过统一定义文件系统、代码库、数据库的读取权限与工具执行规范，消除应用间的隔离壁垒。</p>
+                <h4>作用机制</h4>
+                <p>IDE 或客户端作为 Host，外部工具提供 MCP Server 暴露功能。当 LLM 需读取外部环境时，通过标准的 JSON-RPC 通信协议与服务器握手，授权并在安全沙箱内执行底层操作。</p>
+            </div>
+        </details>
+    </div>
+
+    <div id="tab2" class="tab-content">
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>OpenClaw</h3>
+                    <p>跨平台自治 AI 代理网关与通信接口</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>开源的 agent-native 网关服务，内置基于 `SKILL.md` 的技能编排树与工具调用鉴权模块。结合 x402 协议的微支付模块进行低延迟推理路由分发。</p>
+                <h4>作用机制</h4>
+                <p>以后台守护进程方式驻留，截获消息通讯协议（如 Telegram/Discord）的载荷，通过内置提示词工程解析用户意图，将指令分发至本地 Ollama 或云端 API，执行网络搜索或本地系统命令后回传结果。</p>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Cursor</h3>
+                    <p>深度集成大语言模型的 AI 优先代码编辑器</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>建立在 VS Code 开源分支上，集成嵌入级向量数据库（Vector DB）实现代码库级的上下文感知检索，并通过抽象语法树（AST）解析确保大模型输出的语法结构完整性。</p>
+                <h4>作用机制</h4>
+                <p>隐式捕获编辑器的光标位置、错误诊断信息（LSP Diagnostics）及相邻文件变更，将其打包作为 Prompt 发送至云端推理服务器，返回高精度的差异补丁（Diffs）并内联应用于源码。</p>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Antigravity</h3>
+                    <p>基于 Agent 优先架构的异步协同 IDE (Google 发布)</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>突破单行代码补全的范式限制，底层引入任务编排与状态机逻辑。依托 Gemini 3.1 Pro 模型的超长上下文窗口，实现对复杂工程的多代理（Multi-Agent）并行调度与环境隔离。</p>
+                <h4>作用机制</h4>
+                <p>用户通过“控制中心（Manager Surface）”发布高阶架构需求。系统实例化多个专职 Agent 并行执行（如编码、测试、文献阅读），通过生成严格的可验证构件（Artifacts：截图、执行日志、计划书）供人类异步审核。</p>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Codex</h3>
+                    <p>生成式预训练代码 Transformer 模型</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>OpenAI 开发的通用语言模型的代码微调分支，通过持续预训练（Continual Pre-training）海量公共代码仓库，深度拟合多种编程语言的抽象语法特征和逻辑分布。</p>
+                <h4>作用机制</h4>
+                <p>接收前置代码声明、文档注释作为输入序列条件，通过自回归解码机制计算后续可能代码块的联合概率分布，输出函数体、自动化测试或逻辑片段。</p>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Ollama</h3>
+                    <p>本地大语言模型量化与运行时推理引擎</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>基于 `llama.cpp` 核心实现 C/C++ 级的高效内存管理，采用 GGUF 格式对大模型权重进行动态降维量化（如 4-bit 量化），显著降低显存占用及内存带宽消耗。</p>
+                <h4>作用机制</h4>
+                <p>通过命令行 CLI 或 REST API 接收请求。将量化模型动态加载至系统 RAM 或 VRAM，通过调用底层硬件加速指令（如 CUDA, Metal, AVX）执行前向传播矩阵运算，返回流式 Token。</p>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>VSCode (Visual Studio Code)</h3>
+                    <p>可扩展跨平台源代码编辑器</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <h4>科学原理</h4>
+                <p>基于 Electron 架构与 Monaco 编辑器内核。核心技术为语言服务器协议 (LSP) 与调试适配器协议 (DAP) 的标准化解耦，将 UI 层与高 CPU 负载的语言解析层彻底分离。</p>
+                <h4>作用机制</h4>
+                <p>主进程控制生命周期与本地系统 I/O，渲染进程处理前端响应。所有的插件运行在独立的 Node.js 扩展宿主环境（Extension Host）中，确保主编辑器的帧率稳定与非阻塞输入。</p>
+            </div>
+        </details>
+    </div>
+
+    <div id="tab3" class="tab-content">
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>OpenAI</h3>
+                    <p>GPT 家族及强化学习推理模型体系</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <div class="model-list">
+                    <div class="model-item">
+                        <h5>o3 <span class="badge closed">闭源</span></h5>
+                        <p>最新一代强化学习测试时推理（Test-Time Compute）模型，在顶尖算法与逻辑数学层面具备深度自我验证能力。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>o1 <span class="badge closed">闭源</span></h5>
+                        <p>初代引入链式思考（Chain of Thought）进行隐式内在推理的复杂任务解决模型。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>GPT-4.5 <span class="badge closed">闭源</span></h5>
+                        <p>旗舰通用模型版本，全面增强了超长上下文窗口的稳定性和系统级指令遵循精度。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>GPT-4o <span class="badge closed">闭源</span></h5>
+                        <p>实现了全模态（文本、原生音频、实时视觉）端到端输入输出对齐的低延迟交互模型。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>GPT-OSS-120B <span class="badge open">开源</span></h5>
+                        <p>OpenAI 针对科研社区及高密级企业需求妥协释放的 120B 参数级开源变体模型。</p>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Google</h3>
+                    <p>Gemini 多模态生态及 Gemma 开放权重体系</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <div class="model-list">
+                    <div class="model-item">
+                        <h5>Gemini 3.1 Pro <span class="badge closed">闭源</span></h5>
+                        <p>原生支持百万级上下文，为 Antigravity 平台提供驱动的核心大模型，专精于多智能体异步协同调度。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>Gemini 3 Flash <span class="badge closed">闭源</span></h5>
+                        <p>重点优化 TTFT（首字节延迟）与多模态流式输出速率的模型，适用于高并发的低延迟场景。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>Gemini 2.0 Flash <span class="badge closed">闭源</span></h5>
+                        <p>2024 年末主打的性能平衡版本，具备稳健的原生函数调用（Function Calling）可靠性。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>Gemma 3 27B <span class="badge open">开源</span></h5>
+                        <p>基于 Gemini 同源架构训练的开放权重模型，适合通过本地显存矩阵或私有化服务器集群部署。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>Gemma 3 9B <span class="badge open">开源</span></h5>
+                        <p>微缩级参数量的端侧模型，针对代码补全辅助与离线基础语义解析进行了专项量化优化。</p>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>Anthropic</h3>
+                    <p>Claude 宪法人工智能及安全模型矩阵</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <div class="model-list">
+                    <div class="model-item">
+                        <h5>Claude 4.6 Opus <span class="badge closed">闭源</span></h5>
+                        <p>2026年最新超大参数旗舰，解决高阶逻辑架构、复杂 API 集成及多步战略规划的最强变体。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>Claude 4.6 Sonnet <span class="badge closed">闭源</span></h5>
+                        <p>在代码生成、AST 重构领域速度与精度的完美平衡，是 Cursor 等工具的首选驱动引擎。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>Claude 4.0 Haiku <span class="badge closed">闭源</span></h5>
+                        <p>针对大规模并行处理、轻量级文本提取及 OCR 扫描任务优化的极速轻量模型。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>Claude 3.5 Sonnet <span class="badge closed">闭源</span></h5>
+                        <p>前代在软件工程领域封神的里程碑式版本，被业界广泛集成于自动代码审查流水线。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>Claude 3.5 Haiku <span class="badge closed">闭源</span></h5>
+                        <p>前代极具成本效益的低延迟变体模型。(注：Anthropic 核心政策目前未开放完全开源底层权重)。</p>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="tech-card">
+            <summary>
+                <div class="summary-info">
+                    <h3>DeepSeek (深度求索)</h3>
+                    <p>高性能开源混合专家 (MoE) 架构及专项微调模型</p>
+                </div>
+            </summary>
+            <div class="details-content">
+                <div class="model-list">
+                    <div class="model-item">
+                        <h5>DeepSeek-V3 <span class="badge open">开源</span></h5>
+                        <p>671B 混合专家架构巨兽，采用无辅助损失负载均衡机制与 FP8 混合精度训练，打破闭源垄断的里程碑。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>DeepSeek-R1 <span class="badge open">开源</span></h5>
+                        <p>通过大规模强化学习 (RL) 挖掘出系统潜能的推理模型，完全开源其链式思考机制与奖励模型细节。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>DeepSeek-Coder-V2 <span class="badge open">开源</span></h5>
+                        <p>专门针对跨文件库上下文关联及 80+ 种主流编程语言范式微调的垂直领域专家模型。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>DeepSeek-VL2 <span class="badge open">开源</span></h5>
+                        <p>多模态视觉语言模型，适用于复杂的前端 UI 蓝图反解、图表数据抽取任务。</p>
+                    </div>
+                    <div class="model-item">
+                        <h5>DeepSeek-Math <span class="badge open">开源</span></h5>
+                        <p>针对高等数学定理证明、LaTeX 公式推演与符号计算环境优化的专用小参数变体。</p>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </div>
+</div>
+
+<script>
+    function switchTab(tabId, clickedBtn) {
+        // 切换内容可见性
+        document.querySelectorAll('.tab-content').forEach(function(content) {
+            content.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+
+        // 切换导航按钮高亮状态
+        document.querySelectorAll('.nav-btn').forEach(function(button) {
+            button.classList.remove('active');
+        });
+        clickedBtn.classList.add('active');
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
