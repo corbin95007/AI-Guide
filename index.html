@@ -1089,7 +1089,7 @@
                 </summary>
                 <div class="details-content">
                     <h4>它是什么</h4>
-                    <p>开源的 Agent 网关服务，以后台守护进程方式运行，接管消息通讯平台（如 Telegram、Discord）的传入载荷，解析用户意图后将指令分发给本地 Ollama 实例或云端
+                    <p>2026开年最火爆的小龙虾，腾讯甚至在深圳给人批量免费安装。开源的 Agent 网关服务，以后台守护进程方式运行，接管消息通讯平台（如 Telegram、Discord）的传入载荷，解析用户意图后将指令分发给本地 Ollama 实例或云端
                         API，执行完成后回传结果。内置基于 <code>SKILL.md</code> 的技能编排树和工具调用鉴权模块。</p>
                     <h4>核心特点</h4>
                     <p>完全本地化运行，数据不经过第三方服务器。支持 x402 协议的微支付模块用于推理路由计费。通过技能插件可接管操作系统底层权限，实现文件操作、命令执行等系统级任务。</p>
@@ -1106,7 +1106,29 @@
                         安装第三方技能时存在供应链攻击风险，建议开启"仅限工作区文件系统访问"权限。</p>
                 </div>
             </details>
-
+<details class="tech-card">
+    <summary>
+        <div class="summary-info">
+            <h3>Claude Code</h3>
+            <p>Anthropic 发布的终端原生 AI 编程 Agent</p>
+        </div>
+    </summary>
+    <div class="details-content">
+        <h4>它是什么</h4>
+        <p>Claude Code 是运行在终端里的命令行 Agent，直接操作本地文件系统、执行 Shell 命令、读写代码库，不依赖 IDE 界面。与 Cursor 等编辑器集成方案不同，它以 CLI 为主交互面，适合在任何环境下（包括 SSH 远程服务器、CI 流水线）运行。</p>
+        <h4>工作方式</h4>
+        <p>在项目根目录启动后，Claude Code 会读取目录结构和相关文件作为上下文，接收自然语言任务描述，自主决定读哪些文件、改哪些文件、执行什么命令。每次涉及写操作时默认要求人工确认，可通过 <code>--dangerously-skip-permissions</code> 参数跳过（适合在隔离沙盒中使用）。</p>
+        <h4>CLAUDE.md</h4>
+        <p>项目根目录的 <code>CLAUDE.md</code> 文件是 Claude Code 的行为约束文件，等同于 Spec-Driven Development 中的 Spec。可在其中定义禁止修改的文件范围、测试命令、代码风格要求、架构说明。Claude Code 在每次任务开始前会优先读取这个文件。</p>
+        <h4>与其他工具的定位差异</h4>
+        <p>Cursor 和 VSCode Copilot 的使用场景是"边写边看"，适合需要同步审查代码的开发者；Claude Code 更接近"交代任务、异步验收"，适合处理范围明确的重构、批量修改、跨文件联动等任务。两者可以配合使用而非互斥。
+            <br>和Openclaw一样有强大的skill目录册，规划能力极强。</p>
+        <h4>安装</h4>
+        <p>需要 Node.js 18+。执行 <code>npm install -g @anthropic-ai/claude-code</code> 安装，在项目目录运行 <code>claude</code> 启动。首次使用需要通过 Anthropic 账号完成授权。</p>
+        <h4>绕过登录方法</h4>
+        <p>在终端的环境变量设置了 ANTHROPIC_API_KEY，Claude Code 在启动时会检测到它，并优先使用 API 计费模式，跳过浏览器登录流程。
+    </div>
+</details>
             <details class="tech-card">
                 <summary>
                     <div class="summary-info">
