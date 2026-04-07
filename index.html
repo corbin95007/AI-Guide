@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI 开发者技术栈参考矩阵 (2026版)</title>
+    <title>AI Engineer 上车</title>
     <style>
         /* 全局变量定义：现代化配色系统 */
         :root {
@@ -19,16 +20,16 @@
             --accent-green: #10B981;
             --accent-orange: #F59E0B;
             --border-light: #E2E8F0;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
-            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+
             /* 兼容旧变量 */
             --bg-color: var(--bg-secondary);
             --text-main: var(--text-primary);
             --border-color: var(--border-light);
             --accent-color: var(--accent-blue);
-            
+
             --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         }
@@ -47,9 +48,9 @@
                 --accent-green: #34D399;
                 --accent-orange: #FBBF24;
                 --border-light: #334155;
-                --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-                --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-                --shadow-lg: 0 10px 30px rgba(0,0,0,0.5);
+                --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+                --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+                --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
             }
         }
 
@@ -134,8 +135,15 @@
         }
 
         @keyframes slideIn {
-            from { width: 0; opacity: 0; }
-            to { width: 60%; opacity: 1; }
+            from {
+                width: 0;
+                opacity: 0;
+            }
+
+            to {
+                width: 60%;
+                opacity: 1;
+            }
         }
 
         /* 页面主容器 */
@@ -231,8 +239,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ================= 核心折叠面板组件 (Accordion) - 现代化卡片 ================= */
@@ -299,7 +314,8 @@
         }
 
         details.tech-card summary::-webkit-details-marker {
-            display: none; /* 隐藏默认三角图标 */
+            display: none;
+            /* 隐藏默认三角图标 */
         }
 
         /* 自定义折叠指示器 - 现代化图标 */
@@ -346,8 +362,15 @@
         }
 
         @keyframes contentFadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .details-content h4 {
@@ -418,9 +441,17 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3); }
-            50% { box-shadow: 0 2px 16px rgba(245, 158, 11, 0.5); }
-            100% { box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3); }
+            0% {
+                box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 2px 16px rgba(245, 158, 11, 0.5);
+            }
+
+            100% {
+                box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+            }
         }
 
         .badge:hover {
@@ -720,32 +751,32 @@
             .container {
                 padding: 20px 15px;
             }
-            
+
             h1 {
                 font-size: 1.5rem;
             }
-            
+
             .nav-btn {
                 font-size: 0.85rem;
                 height: 50px;
             }
-            
+
             .nav-tabs {
                 height: 50px;
             }
-            
+
             details.tech-card summary {
                 padding: 18px;
             }
-            
+
             .summary-info h3 {
                 font-size: 1.1rem;
             }
-            
+
             .details-content {
                 padding: 0 18px 18px 18px;
             }
-            
+
             .model-item {
                 padding: 14px 16px;
             }
@@ -756,718 +787,844 @@
             .container {
                 padding: 15px 12px;
             }
-            
+
             h1 {
                 font-size: 1.3rem;
             }
-            
+
             .subtitle {
                 font-size: 0.85rem;
             }
-            
+
             .nav-tabs {
                 height: 45px;
             }
-            
+
             .nav-btn {
                 font-size: 0.8rem;
                 padding: 0 5px;
             }
-            
+
             details.tech-card summary {
                 padding: 15px;
             }
-            
+
             .summary-info h3 {
                 font-size: 1rem;
                 gap: 8px;
             }
-            
+
             .icon {
                 width: 20px;
                 height: 20px;
                 margin-right: 6px;
             }
-            
+
             .summary-info p {
                 font-size: 0.85rem;
             }
-            
+
             .badge {
                 font-size: 0.7rem;
                 padding: 3px 8px;
             }
-            
+
             .details-content h4 {
                 font-size: 0.9rem;
             }
-            
+
             .details-content p {
                 font-size: 0.85rem;
             }
-            
+
             .model-item {
                 padding: 12px 14px;
             }
-            
+
             .model-item h5 {
                 font-size: 0.95rem;
             }
-            
+
             .model-item p {
                 font-size: 0.8rem;
             }
         }
-
     </style>
 </head>
+
 <body>
 
-<div class="nav-tabs">
-    <button class="nav-btn active" onclick="switchTab('tab1', this)">技术规范</button>
-    <button class="nav-btn" onclick="switchTab('tab2', this)">开发工具链</button>
-    <button class="nav-btn" onclick="switchTab('tab3', this)">基座大模型</button>
-</div>
-
-<div class="container">
-    <header>
-        <h1>AI 开发者技术栈参考矩阵</h1>
-        <p class="subtitle">Architecture & Ecosystem Review (截止 2026-04-07)</p>
-    </header>
-
-    <div id="tab1" class="tab-content active">
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3> LLM (Large Language Model)</h3>
-                    <p>大语言模型底层基础</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>基于 Transformer 架构的自回归概率分布模型。通过在海量语料上进行无监督预训练，建立高维向量空间中的词汇关联网络。随后通过 SFT (监督微调) 与 RLHF (基于人类反馈的强化学习) 对齐指令。</p>
-                <h4>作用机制</h4>
-                <p>输入文本经过分词 (Tokenization) 转化为向量，通过自注意力机制 (Self-Attention) 并行计算上下文中各元素的依赖关系权重，自回归地计算并输出下一个最优 Token 的概率分布矩阵。</p>
-                <h4>令牌经济学</h4>
-                <p>Token 是机器注意力的原子单位，可代表字符、词根或字节组合。API 以每百万 Token 计费，输出 Token 成本是输入的 3-10 倍，推动“令牌效率优化”成为核心设计理念。</p>
-            </div>
-        </details>
-
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Agent (Autonomous Agent)</h3>
-                    <p>自治智能体</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>具备环境感知、自主决策与物理/数字环境执行能力的计算实体。以 LLM 为核心逻辑控制器，辅以记忆系统（短期 Context 与长期 Vector DB）和推理框架（如 ReAct 或分层任务分解）。</p>
-                <h4>作用机制</h4>
-                <p>接收主干指令后，触发内部推理循环：评估当前状态 -> 规划步骤 -> 决定调用的外部工具接口 -> 解析工具返回结果 -> 更新上下文并迭代，直至达成终止条件。</p>
-                <h4>推理与行动闭环</h4>
-                <p>将 LLM 的推理能力置于无限循环（While Loop）中，实现“推理与行动”的自主循环机制，形成智能体工作流（Workflow）的动态网络。</p>
-            </div>
-        </details>
-
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>MCP (Model Context Protocol)</h3>
-                    <p>模型上下文通信协议</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>标准化的大语言模型与本地/外部数据源的双向通信层协议。通过统一定义文件系统、代码库、数据库的读取权限与工具执行规范，消除应用间的隔离壁垒。</p>
-                <h4>作用机制</h4>
-                <p>IDE 或客户端作为 Host，外部工具提供 MCP Server 暴露功能。当 LLM 需读取外部环境时，通过标准的 JSON-RPC 通信协议与服务器握手，授权并在安全沙箱内执行底层操作。</p>
-                <h4>三大通信协议体系</h4>
-                <p>与 A2A（智能体对智能体协议）和 ACP（智能体通信协议）共同构成三大协议体系，打破智能体系统孤岛，实现多专长模型协作与轻量级异步消息传递。</p>
-            </div>
-        </details>
-
-        <!-- 新增概念卡片 1: Token -->
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Token - 令牌经济学</h3>
-                    <p>机器注意力的原子单位与AI经济核心</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>Token 是机器注意力的原子单位，可代表字符、词根或字节组合。它是大语言模型处理信息的基本单元，将自然语言文本转化为机器可计算的离散符号。</p>
-                <h4>作用机制</h4>
-                <p>API 以每百万输入/输出 Token 计费，输出 Token 成本远高于输入 Token（3-10 倍）。这种基于令牌的算力消耗逻辑，推动“令牌效率优化”成为系统设计的核心理念，直接影响AI应用的经济可行性。</p>
-            </div>
-        </details>
-
-        <!-- 新增概念卡片 2: Prompt & Context -->
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Prompt & Context - 提示词与上下文工程</h3>
-                    <p>驱动LLM的系统级配置与注意力预算管理</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>Prompt 是驱动 LLM 的系统级配置指令集，用于构建智能体的人格、设定执行约束、定义格式化输出。Context 是 LLM 有限的注意力预算空间，包含系统指令、API定义、RAG文档、对话历史。</p>
-                <h4>作用机制</h4>
-                <p>当输入信息过度膨胀时，模型会出现“迷失在中间”效应，导致推理能力下降。通过“渐进式披露”机制动态控制信息加载，使用压缩算法精简历史记录，在有限的注意力预算内最大化有效信号密度。</p>
-            </div>
-        </details>
-
-        <!-- 新增概念卡片 3: Workflow -->
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Workflow - 智能体工作流</h3>
-                    <p>推理与行动的连续自主执行机制</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>将 LLM 的推理能力置于无限循环（While Loop）中的连续自主执行机制。智能体通过“推理与行动”闭环，实现对复杂任务的动态分解与迭代执行。</p>
-                <h4>作用机制</h4>
-                <p>不再是基于硬编码规则的线性脚本，而是能够处理多步骤任务中的错误级联、状态管理以及多智能体协同的动态网络。开发者从“编写代码”转向“塑造问题”，定义目标与约束，让智能体自主决定最优执行路径。</p>
-            </div>
-        </details>
-
-        <!-- 新增概念卡片 4: Skills -->
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Skills - 技能模块化架构</h3>
-                    <p>赋予智能体特定领域专业知识的模块化组件</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>具有明确作用域的 .md 或 .json 文件，赋予智能体特定领域的专业知识。技能模块化架构避免了将海量 API 文档直接塞入上下文导致的注意力涣散。</p>
-                <h4>作用机制</h4>
-                <p>系统仅在判断智能体需要某项能力时，才动态加载相应的技能模块。这种按需加载机制有效避免了上下文臃肿，同时保持了智能体的专业能力扩展性。</p>
-            </div>
-        </details>
-
-        <!-- 新增概念卡片 5: A2A & ACP -->
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>A2A & ACP - 智能体通信协议</h3>
-                    <p>打破智能体系统孤岛的三大协议体系</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>A2A（智能体对智能体协议）协调多个具备不同专长的模型进行协作；ACP（智能体通信协议）提供轻量级的异步消息传递机制，允许分布式智能体网络进行低延迟信息交换。</p>
-                <h4>作用机制</h4>
-                <p>与 MCP（模型上下文协议）共同构成三大协议体系，打破智能体系统孤岛，实现真正的互联互通。这些标准协议使得智能体能够跨越底层框架限制，在企业级应用中实现规模化部署。</p>
-            </div>
-        </details>
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="switchTab('tab1', this)">名词概念</button>
+        <button class="nav-btn" onclick="switchTab('tab2', this)">PC工具分析</button>
+        <button class="nav-btn" onclick="switchTab('tab3', this)">基座大模型</button>
     </div>
 
-    <div id="tab2" class="tab-content">
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>OpenClaw</h3>
-                    <p>跨平台自治 AI 代理网关与通信接口</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>开源的 agent-native 网关服务，内置基于 `SKILL.md` 的技能编排树与工具调用鉴权模块。结合 x402 协议的微支付模块进行低延迟推理路由分发。</p>
-                <h4>作用机制</h4>
-                <p>以后台守护进程方式驻留，截获消息通讯协议（如 Telegram/Discord）的载荷，通过内置提示词工程解析用户意图，将指令分发至本地 Ollama 或云端 API，执行网络搜索或本地系统命令后回传结果。</p>
-                <h4>核心特点</h4>
-                <p>数据主权、本地运行、30万星标、免费本地LLM。支持完全本地化运行，通过网关和技能插件接管操作系统深层权限。</p>
-                <h4>主要缺点</h4>
-                <p>底层架构复杂，对非技术人员极度不友好，运行环境配置极易出错，深度系统访问权限带来巨大安全隐患。</p>
-                <h4>适用人群</h4>
-                <p>注重隐私的个人开发者、极客群体、需要在企业内网搭建“虚拟员工团队”的中小企业主。</p>
-                <h4>下载与安装</h4>
-                <p>打开终端执行官方下载脚本：<code>curl -fsSL https://openclaw.bot/install.sh | bash</code>。Windows用户需先安装WSL2。</p>
-                <h4>避雷要点</h4>
-                <p>1. 安装时注意环境变量PATH配置，避免"command not found"错误。<br>2. Docker安装需分配至少2GB RAM，防止内存溢出。<br>3. 切勿将网关暴露于公网，必须绑定到127.0.0.1环回地址。<br>4. 从ClawHub下载技能时存在供应链攻击风险，需开启"仅限工作区文件系统访问"权限。</p>
-            </div>
-        </details>
+    <div class="container">
+        <header>
+            <h1>AI Engineer 上车！</h1>
+            <p class="subtitle">这就是这个时代的风口吗，怎么抓不住啊...</p>
+        </header>
 
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Cursor</h3>
-                    <p>深度集成大语言模型的 AI 优先代码编辑器</p>
+        <div id="tab1" class="tab-content active">
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>LLM (Large Language Model)</h3>
+                        <p>大语言模型</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它做什么</h4>
+                    <p>LLM 是一个文字预测系统，训练目标只有一个：给定前面所有的词，预测下一个词的概率分布。这个任务在足够大的数据和参数规模下，会涌现出推理、翻译、代码生成等能力。</p>
+                    <h4>训练过程</h4>
+                    <p>分两阶段。预训练阶段用海量文本做无监督学习，让模型建立语言的统计规律；随后通过 SFT（监督微调）喂给它正确示范，再用 RLHF（基于人类反馈的强化学习）纠正行为偏差，使输出符合人类意图。
+                    </p>
+                    <h4>推理时发生了什么</h4>
+                    <p>输入文本先被分词器切成 Token 序列，每个 Token 映射为高维向量。Transformer
+                        的自注意力机制（Self-Attention）让每个位置的向量都能"看见"序列中其他所有位置，捕捉远距离依赖关系。模型随后逐个生成输出 Token，每步都是一次概率采样。</p>
                 </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>建立在 VS Code 开源分支上，集成嵌入级向量数据库（Vector DB）实现代码库级的上下文感知检索，并通过抽象语法树（AST）解析确保大模型输出的语法结构完整性。</p>
-                <h4>作用机制</h4>
-                <p>隐式捕获编辑器的光标位置、错误诊断信息（LSP Diagnostics）及相邻文件变更，将其打包作为 Prompt 发送至云端推理服务器，返回高精度的差异补丁（Diffs）并内联应用于源码。</p>
-                <h4>核心特点</h4>
-                <p>Composer多文件编辑引擎、本地向量库索引、30秒内响应、支持多模型灵活切换（Claude处理复杂逻辑，GPT-5处理创意代码）。</p>
-                <h4>主要缺点</h4>
-                <p>高昂且不透明的成本（Pro计划$20实际可飙至$40-50）、闭源平台绑定、代码发送至第三方API存在安全风险。</p>
-                <h4>适用人群</h4>
-                <p>追求高效率的单兵开发者、初创团队、习惯于同步审核代码的学生群体。</p>
-                <h4>下载与安装</h4>
-                <p>前往 <a href="https://cursor.sh" target="_blank">Cursor官网</a> 下载对应的安装包并直接运行。首次启动时会提示导入现有VS Code的扩展、快捷键和配置文件。</p>
-                <h4>避雷要点</h4>
-                <p>1. 计费陷阱：默认"Auto"模式虽然免费调用内部小模型，但一旦开启高级云智能体或使用Claude/GPT-5执行后台任务，将迅速消耗高级积分。<br>2. 重度使用时必须密切关注后台请求状态，避免不知情的高额扣费。<br>3. 处理机密源码时需注意代码发送至第三方API的风险。</p>
-            </div>
-        </details>
+            </details>
 
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Antigravity</h3>
-                    <p>基于 Agent 优先架构的异步协同 IDE (Google 发布)</p>
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>API (Application Programming Interface)</h3>
+                        <p>应用程序编程接口</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它是什么</h4>
+                    <p>API 是两个程序之间约定好的通信接口。调用方按照接口规范发送请求，提供方处理后返回结果，双方不需要知道对方内部的实现细节。对于 LLM 来说，API 是外部程序访问模型推理能力的唯一入口。
+                    </p>
+                    <h4>一次 API 调用发生了什么</h4>
+                    <p>客户端向服务端发送一个 HTTP POST 请求，请求体是 JSON 格式，包含模型名称、消息列表、温度等参数。服务端收到后将消息转成 Token 序列，送入模型推理，再将输出 Token
+                        解码为文本，以 JSON 格式返回。整个过程是无状态的——服务端不记录上下文，每次调用都是独立的。</p>
+                    <h4>REST vs Streaming</h4>
+                    <p>默认的 REST 模式下，客户端等待模型生成完毕后一次性收到完整响应。Streaming 模式下，服务端通过 SSE（Server-Sent Events）逐 Token
+                        推送，客户端可以边收边显示，适合对延迟敏感的场景。大多数 LLM API 两种模式都支持，通过请求参数 <code>stream: true</code> 切换。</p>
+                    <h4>鉴权与限流</h4>
+                    <p>调用时需要在请求头中携带 API Key（<code>Authorization: Bearer sk-...</code>），服务端以此识别调用方身份并记账。每个 Key 有
+                        RPM（每分钟请求数）和 TPM（每分钟 Token 数）两个维度的限流，超出后返回 429 错误。</p>
                 </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>突破单行代码补全的范式限制，底层引入任务编排与状态机逻辑。依托 Gemini 3.1 Pro 模型的超长上下文窗口，实现对复杂工程的多代理（Multi-Agent）并行调度与环境隔离。</p>
-                <h4>作用机制</h4>
-                <p>用户通过“控制中心（Manager Surface）”发布高阶架构需求。系统实例化多个专职 Agent 并行执行（如编码、测试、文献阅读），通过生成严格的可验证构件（Artifacts：截图、执行日志、计划书）供人类异步审核。</p>
-                <h4>核心特点</h4>
-                <p>Agent-first界面、管理器面板、无头Chrome预览、支持多代理并行调度、生成可验证构件供异步审核。</p>
-                <h4>主要缺点</h4>
-                <p>产品目前仍处于预览阶段，存在“过度自治”问题（擅自删除大量相关代码）、缺乏轻量级对话模式、处理简单问题时显得臃肿。</p>
-                <h4>适用人群</h4>
-                <p>全栈开发者、深耕谷歌云生态的工程师、需要复杂工程多代理协同的团队。</p>
-                <h4>下载与安装</h4>
-                <p>访问 <a href="https://antigravity.google/download" target="_blank">antigravity.google/download</a> 下载x64或ARM64版本的 .exe 安装包。安装时可能触发Windows Defender警告，需点击“更多信息”并选择“仍要运行”。</p>
-                <h4>避雷要点</h4>
-                <p>1. 使用前必须确保Git版本控制处于绝对干净且已提交的状态，防止智能体产生幻觉大面积删改文件导致无法回滚。<br>2. 智能体具有较高的代码修改自主权，需谨慎授权。<br>3. 目前仅对个人Gmail账号提供免费预览，企业使用需注意限制。</p>
-            </div>
-        </details>
+            </details>
 
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Codex</h3>
-                    <p>生成式预训练代码 Transformer 模型</p>
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Agent (Autonomous Agent)</h3>
+                        <p>自治智能体</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它做什么</h4>
+                    <p>Agent 是把 LLM 放进一个循环里的架构。单次调用 LLM 只能回答一个问题；Agent 让它在每次回答后决定下一步行动，直到任务完成。</p>
+                    <h4>循环结构</h4>
+                    <p>每轮循环包含：观察当前状态 → 推理下一步 → 选择并执行工具（搜索、读文件、写代码、调 API）→ 将执行结果写回上下文 → 进入下一轮。终止条件由任务目标或最大步数限制决定。</p>
+                    <h4>记忆系统</h4>
+                    <p>短期记忆是当前对话的 Context 窗口，有长度上限；长期记忆依赖外部 Vector DB，通过相似度检索按需加载。两者组合决定了 Agent 在多轮任务中能记住多少信息。</p>
                 </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>OpenAI 开发的通用语言模型的代码微调分支，通过持续预训练（Continual Pre-training）海量公共代码仓库，深度拟合多种编程语言的抽象语法特征和逻辑分布。</p>
-                <h4>作用机制</h4>
-                <p>接收前置代码声明、文档注释作为输入序列条件，通过自回归解码机制计算后续可能代码块的联合概率分布，输出函数体、自动化测试或逻辑片段。</p>
-                <h4>核心特点</h4>
-                <p>云端沙盒异步执行、无限并发VM、自动提交PR、依靠 AGENTS.md 文件约束架构和测试规则。</p>
-                <h4>主要缺点</h4>
-                <p>黑盒运行无法学习、AGENTS.md配置不当会死循环、成本极其昂贵（$200/月Pro计划）。</p>
-                <h4>适用人群</h4>
-                <p>资金充足的企业团队、需要大规模重构庞大代码库的架构师、追求完全自动化开发流程的组织。</p>
-                <h4>下载与安装</h4>
-                <p>无需传统本地软件下载。用户必须在OpenAI平台注册并订阅服务。解锁并发能力和最高优先级需要订阅高达每月200美元的ChatGPT Pro计划。</p>
-                <h4>避雷要点</h4>
-                <p>1. 项目约束必须在项目根目录极其严谨地配置 AGENTS.md 文件。<br>2. 如果测试环境或Lint规则在 AGENTS.md 中配置不当，Codex将在云端陷入无限报错重试的死循环，消耗极其庞大的代币额度。<br>3. 由于黑盒运行机制，开发者无法在代码生成过程中学习其逻辑。</p>
-            </div>
-        </details>
+            </details>
 
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Ollama</h3>
-                    <p>本地大语言模型量化与运行时推理引擎</p>
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>MCP (Model Context Protocol)</h3>
+                        <p>模型上下文协议</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它解决什么问题</h4>
+                    <p>LLM 本身无法主动读取文件、查询数据库或执行代码，每个工具都需要定制集成，维护成本高。MCP 定义了一套标准接口，让任何工具只需实现一次协议，就能被所有支持 MCP 的客户端调用。</p>
+                    <h4>架构</h4>
+                    <p>分为三层：Host（如 IDE 或 Claude Desktop）管理整体生命周期；Client 负责与 Server 建立连接；Server 向外暴露具体工具和资源。LLM 通过
+                        JSON-RPC 与 Server 通信，在授权范围内执行操作。</p>
+                    <h4>与 A2A / ACP 的关系</h4>
+                    <p>MCP 处理的是模型与工具之间的连接；A2A（Agent-to-Agent）处理的是多个 Agent 之间的协作分工；ACP（Agent Communication Protocol）处理分布式
+                        Agent 网络中的异步消息传递。三个协议各自负责不同层级。</p>
                 </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>基于 `llama.cpp` 核心实现 C/C++ 级的高效内存管理，采用 GGUF 格式对大模型权重进行动态降维量化（如 4-bit 量化），显著降低显存占用及内存带宽消耗。</p>
-                <h4>作用机制</h4>
-                <p>通过命令行 CLI 或 REST API 接收请求。将量化模型动态加载至系统 RAM 或 VRAM，通过调用底层硬件加速指令（如 CUDA, Metal, AVX）执行前向传播矩阵运算，返回流式 Token。</p>
-                <h4>核心特点</h4>
-                <p>一行命令部署、11434端口API、支持DeepSeek/Llama4等前沿开源模型、极度简化本地大模型部署复杂度。</p>
-                <h4>主要缺点</h4>
-                <p>严重的硬件依赖性：大模型必须将其权重完整加载到显存（VRAM）中，如果没有高昂的独立显卡集群，运行大型参数模型将面临极高的延迟甚至直接内存溢出。</p>
-                <h4>适用人群</h4>
-                <p>需要处理高度机密企业代码的研发部门、进行本地检索增强生成（RAG）研究的学者、受制于网络环境的开发者。</p>
-                <h4>下载与安装</h4>
-                <p>macOS: <code>brew install ollama</code><br>Linux: <code>curl -fsSL https://ollama.com/install.sh | sh</code><br>Windows: 访问 <a href="https://ollama.com" target="_blank">ollama.com</a> 下载可视化安装包。</p>
-                <h4>避雷要点</h4>
-                <p>1. 通过Docker安装时，必须正确映射数据卷（-v ollama:/root/.ollama）以确保持久化存储模型权重，否则每次重启容器都将重新下载几十GB的模型文件。<br>2. 默认的11434端口仅能在本地回环访问，外部局域网设备无法调用此API，需进行端口转发配置。<br>3. 测试安装成功与否：运行 <code>ollama run llama3.2</code> 观察是否能正常交互。</p>
-            </div>
-        </details>
+            </details>
 
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>VSCode (Visual Studio Code)</h3>
-                    <p>可扩展跨平台源代码编辑器</p>
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Token</h3>
+                        <p>语言模型的基本计算单元</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>什么是 Token</h4>
+                    <p>Token 是分词器将原始文本切分后的最小单位，可以是一个完整的词、一个词的一部分、一个标点或几个字节。英文大约每 4 个字符对应 1 个 Token；中文因为字符密度更高，比例会有所不同。
+                    </p>
+                    <h4>计费方式</h4>
+                    <p>API 调用会计费两次：输入时按发送给模型的 Token 数计算一次，模型生成回复后再按输出 Token 数计算一次。输出 Token 的单价是输入的 3 到 10 倍，因为每个输出 Token
+                        都需要完整执行一次前向传播。</p>
+                    <h4>对系统设计的影响</h4>
+                    <p>Context 窗口有 Token 上限，超出即被截断。输出成本更高的定价结构，使得"让模型少说话、精确说"成为降本的核心方向，也是 Prompt 工程和输出格式控制的主要动机之一。</p>
                 </div>
-            </summary>
-            <div class="details-content">
-                <h4>科学原理</h4>
-                <p>基于 Electron 架构与 Monaco 编辑器内核。核心技术为语言服务器协议 (LSP) 与调试适配器协议 (DAP) 的标准化解耦，将 UI 层与高 CPU 负载的语言解析层彻底分离。</p>
-                <h4>作用机制</h4>
-                <p>主进程控制生命周期与本地系统 I/O，渲染进程处理前端响应。所有的插件运行在独立的 Node.js 扩展宿主环境（Extension Host）中，确保主编辑器的帧率稳定与非阻塞输入。</p>
-                <h4>核心特点</h4>
-                <p>$10/月亲民价、后台智能体、/create-skill命令。在2026年的更新中，VSCode引入了强大的"后台智能体（Background Agents）"和"智能体技能（Agent Skills）"机制，开发者可以在聊天面板中直接使用 /create-skill 等斜杠命令，瞬间将复杂的重复性工作流打包为可复用的插件。</p>
-                <h4>主要缺点</h4>
-                <p>高峰期限流锁定、跨文件处理速度落后Cursor约30%、上下文污染。由于Copilot背靠微软巨大的企业客户池，个人Pro用户在高峰期经常遭遇极其严苛的"滚动窗口"限流，导致服务被锁定。此外，相比于Cursor，其子代理架构在处理跨文件复杂逻辑时速度较慢，平均任务解决时间落后近30%。</p>
-                <h4>适用人群</h4>
-                <p>任何不愿切换核心IDE的企业开发者及初学者。</p>
-                <h4>下载与安装</h4>
-                <p>下载标准版VS Code或VS 2026 Insiders，并在扩展商店中搜索安装 GitHub.copilot-chat。</p>
-                <h4>避雷要点</h4>
-                <p>1. 在使用大型解决方案时，单纯依赖聊天对话框会导致Copilot缺乏对整体编译常量和依赖树的理解。<br>2. 为了让Copilot准确抓取项目全局结构，必须在项目中维护一份良好的架构说明文档供其检索。<br>3. 在触发高算力后台智能体前，一定要清理不必要的测试文件或日志记录，防止上下文污染导致请求被拒绝。</p>
-            </div>
-        </details>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Prompt &amp; Context</h3>
+                        <p>提示词与上下文工程</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>Prompt 是什么</h4>
+                    <p>Prompt 是发送给模型的完整输入，通常分为 System Prompt（设定角色、规则、输出格式）和 User Message（当次用户指令）。System Prompt
+                        在每次调用时都会发送，直接占用 Context 配额并产生计费。</p>
+                    <h4>Context 的限制</h4>
+                    <p>Context 窗口是模型在单次推理中能处理的最大 Token 数。窗口内的所有内容——系统指令、历史对话、工具返回值、RAG 文档——共享同一个上限。信息量超过窗口后，早期内容会被截断丢失。
+                    </p>
+                    <h4>Lost in the Middle 效应</h4>
+                    <p>研究表明，模型对 Context 首尾的内容注意力最强，对中间段落的处理精度明显下降。这意味着重要信息的位置会影响模型的实际表现，不能假设放进 Context 就等于模型会正确使用。</p>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Workflow</h3>
+                        <p>智能体工作流</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它做什么</h4>
+                    <p>Workflow 是将多个 LLM 调用和工具执行串联成有序流程的架构模式。与单次对话不同，Workflow 可以跨越多步、多模型、多工具完成一个完整任务。</p>
+                    <h4>两种主要模式</h4>
+                    <p>确定性 Workflow 的执行路径由代码预先定义，每步的输入输出都有明确规范，适合流程固定的生产场景；自主 Workflow 让 Agent
+                        自行决定每步调用什么、何时终止，灵活性更高但结果稳定性更低。</p>
+                    <h4>错误处理</h4>
+                    <p>多步任务中，单步失败会级联影响后续步骤。工程上通常设置重试机制、步骤级回滚和最大循环次数限制，防止 Agent 在错误状态中无限迭代。</p>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Skills</h3>
+                        <p>技能模块</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它解决什么问题</h4>
+                    <p>Agent 在执行特定任务时需要专项知识，比如如何操作某个 API、遵守哪些代码规范。如果把所有知识都写入 System Prompt，Context
+                        会迅速膨胀，且大部分内容在当前任务中用不到。</p>
+                    <h4>工作方式</h4>
+                    <p>技能以独立文件（通常是 .md 或 .json）存储，每个文件描述一种能力的操作规范。Agent 在判断当前任务需要某项技能时，才将对应文件加载进 Context，其余时间不占用窗口空间。
+                    </p>
+                    <h4>设计原则</h4>
+                    <p>每个技能文件应当职责单一、边界清晰，便于 Agent 准确判断何时加载。过度宽泛的技能描述会导致误加载，反而增加无效 Token 消耗。</p>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>A2A &amp; ACP</h3>
+                        <p>智能体间通信协议</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>为什么需要 Agent 间协议</h4>
+                    <p>单个 Agent 的能力受 Context 窗口和专项知识的限制。将复杂任务拆分给多个专职 Agent 并行处理，再汇总结果，是突破单 Agent 上限的主要方式。但多 Agent
+                        协作需要标准化的通信接口，否则每对 Agent 之间都要定制集成。</p>
+                    <h4>A2A 与 ACP 的区别</h4>
+                    <p>A2A（Agent-to-Agent Protocol）定义的是 Agent 之间如何协商任务分工、传递子任务和返回结果；ACP（Agent Communication
+                        Protocol）更偏向底层，处理分布式环境中异步消息的格式、路由和确认机制。</p>
+                    <h4>与 MCP 的分层关系</h4>
+                    <p>MCP 负责 Agent 与外部工具的连接，A2A/ACP 负责 Agent 与 Agent 之间的连接。三者在不同层级各自工作，组合使用可以构建跨模型、跨工具的多智能体系统。</p>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Vibe Coding</h3>
+                        <p>自然语言驱动的编程范式</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它是什么</h4>
+                    <p>Vibe Coding 指完全用自然语言描述意图，让 AI 生成并迭代代码，开发者不直接编写也不逐行审查源码的编程方式。由 Andrej Karpathy 在 2025
+                        年初提出并命名。核心前提是：模型的代码能力已经足够强，人工介入的边际价值在许多场景下低于让模型自行迭代的成本。</p>
+                    <h4>工作方式</h4>
+                    <p>开发者描述想要的功能或行为，Agent 生成代码并运行，将报错和输出反馈给模型，模型再修正，循环直到结果符合预期。开发者的主要工作从"写代码"变成"描述目标、验证结果、决定是否接受"。</p>
+                    <h4>适用边界</h4>
+                    <p>在原型验证、个人工具、一次性脚本等场景效率显著。在需要长期维护、多人协作或强安全约束的生产代码库中，完全不审查代码会积累隐性技术债，且模型生成的代码在跨文件依赖复杂时容易引入难以回滚的错误。
+                    </p>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Spec-Driven Development</h3>
+                        <p>规格驱动开发</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它是什么</h4>
+                    <p>Spec-Driven Development 是在让 AI 写代码之前，先用自然语言写一份结构化的规格文档（Spec），明确定义系统行为、边界条件、数据结构和验收标准，再将 Spec 作为
+                        Agent 的执行依据。它是对 Vibe Coding 的约束层——保留了自然语言驱动的效率，同时给 Agent 的行为划定了可验证的边界。</p>
+                    <h4>Spec 包含什么</h4>
+                    <p>通常包括：功能目标与非目标（明确排除什么）、输入输出的数据契约、错误处理策略、禁止修改的文件或模块范围、验收测试的通过条件。Codex 的 <code>AGENTS.md</code> 和
+                        Cursor 的 Rules 文件本质上都是这一思路的具体实现。</p>
+                    <h4>为什么需要它</h4>
+                    <p>Agent 在没有明确约束时倾向于以"让测试通过"为目标，而不是"实现正确行为"——它可能删除测试、硬编码返回值、或修改不该动的文件。Spec 的作用是在任务开始前把"什么算对"说清楚，使
+                        Agent 的自主决策空间收窄到可接受的范围内。</p>
+                </div>
+            </details>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>OpenClaw</h3>
+                        <p>跨平台 AI Agent 网关</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它是什么</h4>
+                    <p>开源的 Agent 网关服务，以后台守护进程方式运行，接管消息通讯平台（如 Telegram、Discord）的传入载荷，解析用户意图后将指令分发给本地 Ollama 实例或云端
+                        API，执行完成后回传结果。内置基于 <code>SKILL.md</code> 的技能编排树和工具调用鉴权模块。</p>
+                    <h4>核心特点</h4>
+                    <p>完全本地化运行，数据不经过第三方服务器。支持 x402 协议的微支付模块用于推理路由计费。通过技能插件可接管操作系统底层权限，实现文件操作、命令执行等系统级任务。</p>
+                    <h4>主要缺点</h4>
+                    <p>底层架构复杂，运行环境配置容易出错，对非技术用户不友好。深度系统访问权限在配置不当时存在安全风险。</p>
+                    <h4>适用人群</h4>
+                    <p>注重数据隐私的个人开发者、需要在内网搭建自动化工作流的中小团队、偏好完全自托管方案的工程师。</p>
+                    <h4>下载与安装</h4>
+                    <p>终端执行官方安装脚本：<code>curl -fsSL https://openclaw.bot/install.sh | bash</code>。Windows 用户需先安装 WSL2。
+                    </p>
+                    <h4>避雷要点</h4>
+                    <p>1. 安装时注意环境变量 PATH 配置，否则会出现 "command not found" 错误。<br>2. Docker 安装需分配至少 2GB RAM，防止内存溢出。<br>3.
+                        网关端口不要暴露于公网，必须绑定到 <code>127.0.0.1</code> 回环地址。<br>4. 从 ClawHub
+                        安装第三方技能时存在供应链攻击风险，建议开启"仅限工作区文件系统访问"权限。</p>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Cursor</h3>
+                        <p>深度集成 LLM 的 AI 代码编辑器</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它是什么</h4>
+                    <p>基于 VS Code 开源分支构建的编辑器，在代码库中内嵌了向量数据库（Vector DB），使模型能够检索整个项目的相关代码片段作为上下文。编辑器会隐式捕获光标位置、LSP
+                        诊断信息和相邻文件变更，将其打包发送给推理服务器，返回差异补丁（Diff）并直接应用到源码中。</p>
+                    <h4>核心特点</h4>
+                    <p>Composer 多文件编辑引擎、本地向量库索引、支持在同一工作区灵活切换底层模型（如用 Claude 处理复杂逻辑，用其他模型处理简单补全）。</p>
+                    <h4>主要缺点</h4>
+                    <p>Pro 计划名义上 $20/月，但开启后台 Agent 或调用高级模型后实际费用经常达到 $40–50。平台闭源，存在供应商锁定风险。代码会发送至第三方 API，处理机密源码时需注意。</p>
+                    <h4>适用人群</h4>
+                    <p>追求高效率的独立开发者、初创团队、习惯同步审查代码的学生群体。</p>
+                    <h4>下载与安装</h4>
+                    <p>前往 <a href="https://cursor.sh" target="_blank">cursor.sh</a> 下载对应平台的安装包，首次启动时可选择导入现有 VS Code
+                        的扩展、快捷键和配置。</p>
+                    <h4>避雷要点</h4>
+                    <p>1. 默认 "Auto" 模式虽然调用内部轻量模型不额外计费，但一旦触发后台 Agent 或手动切换到 Claude / GPT 系列模型执行任务，高级积分会快速消耗。<br>2.
+                        重度使用时需持续关注后台请求状态，避免不知情的超额扣费。<br>3. 涉及机密源码时，应评估代码发送至第三方 API 的数据风险。</p>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Antigravity</h3>
+                        <p>Google 发布的 Agent 优先异步协同 IDE</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它是什么</h4>
+                    <p>Google 发布的编辑器，底层引入了任务编排与状态机逻辑，依托 Gemini 3.1 Pro 的超长上下文窗口实现多 Agent 并行调度。用户通过"控制中心（Manager
+                        Surface）"发布高层任务需求，系统实例化多个专职 Agent 并行执行（编码、测试、文档阅读等），生成截图、执行日志、计划书等可验证产出供人工异步审核。</p>
+                    <h4>核心特点</h4>
+                    <p>Agent 优先的管理器界面、无头 Chrome 预览、多 Agent 并行调度、可验证产出供异步审核。</p>
+                    <h4>主要缺点</h4>
+                    <p>产品仍处于预览阶段，存在"过度自治"问题——Agent 有时会自行删除大量关联代码。目前缺乏轻量级对话模式，处理简单任务时显得臃肿。</p>
+                    <h4>适用人群</h4>
+                    <p>全栈开发者、深耕 Google Cloud 生态的工程师、需要多 Agent 协同处理复杂工程的团队。</p>
+                    <h4>下载与安装</h4>
+                    <p>访问 <a href="https://antigravity.google/download" target="_blank">antigravity.google/download</a>
+                        下载 x64 或 ARM64 的 .exe 安装包。安装时可能触发 Windows Defender 警告，点击"更多信息"后选择"仍要运行"。</p>
+                    <h4>避雷要点</h4>
+                    <p>1. 使用前确保 Git 工作区处于干净的已提交状态，防止 Agent 产生幻觉后大面积改写代码导致无法回滚。<br>2. Agent
+                        具有较高的代码修改自主权，授权前需明确任务边界。<br>3. 目前仅对个人 Gmail 账号提供免费预览，企业场景需注意权限限制。</p>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Codex</h3>
+                        <p>OpenAI 云端代码 Agent</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它是什么</h4>
+                    <p>OpenAI 的云端代码执行 Agent，在隔离的云端沙盒虚拟机中异步运行，能够自主执行代码、运行测试、提交 Pull Request。任务约束通过项目根目录的
+                        <code>AGENTS.md</code> 文件定义，Agent 在整个执行周期内依照该文件的规则行事。
+                    </p>
+                    <h4>核心特点</h4>
+                    <p>云端沙盒异步执行、支持无限并发 VM、自动提交 PR、通过 <code>AGENTS.md</code> 约束架构规范和测试规则。</p>
+                    <h4>主要缺点</h4>
+                    <p>黑盒运行，开发者无法在执行过程中介入学习。<code>AGENTS.md</code> 配置不当会导致 Agent 在云端陷入无限报错重试循环，消耗大量 Token
+                        配额。订阅费用高，ChatGPT Pro 计划每月 $200。</p>
+                    <h4>适用人群</h4>
+                    <p>资金充足的企业团队、需要大规模重构庞大代码库的架构师、追求全自动化开发流程的组织。</p>
+                    <h4>下载与安装</h4>
+                    <p>无需本地安装。在 OpenAI 平台注册并订阅对应计划后，通过网页端或 API 使用。解锁高并发能力需订阅 ChatGPT Pro（$200/月）。</p>
+                    <h4>避雷要点</h4>
+                    <p>1. 必须在项目根目录严谨配置 <code>AGENTS.md</code>，明确测试命令、Lint 规则和禁止修改的文件范围。<br>2. 测试环境或 Lint 规则配置有误时，Agent
+                        会在云端反复重试失败任务，Token 消耗难以预估。<br>3. 黑盒机制意味着执行过程不透明，不适合需要理解代码变更逻辑的学习场景。</p>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Ollama</h3>
+                        <p>本地大模型运行时</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它是什么</h4>
+                    <p>基于 <code>llama.cpp</code> 构建的本地模型运行工具，用一条命令完成模型下载和启动。对模型权重做 GGUF 格式的量化压缩（如 4-bit
+                        量化），在显存不足时也能以较低精度运行。对外暴露兼容 OpenAI 格式的 REST API，端口默认为 11434。</p>
+                    <h4>核心特点</h4>
+                    <p>一行命令部署、标准 REST API、支持 DeepSeek / Llama 4 等主流开源模型、自动调用 CUDA / Metal / AVX 硬件加速。</p>
+                    <h4>主要缺点</h4>
+                    <p>运行大参数模型对硬件要求较高：模型权重需要尽量完整加载进显存（VRAM），显存不足时会降速使用系统内存，延迟会显著上升。没有独立显卡的设备运行 70B 以上模型基本不可用。</p>
+                    <h4>适用人群</h4>
+                    <p>需要处理机密代码的研发部门、做本地 RAG 研究的学者、受制于网络环境无法稳定调用云端 API 的开发者。</p>
+                    <h4>下载与安装</h4>
+                    <p>macOS：<code>brew install ollama</code><br>Linux：<code>curl -fsSL https://ollama.com/install.sh | sh</code><br>Windows：前往
+                        <a href="https://ollama.com" target="_blank">ollama.com</a> 下载可视化安装包。<br>安装后运行
+                        <code>ollama run llama3.2</code> 验证是否正常工作。
+                    </p>
+                    <h4>避雷要点</h4>
+                    <p>1. Docker 安装时必须挂载数据卷（<code>-v ollama:/root/.ollama</code>），否则容器重启后模型文件会丢失，需重新下载。<br>2. 默认 11434
+                        端口只监听本地回环地址，局域网内其他设备无法直接调用，需手动配置端口转发。</p>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>VSCode + GitHub Copilot</h3>
+                        <p>可扩展代码编辑器 + AI 编程助手</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <h4>它是什么</h4>
+                    <p>VS Code 基于 Electron 和 Monaco 编辑器内核构建，通过语言服务器协议（LSP）和调试适配器协议（DAP）将 UI 层与语言解析层解耦，所有插件运行在独立的 Node.js
+                        扩展宿主中，不阻塞主编辑器。2026 年版本引入了后台 Agent（Background Agents）和 Agent Skills 机制，可通过
+                        <code>/create-skill</code> 等斜杠命令将重复工作流打包为可复用插件。
+                    </p>
+                    <h4>核心特点</h4>
+                    <p>$10/月的 Copilot Pro 订阅、后台 Agent 执行、<code>/create-skill</code> 命令、庞大的插件生态。</p>
+                    <h4>主要缺点</h4>
+                    <p>Copilot 背靠微软大量企业客户，个人 Pro 用户在高峰期容易触发限流，服务会被暂时锁定。处理跨文件复杂逻辑时，平均任务解决时间比 Cursor 慢约 30%。</p>
+                    <h4>适用人群</h4>
+                    <p>不想切换主力 IDE 的企业开发者、初学者、对成本敏感的个人开发者。</p>
+                    <h4>下载与安装</h4>
+                    <p>下载标准版 VS Code 或 VS Code Insiders，在扩展商店搜索安装 <code>GitHub.copilot-chat</code>。</p>
+                    <h4>避雷要点</h4>
+                    <p>1. 单纯依赖聊天对话框时，Copilot 缺乏对整体编译常量和依赖树的理解，需要在项目中维护一份架构说明文档供其检索。<br>2. 触发后台 Agent
+                        前清理不必要的测试文件和日志，避免上下文污染导致请求被拒绝。</p>
+                </div>
+            </details>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>厂商生态全景</h3>
+                        <p>AI 基础设施与模型生态的七大公司</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <div class="vendor-ecosystem">
+                        <div class="vendor-item">
+                            <h5>Nvidia</h5>
+                            <p>AI 算力的基础设施层。GPU 硬件加上 CUDA 软件生态形成强绑定，绝大多数深度学习框架的默认加速后端都是 CUDA。</p>
+                        </div>
+                        <div class="vendor-item">
+                            <h5>Microsoft</h5>
+                            <p>OpenAI 的主要投资方，持有 OpenAI 部分股权。通过 GitHub Copilot 和 Azure OpenAI Service 将 AI
+                                能力直接嵌入企业开发和云服务管道。</p>
+                        </div>
+                        <div class="vendor-item">
+                            <h5>Alphabet / Google</h5>
+                            <p>从芯片到应用的全栈布局：自研 TPU 芯片 → Gemini 模型系列 → Antigravity IDE。同时拥有 DeepMind 的基础研究积累。</p>
+                        </div>
+                        <div class="vendor-item">
+                            <h5>OpenAI</h5>
+                            <p>GPT 和 o 系列模型的发布者，API 接口事实上成为行业标准格式，大量第三方工具和推理平台都兼容 OpenAI 的接口规范。</p>
+                        </div>
+                        <div class="vendor-item">
+                            <h5>Anthropic</h5>
+                            <p>Claude 系列模型的发布者，以安全对齐研究和超长上下文窗口见长。Claude 在软件工程评测（SWE-Bench）上长期保持高位。</p>
+                        </div>
+                        <div class="vendor-item">
+                            <h5>Meta</h5>
+                            <p>Llama 系列的发布者，采用开放权重策略，允许商业使用（有条件限制）。Llama 是目前被微调和二次分发最广泛的基础模型之一。</p>
+                        </div>
+                        <div class="vendor-item">
+                            <h5>DeepSeek</h5>
+                            <p>以极低训练成本发布高性能开源模型，MoE 架构的激活参数控制使推理成本大幅低于同级别稠密模型，推动了行业对算力效率预期的重新评估。</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>OpenAI</h3>
+                        <p>GPT 家族及强化学习推理模型</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <div class="model-list">
+                        <div class="model-item">
+                            <h5>GPT-5.4 Thinking <span class="badge closed">闭源</span></h5>
+                            <p>2026年3月发布的最新推理巅峰，专为极高难度的逻辑链路设计。通过大幅进化的隐式链式思考，它在处理跨学科科研、高级架构设计及复杂法律推演时的准确率，已经将前代模型远远甩在身后。
+                            </p>
+                        </div>
+                        <div class="model-item">
+                            <h5>GPT-5.4 Pro <span class="badge closed">闭源</span></h5>
+                            <p>现阶段最强的旗舰通用模型，主打生产环境中的“零误差”指令遵循。其最大的进化在于对Agent工作流的深度适配，能够稳定处理长达数周的异步任务，是目前专业领域最可靠的全能选母。
+                            </p>
+                        </div>
+                        <div class="model-item">
+                            <h5>o3 <span class="badge closed">闭源</span></h5>
+                            <p>强化学习推理路线的“扫地僧”，核心优势依然是测试时动态计算（Test-Time
+                                Compute）。在纯数学竞赛、算法竞赛等不需要常识辅助、仅凭纯逻辑硬碰硬的领域，它依然保有极高的统治力。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>GPT-5.4 mini <span class="badge closed">闭源</span></h5>
+                            <p>性价比与性能平衡的怪物级别产品。虽然定位是“小型”模型，但其在代码编写和逻辑常识上的得分已经超越了去年的 GPT-4.5 旗舰版，且响应延迟极低，。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>GPT-OSS-120B <span class="badge open">开源</span></h5>
+                            <p>OpenAI 发布的 120B 参数开源模型，面向科研社区和有私有化部署需求的企业。</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Google</h3>
+                        <p>Gemini 多模态系列及 Gemma 开放权重模型</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <div class="model-list">
+                        <div class="model-item">
+                            <h5>Gemini 3.1 Pro <span class="badge closed">闭源</span></h5>
+                            <p>Google 目前最强的旗舰通用模型。采用全新的稀疏混合专家（MoE）架构，支持 200 万 token
+                                超长上下文，在处理长视频分析、女男复杂协作文档以及大规模跨模态检索时表现极佳。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>Gemini 3 Deep Think <span class="badge closed">闭源</span></h5>
+                            <p>专门对标深度推理路线的模型。通过强化学习与搜索算法结合，在解决奥数级数学、高难度系统架构及前沿生物化学模拟等领域具备惊人的逻辑深度。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>Gemini 3.1 Flash <span class="badge closed">闭源</span></h5>
+                            <p>兼顾性能与极致响应速度的模型。支持高频实时交互，其文字与图像的端到端理解能力相比前代有质的飞跃，是目前低延迟应用场景的首选。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>Gemma 4 (31B Dense) <span class="badge open">开源</span></h5>
+                            <p>2026 年 4 月发布的顶级开源模型，协议已转为 Apache 2.0。在数学和逻辑指标上超越了诸多 70B 级模型，并首次在开源阵列中实现了原生视觉与音频理解能力。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>Gemma 4 (26B MoE) <span class="badge open">开源</span></h5>
+                            <p>采用混合专家架构的高效率开源标杆。运行时仅激活约 4B 参数，使得普通的开发者在单张家用级显卡上也能运行具备顶级逻辑能力的智能体任务。</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>Anthropic</h3>
+                        <p>Claude 宪法 AI 模型矩阵</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <div class="model-list">
+                        <div class="model-item">
+                            <h5>Claude 4.6 Opus <span class="badge closed">闭源</span>
+                            </h5>
+                            <p>2026 年最新旗舰模型，适用于高复杂度逻辑推理、多步 API 集成和长周期规划任务。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>Claude 4.6 Sonnet <span class="badge closed">闭源</span>
+                            </h5>
+                            <p>在代码生成和 AST 重构任务上速度与精度平衡较好，是 Cursor 等编辑器的主要集成模型之一。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>Claude 4.0 Haiku <span class="badge closed">闭源</span>
+                            </h5>
+                            <p>针对大规模并行处理和轻量级文本提取优化的快速模型，延迟和成本在 Claude 系列中最低。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>Claude 3.5 Sonnet <span class="badge closed">闭源</span>
+                            </h5>
+                            <p>上一代软件工程任务的主力模型，SWE-Bench 评分曾长期领先，目前被广泛集成于自动代码审查流水线中。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>Claude 3.5 Haiku <span class="badge closed">闭源</span>
+                            </h5>
+                            <p>上一代低延迟模型，成本效益在当时的 Claude 系列中最高。Anthropic 目前不开放模型权重。</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>DeepSeek（深度求索）</h3>
+                        <p>高性能开源混合专家架构模型</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <div class="model-list">
+                        <div class="model-item">
+                            <h5>DeepSeek-V3 <span class="badge open">开源</span></h5>
+                            <p>671B 总参数的 MoE 架构模型，每次推理只激活约 37B 参数。采用无辅助损失负载均衡和 FP8
+                                混合精度训练，将训练成本控制在远低于同规模稠密模型的水平。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>DeepSeek-R1 <span class="badge open">开源</span></h5>
+                            <p>通过大规模强化学习训练的推理模型，完整开源了链式思考机制和奖励模型细节，是目前少数公开推理训练细节的模型之一。
+                            </p>
+                        </div>
+                        <div class="model-item">
+                            <h5>DeepSeek-Coder-V2 <span class="badge open">开源</span>
+                            </h5>
+                            <p>针对代码任务微调，支持 80+ 种编程语言，在跨文件上下文关联和库级代码理解方面表现较好。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>DeepSeek-VL2 <span class="badge open">开源</span></h5>
+                            <p>多模态视觉语言模型，可用于 UI 截图反解和图表数据提取任务。</p>
+                        </div>
+                        <div class="model-item">
+                            <h5>DeepSeek-Math <span class="badge open">开源</span></h5>
+                            <p>专注数学任务的小参数模型，针对定理证明、LaTeX 公式推导和符号计算环境优化。</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>闭源模型定价表</h3>
+                        <p>主流闭源模型的 API 调用成本对比</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <div class="pricing-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>模型</th>
+                                    <th>厂商</th>
+                                    <th>核心优势</th>
+                                    <th>输入价格 / 百万 Token</th>
+                                    <th>输出价格 / 百万 Token</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>GPT-5.4</td>
+                                    <td>OpenAI</td>
+                                    <td>编码 + 计算机操控 + 知识工作三合一旗舰（SWE-Bench Pro 57.7%）</td>
+                                    <td>$2.50</td>
+                                    <td>$15.00</td>
+                                </tr>
+                                <tr>
+                                    <td>GPT-5.3 Codex</td>
+                                    <td>OpenAI</td>
+                                    <td>终端与 CLI 密集型工程任务，输入成本低于 GPT-5.4</td>
+                                    <td>$1.75</td>
+                                    <td>$14.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Gemini 3.1 Pro</td>
+                                    <td>Google</td>
+                                    <td>百万 Token 上下文，ARC-AGI-2 77.1%，Antigravity 底层驱动
+                                    </td>
+                                    <td>$2.00</td>
+                                    <td>$12.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Claude Opus 4.6</td>
+                                    <td>Anthropic</td>
+                                    <td>软件工程与多步推理（SWE-Bench Verified 领先）</td>
+                                    <td>$15.00</td>
+                                    <td>$75.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Grok 4</td>
+                                    <td>xAI</td>
+                                    <td>内置 X 实时搜索，256K 上下文，always-on 推理</td>
+                                    <td>$3.00</td>
+                                    <td>$15.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>开源模型对比表</h3>
+                        <p>主流开源模型的架构与性能对比</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <div class="opensource-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>模型</th>
+                                    <th>厂商</th>
+                                    <th>架构 / 参数</th>
+                                    <th>核心优势</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>DeepSeek V3.2</td>
+                                    <td>DeepSeek</td>
+                                    <td>MoE 671B 总 / 37B 激活</td>
+                                    <td>低训练成本，GSM8K 96.0%</td>
+                                </tr>
+                                <tr>
+                                    <td>MiniMax-M2.5</td>
+                                    <td>MiniMax</td>
+                                    <td>MoE 229B 总 / 10B 激活</td>
+                                    <td>推理能效高，SWE-Bench 80.2%</td>
+                                </tr>
+                                <tr>
+                                    <td>Llama 4 Scout</td>
+                                    <td>Meta</td>
+                                    <td>109B 总 / 17B 激活</td>
+                                    <td>1000 万 Token 上下文窗口</td>
+                                </tr>
+                                <tr>
+                                    <td>Qwen3 VL 235B</td>
+                                    <td>Alibaba</td>
+                                    <td>235B 多模态</td>
+                                    <td>GUI 自动化视觉识别</td>
+                                </tr>
+                                <tr>
+                                    <td>Kimi K2.5</td>
+                                    <td>Moonshot AI</td>
+                                    <td>MoE 1T 总 / 32B 激活</td>
+                                    <td>UI 设计稿转 React 代码</td>
+                                </tr>
+                                <tr>
+                                    <td>Gemma 4 31B</td>
+                                    <td>Google</td>
+                                    <td>31B 稠密，Apache 2.0</td>
+                                    <td>Arena AI 排行 #3，AIME 2026 89.2%，LiveCodeBench
+                                        80.0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </details>
+
+            <details class="tech-card">
+                <summary>
+                    <div class="summary-info">
+                        <h3>模型获取渠道</h3>
+                        <p>三种主流分发方式与使用建议</p>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <div class="distribution-channels">
+                        <div class="channel-item">
+                            <h5>官方直接订阅与 API</h5>
+                            <p>在厂商官网注册并绑卡获取 API Key，适合需要稳定 SLA
+                                保障的生产环境。延迟和可用性通常优于中转服务，但各厂商接口格式不统一，多模型切换需要适配。</p>
+                        </div>
+                        <div class="channel-item">
+                            <h5>AI 聚合中转平台</h5>
+                            <p>通过 OpenRouter、Fireworks.ai
+                                等平台调用，统一接口格式，支持按需切换多家厂商模型，统一计费。适合需要频繁对比模型或降低接入成本的场景，但多一层中转意味着多一个延迟节点。
+                            </p>
+                        </div>
+                        <div class="channel-item">
+                            <h5>本地部署</h5>
+                            <p>HuggingFace <code> https://huggingface.co/</code> 或
+                                Ollama
+                                可以下载开源模型权重到本地运行，数据不离开本机。适合隐私敏感或离线场景，但需要匹配的硬件资源，大参数模型对显存要求较高。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
     </div>
 
-    <div id="tab3" class="tab-content">
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>厂商生态全景</h3>
-                    <p>AI 基础设施与模型生态的七大核心玩家</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <div class="vendor-ecosystem">
-                    <div class="vendor-item">
-                        <h5>Nvidia</h5>
-                        <p>AI算力基础设施霸主，GPU硬件+CUDA生态护城河</p>
-                    </div>
-                    <div class="vendor-item">
-                        <h5>Microsoft</h5>
-                        <p>OpenAI战略投资方，GitHub Copilot+Azure云服务主导企业生态</p>
-                    </div>
-                    <div class="vendor-item">
-                        <h5>Alphabet/Google</h5>
-                        <p>全栈AI生态：TPU芯片→Gemini模型→Antigravity IDE</p>
-                    </div>
-                    <div class="vendor-item">
-                        <h5>OpenAI</h5>
-                        <p>闭源API标杆，GPT+o系列持续推高认知天花板</p>
-                    </div>
-                    <div class="vendor-item">
-                        <h5>Anthropic</h5>
-                        <p>安全对齐+超长上下文，Claude系列为软件工程行业标准</p>
-                    </div>
-                    <div class="vendor-item">
-                        <h5>Meta</h5>
-                        <p>开源AI领军，Llama系列打破闭源垄断</p>
-                    </div>
-                    <div class="vendor-item">
-                        <h5>DeepSeek</h5>
-                        <p>成本颠覆者，MoE架构极致优化引领全球AI成本崩塌</p>
-                    </div>
-                </div>
-            </div>
-        </details>
 
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>OpenAI</h3>
-                    <p>GPT 家族及强化学习推理模型体系</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <div class="model-list">
-                    <div class="model-item">
-                        <h5>o3 <span class="badge closed">闭源</span></h5>
-                        <p>最新一代强化学习测试时推理（Test-Time Compute）模型，在顶尖算法与逻辑数学层面具备深度自我验证能力。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>o1 <span class="badge closed">闭源</span></h5>
-                        <p>初代引入链式思考（Chain of Thought）进行隐式内在推理的复杂任务解决模型。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>GPT-4.5 <span class="badge closed">闭源</span></h5>
-                        <p>旗舰通用模型版本，全面增强了超长上下文窗口的稳定性和系统级指令遵循精度。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>GPT-4o <span class="badge closed">闭源</span></h5>
-                        <p>实现了全模态（文本、原生音频、实时视觉）端到端输入输出对齐的低延迟交互模型。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>GPT-OSS-120B <span class="badge open">开源</span></h5>
-                        <p>OpenAI 针对科研社区及高密级企业需求妥协释放的 120B 参数级开源变体模型。</p>
-                    </div>
-                </div>
-            </div>
-        </details>
+    <script>
+        function switchTab(tabId, clickedBtn) {
+            // 切换内容可见性
+            document.querySelectorAll('.tab-content').forEach(function (content) {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
 
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Google</h3>
-                    <p>Gemini 多模态生态及 Gemma 开放权重体系</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <div class="model-list">
-                    <div class="model-item">
-                        <h5>Gemini 3.1 Pro <span class="badge closed">闭源</span></h5>
-                        <p>原生支持百万级上下文，为 Antigravity 平台提供驱动的核心大模型，专精于多智能体异步协同调度。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>Gemini 3 Flash <span class="badge closed">闭源</span></h5>
-                        <p>重点优化 TTFT（首字节延迟）与多模态流式输出速率的模型，适用于高并发的低延迟场景。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>Gemini 2.0 Flash <span class="badge closed">闭源</span></h5>
-                        <p>2024 年末主打的性能平衡版本，具备稳健的原生函数调用（Function Calling）可靠性。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>Gemma 3 27B <span class="badge open">开源</span></h5>
-                        <p>基于 Gemini 同源架构训练的开放权重模型，适合通过本地显存矩阵或私有化服务器集群部署。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>Gemma 3 9B <span class="badge open">开源</span></h5>
-                        <p>微缩级参数量的端侧模型，针对代码补全辅助与离线基础语义解析进行了专项量化优化。</p>
-                    </div>
-                </div>
-            </div>
-        </details>
+            // 切换导航按钮高亮状态
+            document.querySelectorAll('.nav-btn').forEach(function (button) {
+                button.classList.remove('active');
+            });
+            clickedBtn.classList.add('active');
 
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>Anthropic</h3>
-                    <p>Claude 宪法人工智能及安全模型矩阵</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <div class="model-list">
-                    <div class="model-item">
-                        <h5>Claude 4.6 Opus <span class="badge closed">闭源</span></h5>
-                        <p>2026年最新超大参数旗舰，解决高阶逻辑架构、复杂 API 集成及多步战略规划的最强变体。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>Claude 4.6 Sonnet <span class="badge closed">闭源</span></h5>
-                        <p>在代码生成、AST 重构领域速度与精度的完美平衡，是 Cursor 等工具的首选驱动引擎。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>Claude 4.0 Haiku <span class="badge closed">闭源</span></h5>
-                        <p>针对大规模并行处理、轻量级文本提取及 OCR 扫描任务优化的极速轻量模型。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>Claude 3.5 Sonnet <span class="badge closed">闭源</span></h5>
-                        <p>前代在软件工程领域封神的里程碑式版本，被业界广泛集成于自动代码审查流水线。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>Claude 3.5 Haiku <span class="badge closed">闭源</span></h5>
-                        <p>前代极具成本效益的低延迟变体模型。(注：Anthropic 核心政策目前未开放完全开源底层权重)。</p>
-                    </div>
-                </div>
-            </div>
-        </details>
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>DeepSeek (深度求索)</h3>
-                    <p>高性能开源混合专家 (MoE) 架构及专项微调模型</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <div class="model-list">
-                    <div class="model-item">
-                        <h5>DeepSeek-V3 <span class="badge open">开源</span></h5>
-                        <p>671B 混合专家架构巨兽，采用无辅助损失负载均衡机制与 FP8 混合精度训练，打破闭源垄断的里程碑。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>DeepSeek-R1 <span class="badge open">开源</span></h5>
-                        <p>通过大规模强化学习 (RL) 挖掘出系统潜能的推理模型，完全开源其链式思考机制与奖励模型细节。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>DeepSeek-Coder-V2 <span class="badge open">开源</span></h5>
-                        <p>专门针对跨文件库上下文关联及 80+ 种主流编程语言范式微调的垂直领域专家模型。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>DeepSeek-VL2 <span class="badge open">开源</span></h5>
-                        <p>多模态视觉语言模型，适用于复杂的前端 UI 蓝图反解、图表数据抽取任务。</p>
-                    </div>
-                    <div class="model-item">
-                        <h5>DeepSeek-Math <span class="badge open">开源</span></h5>
-                        <p>针对高等数学定理证明、LaTeX 公式推演与符号计算环境优化的专用小参数变体。</p>
-                    </div>
-                </div>
-            </div>
-        </details>
+        // 页面加载动画 - 卡片依次淡入
+        document.addEventListener('DOMContentLoaded', function () {
+            const cards = document.querySelectorAll('.tech-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('fade-in-up');
+            });
 
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>闭源模型定价表</h3>
-                    <p>主流闭源模型的 API 调用成本对比</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <div class="pricing-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>模型</th>
-                                <th>厂商</th>
-                                <th>核心优势</th>
-                                <th>输入价格/百万Token</th>
-                                <th>输出价格/百万Token</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>GPT-4o Mini</td>
-                                <td>OpenAI</td>
-                                <td>全能性价比之王</td>
-                                <td>$0.15</td>
-                                <td>$0.60</td>
-                            </tr>
-                            <tr>
-                                <td>o1-preview</td>
-                                <td>OpenAI</td>
-                                <td>高阶数理推理</td>
-                                <td>动态计费</td>
-                                <td>$600综合</td>
-                            </tr>
-                            <tr>
-                                <td>Gemini 3.1 Flash-Lite</td>
-                                <td>Google</td>
-                                <td>海量吞吐极速</td>
-                                <td>$0.25</td>
-                                <td>$1.50</td>
-                            </tr>
-                            <tr>
-                                <td>Claude Opus 4.6</td>
-                                <td>Anthropic</td>
-                                <td>软件工程大师(SWE-Bench 80.8%)</td>
-                                <td>$15.00</td>
-                                <td>$75.00</td>
-                            </tr>
-                            <tr>
-                                <td>Claude Haiku 4.5</td>
-                                <td>Anthropic</td>
-                                <td>响应速度标杆</td>
-                                <td>$1.00</td>
-                                <td>$5.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </details>
-
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>开源模型对比表</h3>
-                    <p>主流开源模型的架构与性能对比</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <div class="opensource-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>模型</th>
-                                <th>架构/参数</th>
-                                <th>核心优势</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>DeepSeek V3.2</td>
-                                <td>MoE 671B总/37B激活</td>
-                                <td>性价比神话，GSM8K 96.0%</td>
-                            </tr>
-                            <tr>
-                                <td>MiniMax-M2.5</td>
-                                <td>MoE 229B总/10B激活</td>
-                                <td>极致推理能效，SWE-Bench 80.2%</td>
-                            </tr>
-                            <tr>
-                                <td>Llama 4 Scout</td>
-                                <td>109B总/17B激活</td>
-                                <td>1000万上下文窗口</td>
-                            </tr>
-                            <tr>
-                                <td>Qwen3 VL 235B</td>
-                                <td>235B多模态</td>
-                                <td>GUI自动化视觉识别</td>
-                            </tr>
-                            <tr>
-                                <td>Kimi K2.5</td>
-                                <td>1T总/32B激活</td>
-                                <td>UI设计草图→React代码</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </details>
-
-        <details class="tech-card">
-            <summary>
-                <div class="summary-info">
-                    <h3>模型获取渠道</h3>
-                    <p>三种主流分发方式与使用建议</p>
-                </div>
-            </summary>
-            <div class="details-content">
-                <div class="distribution-channels">
-                    <div class="channel-item">
-                        <h5>官方直接订阅与API</h5>
-                        <p>前往厂商官网绑卡获取API Key，适用于企业级稳定生产环境。</p>
-                    </div>
-                    <div class="channel-item">
-                        <h5>AI聚合中转站</h5>
-                        <p>通过 OpenRouter/Fireworks.ai 等统一封装平台调用，支持多厂商模型切换与统一计费。</p>
-                    </div>
-                    <div class="channel-item">
-                        <h5>本地模型库下载</h5>
-                        <p>使用 HuggingFace/Ollama 终端下载开源权重，适合隐私敏感或离线场景。</p>
-                    </div>
-                </div>
-            </div>
-        </details>
-    </div>
-</div>
-
-<script>
-    function switchTab(tabId, clickedBtn) {
-        // 切换内容可见性
-        document.querySelectorAll('.tab-content').forEach(function(content) {
-            content.classList.remove('active');
-        });
-        document.getElementById(tabId).classList.add('active');
-
-        // 切换导航按钮高亮状态
-        document.querySelectorAll('.nav-btn').forEach(function(button) {
-            button.classList.remove('active');
-        });
-        clickedBtn.classList.add('active');
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // 页面加载动画 - 卡片依次淡入
-    document.addEventListener('DOMContentLoaded', function() {
-        const cards = document.querySelectorAll('.tech-card');
-        cards.forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
-            card.classList.add('fade-in-up');
-        });
-
-        // 为折叠面板添加平滑展开动画
-        const details = document.querySelectorAll('details.tech-card');
-        details.forEach(detail => {
-            detail.addEventListener('toggle', function() {
-                if (this.open) {
-                    const content = this.querySelector('.details-content');
-                    content.style.animation = 'contentFadeIn 0.4s ease';
-                }
+            // 为折叠面板添加平滑展开动画
+            const details = document.querySelectorAll('details.tech-card');
+            details.forEach(detail => {
+                detail.addEventListener('toggle', function () {
+                    if (this.open) {
+                        const content = this.querySelector('.details-content');
+                        content.style.animation = 'contentFadeIn 0.4s ease';
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 
 </body>
+
 </html>
