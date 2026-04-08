@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AI Engineer 上车</title>
+    <link rel="preconnect" href="https://fonts.googleapis.cn">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.cn/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* 全局变量定义：现代化配色系统 */
+        /* 全局变量定义：基础浅色模式（默认） */
         :root {
             /* 浅色模式（默认） */
             --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -23,377 +25,443 @@
             --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
-
-            /* 兼容旧变量 */
             --bg-color: var(--bg-secondary);
             --text-main: var(--text-primary);
             --border-color: var(--border-light);
             --accent-color: var(--accent-blue);
-
-            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            --sidebar-width: 260px;
+            --toc-width: 220px;
+            --header-height: 64px;
         }
 
-        /* 深色模式 */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-primary: linear-gradient(135deg, #1e3a8a 0%, #4c1d95 100%);
-                --bg-secondary: #0F172A;
-                --card-bg: #1E293B;
-                --card-hover: #334155;
-                --text-primary: #F1F5F9;
-                --text-secondary: #94A3B8;
-                --accent-blue: #60A5FA;
-                --accent-purple: #A78BFA;
-                --accent-green: #34D399;
-                --accent-orange: #FBBF24;
-                --border-light: #334155;
-                --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-                --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-                --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
-            }
+        /* 🌌 赛博极光主题 (毛玻璃 + 青蓝科技) */
+        body[data-theme="cyber"] {
+            --bg-primary: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            --bg-secondary: #f0f8ff; 
+            --card-bg: rgba(255, 255, 255, 0.6); 
+            --card-hover: rgba(255, 255, 255, 0.85);
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-blue: #0072ff;
+            --accent-purple: #00c6ff;
+            --accent-green: #00e676;
+            --accent-orange: #ff007a;
+            --border-light: rgba(0, 114, 255, 0.15);
+            --shadow-sm: 0 4px 15px rgba(0, 114, 255, 0.08);
+            --shadow-md: 0 8px 25px rgba(0, 114, 255, 0.12);
+            --shadow-lg: 0 15px 35px rgba(0, 114, 255, 0.15);
         }
+        body[data-theme="cyber"] .sidebar,
+        body[data-theme="cyber"] .mobile-header,
+        body[data-theme="cyber"] .doc-toc,
+        body[data-theme="cyber"] .tech-card,
+        body[data-theme="cyber"] .model-item,
+        body[data-theme="cyber"] .vendor-item,
+        body[data-theme="cyber"] .channel-item {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* ⚗️ 极简矩阵主题 (线框 + 极客纯白) */
+        body[data-theme="wireframe"] {
+            --bg-primary: #111111;
+            --bg-secondary: #ffffff; 
+            --card-bg: #ffffff;
+            --card-hover: #fafafa;
+            --text-primary: #000000;
+            --text-secondary: #555555;
+            --accent-blue: #000000;
+            --accent-purple: #10b981; 
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --border-light: #e0e0e0; 
+            --shadow-sm: none; 
+            --shadow-md: none;
+            --shadow-lg: none;
+        }
+        body[data-theme="wireframe"] * {
+            box-shadow: none !important;
+        }
+        body[data-theme="wireframe"] .tech-card,
+        body[data-theme="wireframe"] .model-item,
+        body[data-theme="wireframe"] .vendor-item,
+        body[data-theme="wireframe"] .channel-item {
+            border-radius: 0; 
+            border: 1px solid var(--border-light);
+        }
+        body[data-theme="wireframe"] .tech-card:hover,
+        body[data-theme="wireframe"] .model-item:hover {
+            border-color: var(--accent-purple); 
+            transform: none; 
+        }
+        body[data-theme="wireframe"] .badge {
+            border-radius: 2px;
+        }
+        body[data-theme="wireframe"] .badge {
+            border-radius: 2px;
+        }
+
+        /* 👇 2. 在这里粘贴背景动画的样式 👇 */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0; /* 放在最底层 */
+            pointer-events: none; /* 绝对不能阻挡鼠标点击和阅读 */
+            transition: opacity 0.6s ease;
+            opacity: 0; /* 默认模式下完全隐藏 */
+        }
+        /* 只有在赛博和线框模式下才显示动画 */
+        body[data-theme="cyber"] #bg-canvas,
+        body[data-theme="wireframe"] #bg-canvas {
+            opacity: 1;
+        }
+        /* 👆 结束 👆 */
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
         }
-
+        html, body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 30px;
+        }
         body {
             font-family: var(--font-sans);
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
-            padding-top: 60px;
+        }
+        #app {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        /* ===================================
+           左侧主导航栏
+           =================================== */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            z-index: 999;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
+            box-shadow: var(--shadow-md);
+        }
+        .sidebar-header {
+            padding: 28px 24px 20px;
+            border-bottom: 1px solid var(--border-light);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%);
+        }
+        .brand-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.1;
+            background: var(--bg-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .brand-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-top: 6px;
+        }
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 16px;
+            overflow-y: auto;
+        }
+        .nav-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .nav-item:hover {
+            background: var(--card-hover);
+            color: var(--text-primary);
+            transform: translateX(2px);
+        }
+        .nav-item.active {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(168, 85, 247, 0.18) 100%);
+            color: var(--accent-purple);
+            box-shadow: inset 0 0 0 1px rgba(168, 85, 247, 0.25);
+        }
+        .nav-text {
+            flex: 1;
+        }
+        
+        .theme-switcher-container {
+            padding: 16px;
+            border-top: 1px solid var(--border-light);
+            background: var(--card-bg);
+            margin-top: auto; 
+        }
+        .theme-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .theme-btn:hover {
+            background: var(--card-hover);
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
         }
 
-        /* 顶部导航栏 (Tab) - 毛玻璃效果 */
-        .nav-tabs {
+        /* ===================================
+           移动端头部
+           =================================== */
+        .mobile-header {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            right: 0;
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 100;
+        }
+        .mobile-header-content {
             display: flex;
-            z-index: 1000;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 20px;
         }
-
-        @media (prefers-color-scheme: dark) {
-            .nav-tabs {
-                background: rgba(30, 41, 59, 0.85);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-        }
-
-        .nav-btn {
-            flex: 1;
-            background: none;
-            border: none;
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-btn:hover {
-            color: var(--text-primary);
-            background: rgba(0, 0, 0, 0.02);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .nav-btn:hover {
-                background: rgba(255, 255, 255, 0.05);
-            }
-        }
-
-        .nav-btn.active {
-            color: var(--accent-blue);
-            font-weight: 600;
-        }
-
-        .nav-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-            border-radius: 3px 3px 0 0;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                width: 0;
-                opacity: 0;
-            }
-
-            to {
-                width: 60%;
-                opacity: 1;
-            }
-        }
-
-        /* 页面主容器 */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-
-        header {
-            margin-bottom: 40px;
-            border-left: 4px solid var(--accent-color);
-            padding-left: 15px;
-        }
-
-        /* 字体优化 - 提升可读性 */
-        h1 {
-            font-size: 2rem;
+        .logo-text {
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-            line-height: 1.2;
+            background: var(--bg-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            line-height: 1.3;
+        .menu-toggle {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
         }
-
-        h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
+        .menu-toggle:hover {
+            background: var(--card-hover);
+        }
+        .menu-toggle span {
+            width: 22px;
+            height: 2.5px;
+            background: var(--text-primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        /* ===================================
+           电脑端 - 三栏文档布局
+           =================================== */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            display: flex;
+            min-height: 100vh;
+            justify-content: center; 
+        }
+        .doc-content {
+            flex: 1;
+            padding: 48px 60px;
+            max-width: none;
+            min-height: 100vh;
+        }
+        .doc-toc {
+            width: var(--toc-width);
+            padding: 48px 24px 48px 0;
+            position: sticky;
+            top: 0;
+            align-self: flex-start;
+            height: 100vh;
+            overflow-y: auto;
+            border-left: 1px solid var(--border-light);
+            background: transparent;
+        }
+        .toc-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            padding-left: 12px;
+        }
+        .toc-list {
+            list-style: none;
+        }
+        .toc-item {
+            margin-bottom: 2px;
+        }
+        .toc-link {
+            display: block;
+            padding: 8px 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
             line-height: 1.4;
         }
-
-        h4 {
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1.5;
+        .toc-link:hover {
+            color: var(--text-primary);
+            background: var(--card-hover);
         }
-
-        .subtitle {
-            font-size: 0.95rem;
+        .toc-link.active {
+            color: var(--accent-purple);
+            background: rgba(168, 85, 247, 0.1);
+        }
+        /* Tab 面板 */
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* 文档标题区 */
+        .doc-header {
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid var(--border-light);
+        }
+        .doc-title {
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        .doc-subtitle {
+            font-size: 16px;
             color: var(--text-secondary);
             font-family: var(--font-mono);
-            line-height: 1.6;
         }
-
-        /* 正文 */
-        p {
-            font-size: 0.95rem;
-            line-height: 1.7;
+        /* 文档章节 */
+        .doc-section {
+            margin-bottom: 56px;
+            padding-bottom: 56px;
+            border-bottom: 2px solid var(--border-light);
         }
-
+        .doc-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .doc-section h2 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            padding-top: 8px;
+            line-height: 1.25;
+        }
+        .doc-section h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-purple);
+            margin: 32px 0 12px 0;
+            line-height: 1.35;
+        }
+        .doc-section h4 {
+            font-size: 15px;
+            color: var(--accent-blue);
+            margin: 24px 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 700;
+        }
+        .doc-section p {
+            font-size: 15.5px;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            line-height: 1.8;
+        }
+        .doc-section p:last-child {
+            margin-bottom: 0;
+        }
         /* 代码样式 */
         code {
             font-family: var(--font-mono);
-            background: rgba(99, 102, 241, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.9em;
+            background: rgba(99, 102, 241, 0.12);
+            padding: 2.5px 7px;
+            border-radius: 5px;
+            font-size: 0.88em;
             color: var(--accent-purple);
         }
-
-        /* 链接样式 */
         a {
             color: var(--accent-blue);
             text-decoration: underline;
-            text-underline-offset: 3px;
+            text-underline-offset: 4px;
             transition: color 0.2s ease;
         }
-
         a:hover {
             color: var(--accent-purple);
         }
-
-        /* 焦点状态 */
-        :focus-visible {
-            outline: 2px solid var(--accent-blue);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-
-        /* 选项卡内容区 */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(5px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ================= 核心折叠面板组件 (Accordion) - 现代化卡片 ================= */
-        details.tech-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            margin-bottom: 20px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
-            position: relative;
-        }
-
-        details.tech-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.03) 0%, rgba(168, 85, 247, 0.03) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        details.tech-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-2px);
-            border-color: var(--accent-purple);
-        }
-
-        details.tech-card:hover::before {
-            opacity: 1;
-        }
-
-        details.tech-card[open] {
-            box-shadow: var(--shadow-lg);
-            border-color: var(--accent-blue);
-            background: var(--card-hover);
-        }
-
-        details.tech-card[open] summary {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            details.tech-card[open] summary {
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-        }
-
-        /* 折叠状态（可见部分） */
-        details.tech-card summary {
-            padding: 24px;
-            cursor: pointer;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        details.tech-card summary::-webkit-details-marker {
-            display: none;
-            /* 隐藏默认三角图标 */
-        }
-
-        /* 自定义折叠指示器 - 现代化图标 */
-        details.tech-card summary::after {
-            content: "›";
-            font-family: var(--font-mono);
-            font-size: 1.8rem;
-            color: var(--accent-purple);
-            margin-left: 15px;
-            transition: transform 0.3s ease;
-            font-weight: bold;
-            transform: rotate(90deg);
-        }
-
-        details.tech-card[open] summary::after {
-            content: "‹";
-            transform: rotate(-90deg);
-            color: var(--accent-blue);
-        }
-
-        .summary-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .summary-info p {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        /* 展开状态（详细内容部分） */
-        .details-content {
-            padding: 0 24px 24px 24px;
-            border-top: 1px solid var(--border-light);
-            margin-top: 0;
-            padding-top: 24px;
-            animation: contentFadeIn 0.4s ease;
-        }
-
-        @keyframes contentFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .details-content h4 {
-            font-size: 1rem;
-            color: var(--accent-blue);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-
-        .details-content p {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-            line-height: 1.7;
-            text-align: justify;
-        }
-
-        .details-content p:last-child {
-            margin-bottom: 0;
-        }
-
         /* 标签样式 - 现代化徽章 */
         .badge {
             font-size: 0.75rem;
@@ -409,7 +477,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .badge::before {
             content: '';
             position: absolute;
@@ -420,66 +487,19 @@
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
             opacity: 0.5;
         }
-
-        /* 开源徽章 - 绿色渐变 */
         .badge.open {
-            background: linear-gradient(135deg, #10B981, #059669);
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, var(--accent-green), #059669);
         }
-
-        /* 闭源徽章 - 蓝色渐变 */
         .badge.closed {
-            background: linear-gradient(135deg, #3B82F6, #2563EB);
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, var(--accent-blue), #2563EB);
         }
-
-        /* 新增：热门标签 */
-        .badge.hot {
-            background: linear-gradient(135deg, #F59E0B, #D97706);
-            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
-            }
-
-            50% {
-                box-shadow: 0 2px 16px rgba(245, 158, 11, 0.5);
-            }
-
-            100% {
-                box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
-            }
-        }
-
-        .badge:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        /* 页面加载动画 */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 大模型内部列表样式 - 优化 */
+        /* 大模型内部列表样式 */
         .model-list {
             display: flex;
             flex-direction: column;
             gap: 16px;
+            margin: 20px 0;
         }
-
         .model-item {
             background: var(--card-bg);
             padding: 16px 20px;
@@ -488,13 +508,11 @@
             transition: all 0.3s ease;
             box-shadow: var(--shadow-sm);
         }
-
         .model-item:hover {
             transform: translateX(4px);
             box-shadow: var(--shadow-md);
             border-left-color: var(--accent-purple);
         }
-
         .model-item h5 {
             font-size: 1.05rem;
             margin-bottom: 6px;
@@ -503,21 +521,19 @@
             gap: 10px;
             color: var(--text-primary);
         }
-
         .model-item p {
             font-size: 0.9rem;
             margin-bottom: 0;
             color: var(--text-secondary);
             line-height: 1.6;
         }
-
         /* 厂商生态系统样式 */
         .vendor-ecosystem {
             display: flex;
             flex-direction: column;
             gap: 16px;
+            margin: 20px 0;
         }
-
         .vendor-item {
             background: var(--card-bg);
             padding: 16px 20px;
@@ -526,13 +542,11 @@
             transition: all 0.3s ease;
             box-shadow: var(--shadow-sm);
         }
-
         .vendor-item:hover {
             transform: translateX(4px);
             box-shadow: var(--shadow-md);
             border-left-color: var(--accent-orange);
         }
-
         .vendor-item h5 {
             font-size: 1.05rem;
             margin-bottom: 6px;
@@ -541,20 +555,17 @@
             gap: 10px;
             color: var(--text-primary);
         }
-
         .vendor-item p {
             font-size: 0.9rem;
             margin-bottom: 0;
             color: var(--text-secondary);
             line-height: 1.6;
         }
-
         /* 定价表格样式 */
         .pricing-table {
             overflow-x: auto;
             margin: 20px 0;
         }
-
         .pricing-table table {
             width: 100%;
             border-collapse: collapse;
@@ -562,65 +573,44 @@
             overflow: hidden;
             box-shadow: var(--shadow-sm);
         }
-
         .pricing-table thead {
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
             color: white;
         }
-
         .pricing-table th {
             padding: 14px 16px;
             text-align: left;
             font-weight: 600;
             font-size: 0.95rem;
         }
-
         .pricing-table tbody tr {
             border-bottom: 1px solid var(--border-light);
             transition: background-color 0.2s ease;
         }
-
         .pricing-table tbody tr:nth-child(even) {
             background-color: rgba(0, 0, 0, 0.02);
         }
-
-        @media (prefers-color-scheme: dark) {
-            .pricing-table tbody tr:nth-child(even) {
-                background-color: rgba(255, 255, 255, 0.02);
-            }
-        }
-
         .pricing-table tbody tr:hover {
-            background-color: rgba(99, 102, 241, 0.05);
+            background-color: var(--card-hover);
         }
-
         .pricing-table td {
             padding: 12px 16px;
             font-size: 0.9rem;
             color: var(--text-secondary);
         }
-
         .pricing-table td:first-child {
             font-weight: 500;
             color: var(--text-primary);
         }
-
         .pricing-table .price {
             font-weight: 600;
             color: var(--accent-green);
         }
-
-        .pricing-table .tokens {
-            font-family: var(--font-mono);
-            color: var(--accent-purple);
-        }
-
         /* 开源模型对比表格样式 */
         .opensource-table {
             overflow-x: auto;
             margin: 20px 0;
         }
-
         .opensource-table table {
             width: 100%;
             border-collapse: collapse;
@@ -628,66 +618,50 @@
             overflow: hidden;
             box-shadow: var(--shadow-sm);
         }
-
         .opensource-table thead {
             background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
             color: white;
         }
-
         .opensource-table th {
             padding: 14px 16px;
             text-align: left;
             font-weight: 600;
             font-size: 0.95rem;
         }
-
         .opensource-table tbody tr {
             border-bottom: 1px solid var(--border-light);
             transition: background-color 0.2s ease;
         }
-
         .opensource-table tbody tr:nth-child(even) {
             background-color: rgba(0, 0, 0, 0.02);
         }
-
-        @media (prefers-color-scheme: dark) {
-            .opensource-table tbody tr:nth-child(even) {
-                background-color: rgba(255, 255, 255, 0.02);
-            }
-        }
-
         .opensource-table tbody tr:hover {
-            background-color: rgba(16, 185, 129, 0.05);
+            background-color: var(--card-hover);
         }
-
         .opensource-table td {
             padding: 12px 16px;
             font-size: 0.9rem;
             color: var(--text-secondary);
         }
-
         .opensource-table td:first-child {
             font-weight: 500;
             color: var(--text-primary);
         }
-
         .opensource-table .license {
             font-family: var(--font-mono);
             color: var(--accent-orange);
         }
-
         .opensource-table .size {
             font-family: var(--font-mono);
             color: var(--accent-purple);
         }
-
         /* 模型获取渠道样式 */
         .distribution-channels {
             display: flex;
             flex-direction: column;
             gap: 16px;
+            margin: 20px 0;
         }
-
         .channel-item {
             background: var(--card-bg);
             padding: 16px 20px;
@@ -696,13 +670,11 @@
             transition: all 0.3s ease;
             box-shadow: var(--shadow-sm);
         }
-
         .channel-item:hover {
             transform: translateX(4px);
             box-shadow: var(--shadow-md);
             border-left-color: var(--accent-blue);
         }
-
         .channel-item h5 {
             font-size: 1.05rem;
             margin-bottom: 6px;
@@ -711,942 +683,1865 @@
             gap: 10px;
             color: var(--text-primary);
         }
-
         .channel-item p {
             font-size: 0.9rem;
             margin-bottom: 0;
             color: var(--text-secondary);
             line-height: 1.6;
         }
-
-        /* 图标样式 */
-        .icon {
-            width: 24px;
-            height: 24px;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 8px;
-            color: var(--accent-purple);
+        /* ===================================
+           原版核心样式（手机端 - 保留不变）
+           =================================== */
+        .mobile-only-container {
+            display: none;
+            padding: 0;
+            margin: 0;
         }
-
-        .icon-robot {
+        .mobile-main-content {
+            margin-left: 0;
+            padding: 24px 20px;
+            padding-top: calc(var(--header-height) + 24px);
+            padding-bottom: 24px;
+            max-width: none;
+        }
+        details.tech-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            position: relative;
+        }
+        details.tech-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+            border-color: var(--accent-purple);
+        }
+        details.tech-card[open] {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-blue);
+            background: var(--card-hover);
+        }
+        details.tech-card[open] summary {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        details.tech-card summary {
+            padding: 24px;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        details.tech-card summary::-webkit-details-marker {
+            display: none;
+        }
+        details.tech-card summary::after {
+            content: "›";
+            font-family: var(--font-mono);
+            font-size: 1.8rem;
+            color: var(--accent-purple);
+            margin-left: 15px;
+            transition: transform 0.3s ease;
+            font-weight: bold;
+            transform: rotate(90deg);
+        }
+        details.tech-card[open] summary::after {
+            content: "‹";
+            transform: rotate(-90deg);
             color: var(--accent-blue);
         }
-
-        .icon-tool {
-            color: var(--accent-green);
+        .summary-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+            font-weight: 600;
         }
-
-        .icon-book {
-            color: var(--accent-orange);
+        .summary-info p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
-
-        .icon-cloud {
-            color: var(--accent-purple);
+        .details-content {
+            padding: 0 24px 24px 24px;
+            border-top: 1px solid var(--border-light);
+            margin-top: 0;
+            padding-top: 24px;
+            animation: contentFadeIn 0.4s ease;
         }
-
-        /* ================= 响应式设计 ================= */
-        /* 平板 */
+        @keyframes contentFadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .details-content h4 {
+            font-size: 1rem;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        .details-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.7;
+            text-align: justify;
+        }
+        .details-content p:last-child {
+            margin-bottom: 0;
+        }
+        .mobile-only header {
+            margin-bottom: 40px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+        }
+        .mobile-only header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .mobile-only header .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            line-height: 1.6;
+        }
+        /* ===================================
+           响应式布局切换
+           =================================== */
+        .desktop-only { display: none; }
+        .desktop-only.active { display: flex; }
+        .mobile-only { display: none; }
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+            .desktop-only { display: none !important; }
+            .mobile-only { display: block !important; }
+            .mobile-header { display: flex; }
+            .main-content {
+                margin-left: 0;
+                display: block;
+            }
+            .doc-content {
+                display: none;
+            }
+            .doc-toc {
+                display: none;
+            }
+            /* 手机端 Tab 内容显示控制 */
+            .mobile-only .tab-content {
+                display: none;
+            }
+            .mobile-only .tab-content.active {
+                display: block;
+            }
+        }
         @media (max-width: 768px) {
-            .container {
-                padding: 20px 15px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .nav-btn {
-                font-size: 0.85rem;
-                height: 50px;
-            }
-
-            .nav-tabs {
-                height: 50px;
-            }
-
-            details.tech-card summary {
-                padding: 18px;
-            }
-
-            .summary-info h3 {
-                font-size: 1.1rem;
-            }
-
-            .details-content {
-                padding: 0 18px 18px 18px;
-            }
-
-            .model-item {
-                padding: 14px 16px;
-            }
+            .mobile-main-content { padding: 16px; padding-top: calc(var(--header-height) + 16px); padding-bottom: 16px; }
+            details.tech-card summary { padding: 18px; }
+            .summary-info h3 { font-size: 1.1rem; }
+            .details-content { padding: 0 18px 18px 18px; }
+            .model-item { padding: 14px 16px; }
         }
-
-        /* 手机 */
-        @media (max-width: 480px) {
-            .container {
-                padding: 15px 12px;
-            }
-
-            h1 {
-                font-size: 1.3rem;
-            }
-
-            .subtitle {
-                font-size: 0.85rem;
-            }
-
-            .nav-tabs {
-                height: 45px;
-            }
-
-            .nav-btn {
-                font-size: 0.8rem;
-                padding: 0 5px;
-            }
-
-            details.tech-card summary {
-                padding: 15px;
-            }
-
-            .summary-info h3 {
-                font-size: 1rem;
-                gap: 8px;
-            }
-
-            .icon {
-                width: 20px;
-                height: 20px;
-                margin-right: 6px;
-            }
-
-            .summary-info p {
-                font-size: 0.85rem;
-            }
-
-            .badge {
-                font-size: 0.7rem;
-                padding: 3px 8px;
-            }
-
-            .details-content h4 {
-                font-size: 0.9rem;
-            }
-
-            .details-content p {
-                font-size: 0.85rem;
-            }
-
-            .model-item {
-                padding: 12px 14px;
-            }
-
-            .model-item h5 {
-                font-size: 0.95rem;
-            }
-
-            .model-item p {
-                font-size: 0.8rem;
-            }
+        :focus-visible {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 2px;
+            border-radius: 6px;
         }
     </style>
 </head>
-
-<body>
-
-    <div class="nav-tabs">
-        <button class="nav-btn active" onclick="switchTab('tab1', this)">名词概念</button>
-        <button class="nav-btn" onclick="switchTab('tab2', this)">PC工具分析</button>
-        <button class="nav-btn" onclick="switchTab('tab3', this)">基座大模型</button>
+<body data-theme="default">
+    <body data-theme="default">
+    <canvas id="bg-canvas"></canvas>
+    <div id="app">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-text">
+                    <div class="brand-title">AI Engineer 上车！</div>
+                    <div class="brand-subtitle">这就是这个时代的风口吗，怎么抓不住啊...</div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-tab="tab1">
+                    <span class="nav-text">名词概念</span>
+                </button>
+                <button class="nav-item" data-tab="tab2">
+                    <span class="nav-text">PC工具分析</span>
+                </button>
+                <button class="nav-item" data-tab="tab3">
+                    <span class="nav-text">基座大模型</span>
+                </button>
+                <button class="nav-item" data-tab="tab4">
+                    <span class="nav-text">教程资源</span>
+                </button>
+                <button class="nav-item" data-tab="tab5">
+                    <span class="nav-text">项目分享</span>
+                </button>
+                <button class="nav-item" data-tab="tab6">
+                    <span class="nav-text">社区分享</span>
+                </button>
+            </nav>
+            <div class="theme-switcher-container">
+                <button id="themeSwitcher" class="theme-btn" title="点击切换视觉风格">
+                    <span class="theme-icon" id="themeIcon">✨</span>
+                    <span class="theme-text" id="themeText">默认模式</span>
+                </button>
+            </div>
+        </aside>
+        <!-- ===================================
+             电脑端 - 三栏文档布局（用原版文案）
+             =================================== -->
+        <div class="desktop-only main-content active">
+            <div class="doc-content">
+                <!-- Tab 1: 名词概念（原版文案） -->
+                <section class="tab-panel active" id="panel-tab1">
+                    <header class="doc-header">
+                        <h1 class="doc-title">名词概念</h1>
+                        <p class="doc-subtitle">AI 应用开发的核心概念入门</p>
+                    </header>
+                    <div class="doc-section" id="section-llm">
+                        <h2>LLM (Large Language Model)</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">大语言模型</p>
+                        <h3>它做什么</h3>
+                        <p>LLM 是一个文字预测系统，训练目标只有一个：给定前面所有的词，预测下一个词的概率分布。这个任务在足够大的数据和参数规模下，会涌现出推理、翻译、代码生成等能力。</p>
+                        <h3>训练过程</h3>
+                        <p>分两阶段。预训练阶段用海量文本做无监督学习，让模型建立语言的统计规律；随后通过 SFT（监督微调）喂给它正确示范，再用 RLHF（基于人类反馈的强化学习）纠正行为偏差，使输出符合人类意图。</p>
+                        <h3>推理时发生了什么</h3>
+                        <p>输入文本先被分词器切成 Token 序列，每个 Token 映射为高维向量。Transformer 的自注意力机制（Self-Attention）让每个位置的向量都能"看见"序列中其他所有位置，捕捉远距离依赖关系。模型随后逐个生成输出 Token，每步都是一次概率采样。</p>
+                    </div>
+                    <div class="doc-section" id="section-api">
+                        <h2>API (Application Programming Interface)</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">应用程序编程接口</p>
+                        <h3>它是什么</h3>
+                        <p>API 是两个程序之间约定好的通信接口。调用方按照接口规范发送请求，提供方处理后返回结果，双方不需要知道对方内部的实现细节。对于 LLM 来说，API 是外部程序访问模型推理能力的唯一入口。</p>
+                        <h3>一次 API 调用发生了什么</h3>
+                        <p>客户端向服务端发送一个 HTTP POST 请求，请求体是 JSON 格式，包含模型名称、消息列表、温度等参数。服务端收到后将消息转成 Token 序列，送入模型推理，再将输出 Token 解码为文本，以 JSON 格式返回。整个过程是无状态的——服务端不记录上下文，每次调用都是独立的。</p>
+                        <h3>REST vs Streaming</h3>
+                        <p>默认的 REST 模式下，客户端等待模型生成完毕后一次性收到完整响应。Streaming 模式下，服务端通过 SSE（Server-Sent Events）逐 Token 推送，客户端可以边收边显示，适合对延迟敏感的场景。大多数 LLM API 两种模式都支持，通过请求参数 <code>stream: true</code> 切换。</p>
+                        <h3>鉴权与限流</h3>
+                        <p>调用时需要在请求头中携带 API Key（<code>Authorization: Bearer sk-...</code>），服务端以此识别调用方身份并记账。每个 Key 有 RPM（每分钟请求数）和 TPM（每分钟 Token 数）两个维度的限流，超出后返回 429 错误。</p>
+                    </div>
+                    <div class="doc-section" id="section-agent">
+                        <h2>Agent (Autonomous Agent)</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">自治智能体</p>
+                        <h3>它做什么</h3>
+                        <p>Agent 是把 LLM 放进一个循环里的架构。单次调用 LLM 只能回答一个问题；Agent 让它在每次回答后决定下一步行动，直到任务完成。</p>
+                        <h3>循环结构</h3>
+                        <p>每轮循环包含：观察当前状态 → 推理下一步 → 选择并执行工具（搜索、读文件、写代码、调 API）→ 将执行结果写回上下文 → 进入下一轮。终止条件由任务目标或最大步数限制决定。</p>
+                        <h3>记忆系统</h3>
+                        <p>短期记忆是当前对话的 Context 窗口，有长度上限；长期记忆依赖外部 Vector DB，通过相似度检索按需加载。两者组合决定了 Agent 在多轮任务中能记住多少信息。</p>
+                    </div>
+                    <div class="doc-section" id="section-mcp">
+                        <h2>MCP (Model Context Protocol)</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">模型上下文协议</p>
+                        <h3>它解决什么问题</h3>
+                        <p>LLM 本身无法主动读取文件、查询数据库或执行代码，每个工具都需要定制集成，维护成本高。MCP 定义了一套标准接口，让任何工具只需实现一次协议，就能被所有支持 MCP 的客户端调用。</p>
+                        <h3>架构</h3>
+                        <p>分为三层：Host（如 IDE 或 Claude Desktop）管理整体生命周期；Client 负责与 Server 建立连接；Server 向外暴露具体工具和资源。LLM 通过 JSON-RPC 与 Server 通信，在授权范围内执行操作。</p>
+                        <h3>与 A2A / ACP 的关系</h3>
+                        <p>MCP 处理的是模型与工具之间的连接；A2A（Agent-to-Agent）处理的是多个 Agent 之间的协作分工；ACP（Agent Communication Protocol）处理分布式 Agent 网络中的异步消息传递。三个协议各自负责不同层级。</p>
+                    </div>
+                    <div class="doc-section" id="section-token">
+                        <h2>Token</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">语言模型的基本计算单元</p>
+                        <h3>什么是 Token</h3>
+                        <p>Token 是分词器将原始文本切分后的最小单位，可以是一个完整的词、一个词的一部分、一个标点或几个字节。英文大约每 4 个字符对应 1 个 Token；中文因为字符密度更高，比例会有所不同。</p>
+                        <h3>计费方式</h3>
+                        <p>API 调用会计费两次：输入时按发送给模型的 Token 数计算一次，模型生成回复后再按输出 Token 数计算一次。输出 Token 的单价是输入的 3 到 10 倍，因为每个输出 Token 都需要完整执行一次前向传播。</p>
+                        <h3>对系统设计的影响</h3>
+                        <p>Context 窗口有 Token 上限，超出即被截断。输出成本更高的定价结构，使得"让模型少说话、精确说"成为降本的核心方向，也是 Prompt 工程和输出格式控制的主要动机之一。</p>
+                    </div>
+                    <div class="doc-section" id="section-prompt">
+                        <h2>Prompt & Context</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">提示词与上下文工程</p>
+                        <h3>Prompt 是什么</h3>
+                        <p>Prompt 是发送给模型的完整输入，通常分为 System Prompt（设定角色、规则、输出格式）和 User Message（当次用户指令）。System Prompt 在每次调用时都会发送，直接占用 Context 配额并产生计费。</p>
+                        <h3>Context 的限制</h3>
+                        <p>Context 窗口是模型在单次推理中能处理的最大 Token 数。窗口内的所有内容——系统指令、历史对话、工具返回值、RAG 文档——共享同一个上限。信息量超过窗口后，早期内容会被截断丢失。</p>
+                        <h3>Lost in the Middle 效应</h3>
+                        <p>研究表明，模型对 Context 首尾的内容注意力最强，对中间段落的处理精度明显下降。这意味着重要信息的位置会影响模型的实际表现，不能假设放进 Context 就等于模型会正确使用。</p>
+                    </div>
+                    <div class="doc-section" id="section-workflow">
+                        <h2>Workflow</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">智能体工作流</p>
+                        <h3>它做什么</h3>
+                        <p>Workflow 是将多个 LLM 调用和工具执行串联成有序流程的架构模式。与单次对话不同，Workflow 可以跨越多步、多模型、多工具完成一个完整任务。</p>
+                        <h3>两种主要模式</h3>
+                        <p>确定性 Workflow 的执行路径由代码预先定义，每步的输入输出都有明确规范，适合流程固定的生产场景；自主 Workflow 让 Agent 自行决定每步调用什么、何时终止，灵活性更高但结果稳定性更低。</p>
+                        <h3>错误处理</h3>
+                        <p>多步任务中，单步失败会级联影响后续步骤。工程上通常设置重试机制、步骤级回滚和最大循环次数限制，防止 Agent 在错误状态中无限迭代。</p>
+                    </div>
+                    <div class="doc-section" id="section-skills">
+                        <h2>Skills</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">技能模块</p>
+                        <h3>它解决什么问题</h3>
+                        <p>Agent 在执行特定任务时需要专项知识，比如如何操作某个 API、遵守哪些代码规范。如果把所有知识都写入 System Prompt，Context 会迅速膨胀，且大部分内容在当前任务中用不到。</p>
+                        <h3>工作方式</h3>
+                        <p>技能以独立文件（通常是 .md 或 .json）存储，每个文件描述一种能力的操作规范。Agent 在判断当前任务需要某项技能时，才将对应文件加载进 Context，其余时间不占用窗口空间。</p>
+                        <h3>设计原则</h3>
+                        <p>每个技能文件应当职责单一、边界清晰，便于 Agent 准确判断何时加载。过度宽泛的技能描述会导致误加载，反而增加无效 Token 消耗。</p>
+                    </div>
+                    <div class="doc-section" id="section-a2a">
+                        <h2>A2A & ACP</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">智能体间通信协议</p>
+                        <h3>为什么需要 Agent 间协议</h3>
+                        <p>单个 Agent 的能力受 Context 窗口和专项知识的限制。将复杂任务拆分给多个专职 Agent 并行处理，再汇总结果，是突破单 Agent 上限的主要方式。但多 Agent 协作需要标准化的通信接口，否则每对 Agent 之间都要定制集成。</p>
+                        <h3>A2A 与 ACP 的区别</h3>
+                        <p>A2A（Agent-to-Agent Protocol）定义的是 Agent 之间如何协商任务分工、传递子任务和返回结果；ACP（Agent Communication Protocol）更偏向底层，处理分布式环境中异步消息的格式、路由和确认机制。</p>
+                        <h3>与 MCP 的分层关系</h3>
+                        <p>MCP 负责 Agent 与外部工具的连接，A2A/ACP 负责 Agent 与 Agent 之间的连接。三者在不同层级各自工作，组合使用可以构建跨模型、跨工具的多智能体系统。</p>
+                    </div>
+                    <div class="doc-section" id="section-vibe">
+                        <h2>Vibe Coding</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">自然语言驱动的编程范式</p>
+                        <h3>它是什么</h3>
+                        <p>Vibe Coding 指完全用自然语言描述意图，让 AI 生成并迭代代码，开发者不直接编写也不逐行审查源码的编程方式。由 Andrej Karpathy 在 2025 年初提出并命名。核心前提是：模型的代码能力已经足够强，人工介入的边际价值在许多场景下低于让模型自行迭代的成本。</p>
+                        <h3>工作方式</h3>
+                        <p>开发者描述想要的功能或行为，Agent 生成代码并运行，将报错和输出反馈给模型，模型再修正，循环直到结果符合预期。开发者的主要工作从"写代码"变成"描述目标、验证结果、决定是否接受"。</p>
+                        <h3>适用边界</h3>
+                        <p>在原型验证、个人工具、一次性脚本等场景效率显著。在需要长期维护、多人协作或强安全约束的生产代码库中，完全不审查代码会积累隐性技术债，且模型生成的代码在跨文件依赖复杂时容易引入难以回滚的错误。</p>
+                    </div>
+                    <div class="doc-section" id="section-spec">
+                        <h2>Spec-Driven Development</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">规格驱动开发</p>
+                        <h3>它是什么</h3>
+                        <p>Spec-Driven Development 是在让 AI 写代码之前，先用自然语言写一份结构化的规格文档（Spec），明确定义系统行为、边界条件、数据结构和验收标准，再将 Spec 作为 Agent 的执行依据。它是对 Vibe Coding 的约束层——保留了自然语言驱动的效率，同时给 Agent 的行为划定了可验证的边界。</p>
+                        <h3>Spec 包含什么</h3>
+                        <p>通常包括：功能目标与非目标（明确排除什么）、输入输出的数据契约、错误处理策略、禁止修改的文件或模块范围、验收测试的通过条件。Codex 的 <code>AGENTS.md</code> 和 Cursor 的 Rules 文件本质上都是这一思路的具体实现。</p>
+                        <h3>为什么需要它</h3>
+                        <p>Agent 在没有明确约束时倾向于以"让测试通过"为目标，而不是"实现正确行为"——它可能删除测试、硬编码返回值、或修改不该动的文件。Spec 的作用是在任务开始前把"什么算对"说清楚，使 Agent 的自主决策空间收窄到可接受的范围内。</p>
+                    </div>
+                </section>
+                <!-- Tab 2: PC工具分析（原版文案） -->
+                <section class="tab-panel" id="panel-tab2">
+                    <header class="doc-header">
+                        <h1 class="doc-title">PC工具分析</h1>
+                        <p class="doc-subtitle">主流 AI 编程工具深度分析</p>
+                    </header>
+                    <div class="doc-section" id="section-openclaw">
+                        <h2>OpenClaw</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">跨平台 AI Agent 网关</p>
+                        <h3>它是什么</h3>
+                        <p>2026开年最火爆的小龙虾，腾讯甚至在深圳给人批量免费安装。开源的 Agent 网关服务，以后台守护进程方式运行，接管消息通讯平台（如 Telegram、Discord）的传入载荷，解析用户意图后将指令分发给本地 Ollama 实例或云端 API，执行完成后回传结果。内置基于 <code>SKILL.md</code> 的技能编排树和工具调用鉴权模块。</p>
+                        <h3>核心特点</h3>
+                        <p>完全本地化运行，数据不经过第三方服务器。支持 x402 协议的微支付模块用于推理路由计费。通过技能插件可接管操作系统底层权限，实现文件操作、命令执行等系统级任务。</p>
+                        <h3>主要缺点</h3>
+                        <p>底层架构复杂，运行环境配置容易出错，对非技术用户不友好。深度系统访问权限在配置不当时存在安全风险。</p>
+                        <h3>适用人群</h3>
+                        <p>注重数据隐私的个人开发者、需要在内网搭建自动化工作流的中小团队、偏好完全自托管方案的工程师。</p>
+                        <h3>下载与安装</h3>
+                        <p>终端执行官方安装脚本：<code>curl -fsSL https://openclaw.bot/install.sh | bash</code>。Windows 用户需先安装 WSL2。</p>
+                        <h3>避雷要点</h3>
+                        <p>1. 安装时注意环境变量 PATH 配置，否则会出现 "command not found" 错误。<br>2. Docker 安装需分配至少 2GB RAM，防止内存溢出。<br>3. 网关端口不要暴露于公网，必须绑定到 <code>127.0.0.1</code> 回环地址。<br>4. 从 ClawHub 安装第三方技能时存在供应链攻击风险，建议开启"仅限工作区文件系统访问"权限。</p>
+                    </div>
+                    <div class="doc-section" id="section-claude-code">
+                        <h2>Claude Code</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">Anthropic 发布的终端原生 AI 编程 Agent</p>
+                        <h3>它是什么</h3>
+                        <p>Claude Code 是运行在终端里的命令行 Agent，直接操作本地文件系统、执行 Shell 命令、读写代码库，不依赖 IDE 界面。与 Cursor 等编辑器集成方案不同，它以 CLI 为主交互面，适合在任何环境下（包括 SSH 远程服务器、CI 流水线）运行。</p>
+                        <h3>工作方式</h3>
+                        <p>在项目根目录启动后，Claude Code 会读取目录结构和相关文件作为上下文，接收自然语言任务描述，自主决定读哪些文件、改哪些文件、执行什么命令。每次涉及写操作时默认要求人工确认，可通过 <code>--dangerously-skip-permissions</code> 参数跳过（适合在隔离沙盒中使用）。</p>
+                        <h3>CLAUDE.md</h3>
+                        <p>项目根目录的 <code>CLAUDE.md</code> 文件是 Claude Code 的行为约束文件，等同于 Spec-Driven Development 中的 Spec。可在其中定义禁止修改的文件范围、测试命令、代码风格要求、架构说明。Claude Code 在每次任务开始前会优先读取这个文件。</p>
+                        <h3>与其他工具的定位差异</h3>
+                        <p>Cursor 和 VSCode Copilot 的使用场景是"边写边看"，适合需要同步审查代码的开发者；Claude Code 更接近"交代任务、异步验收"，适合处理范围明确的重构、批量修改、跨文件联动等任务。两者可以配合使用而非互斥。<br>和Openclaw一样有强大的skill目录册，规划能力极强。</p>
+                        <h3>安装</h3>
+                        <p>需要 Node.js 18+。执行 <code>npm install -g @anthropic-ai/claude-code</code> 安装，在项目目录运行 <code>claude</code> 启动。首次使用需要通过 Anthropic 账号完成授权。</p>
+                        <h3>绕过登录方法</h3>
+                        <p>在终端的环境变量设置了 ANTHROPIC_API_KEY，Claude Code 在启动时会检测到它，并优先使用 API 计费模式，跳过浏览器登录流程。</p>
+                    </div>
+                    <div class="doc-section" id="section-cursor">
+                        <h2>Cursor</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">深度集成 LLM 的 AI 代码编辑器</p>
+                        <h3>它是什么</h3>
+                        <p>基于 VS Code 开源分支构建的编辑器，在代码库中内嵌了向量数据库（Vector DB），使模型能够检索整个项目的相关代码片段作为上下文。编辑器会隐式捕获光标位置、LSP 诊断信息和相邻文件变更，将其打包发送给推理服务器，返回差异补丁（Diff）并直接应用到源码中。</p>
+                        <h3>核心特点</h3>
+                        <p>Composer 多文件编辑引擎、本地向量库索引、支持在同一工作区灵活切换底层模型（如用 Claude 处理复杂逻辑，用其他模型处理简单补全）。</p>
+                        <h3>主要缺点</h3>
+                        <p>Pro 计划名义上 $20/月，但开启后台 Agent 或调用高级模型后实际费用经常达到 $40–50。平台闭源，存在供应商锁定风险。代码会发送至第三方 API，处理机密源码时需注意。</p>
+                        <h3>适用人群</h3>
+                        <p>追求高效率的独立开发者、初创团队、习惯同步审查代码的学生群体。</p>
+                        <h3>下载与安装</h3>
+                        <p>前往 <a href="https://cursor.sh" target="_blank">cursor.sh</a> 下载对应平台的安装包，首次启动时可选择导入现有 VS Code 的扩展、快捷键和配置。</p>
+                        <h3>避雷要点</h3>
+                        <p>1. 默认 "Auto" 模式虽然调用内部轻量模型不额外计费，但一旦触发后台 Agent 或手动切换到 Claude / GPT 系列模型执行任务，高级积分会快速消耗。<br>2. 重度使用时需持续关注后台请求状态，避免不知情的超额扣费。<br>3. 涉及机密源码时，应评估代码发送至第三方 API 的数据风险。</p>
+                    </div>
+                    <div class="doc-section" id="section-antigravity">
+                        <h2>Antigravity</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">Google 发布的 Agent 优先异步协同 IDE</p>
+                        <h3>它是什么</h3>
+                        <p>Google 发布的编辑器，底层引入了任务编排与状态机逻辑，依托 Gemini 3.1 Pro 的超长上下文窗口实现多 Agent 并行调度。用户通过"控制中心（Manager Surface）"发布高层任务需求，系统实例化多个专职 Agent 并行执行（编码、测试、文档阅读等），生成截图、执行日志、计划书等可验证产出供人工异步审核。</p>
+                        <h3>核心特点</h3>
+                        <p>Agent 优先的管理器界面、无头 Chrome 预览、多 Agent 并行调度、可验证产出供异步审核。</p>
+                        <h3>主要缺点</h3>
+                        <p>产品仍处于预览阶段，存在"过度自治"问题——Agent 有时会自行删除大量关联代码。目前缺乏轻量级对话模式，处理简单任务时显得臃肿。</p>
+                        <h3>适用人群</h3>
+                        <p>全栈开发者、深耕 Google Cloud 生态的工程师、需要多 Agent 协同处理复杂工程的团队。</p>
+                        <h3>下载与安装</h3>
+                        <p>访问 <a href="https://antigravity.google/download" target="_blank">antigravity.google/download</a> 下载 x64 或 ARM64 的 .exe 安装包。安装时可能触发 Windows Defender 警告，点击"更多信息"后选择"仍要运行"。</p>
+                        <h3>避雷要点</h3>
+                        <p>1. 使用前确保 Git 工作区处于干净的已提交状态，防止 Agent 产生幻觉后大面积改写代码导致无法回滚。<br>2. Agent 具有较高的代码修改自主权，授权前需明确任务边界。<br>3. 目前仅对个人 Gmail 账号提供免费预览，企业场景需注意权限限制。</p>
+                    </div>
+                    <div class="doc-section" id="section-codex">
+                        <h2>Codex</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">OpenAI 云端代码 Agent</p>
+                        <h3>它是什么</h3>
+                        <p>OpenAI 的云端代码执行 Agent，在隔离的云端沙盒虚拟机中异步运行，能够自主执行代码、运行测试、提交 Pull Request。任务约束通过项目根目录的 <code>AGENTS.md</code> 文件定义，Agent 在整个执行周期内依照该文件的规则行事。</p>
+                        <h3>核心特点</h3>
+                        <p>云端沙盒异步执行、支持无限并发 VM、自动提交 PR、通过 <code>AGENTS.md</code> 约束架构规范和测试规则。</p>
+                        <h3>主要缺点</h3>
+                        <p>黑盒运行，开发者无法在执行过程中介入学习。<code>AGENTS.md</code> 配置不当会导致 Agent 在云端陷入无限报错重试循环，消耗大量 Token 配额。订阅费用高，ChatGPT Pro 计划每月 $200。</p>
+                        <h3>适用人群</h3>
+                        <p>资金充足的企业团队、需要大规模重构庞大代码库的架构师、追求全自动化开发流程的组织。</p>
+                        <h3>下载与安装</h3>
+                        <p>无需本地安装。在 OpenAI 平台注册并订阅对应计划后，通过网页端或 API 使用。解锁高并发能力需订阅 ChatGPT Pro（$200/月）。</p>
+                        <h3>避雷要点</h3>
+                        <p>1. 必须在项目根目录严谨配置 <code>AGENTS.md</code>，明确测试命令、Lint 规则和禁止修改的文件范围。<br>2. 测试环境或 Lint 规则配置有误时，Agent 会在云端反复重试失败任务，Token 消耗难以预估。<br>3. 黑盒机制意味着执行过程不透明，不适合需要理解代码变更逻辑的学习场景。</p>
+                    </div>
+                    <div class="doc-section" id="section-ollama">
+                        <h2>Ollama</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">本地大模型运行时</p>
+                        <h3>它是什么</h3>
+                        <p>基于 <code>llama.cpp</code> 构建的本地模型运行工具，用一条命令完成模型下载和启动。对模型权重做 GGUF 格式的量化压缩（如 4-bit 量化），在显存不足时也能以较低精度运行。对外暴露兼容 OpenAI 格式的 REST API，端口默认为 11434。</p>
+                        <h3>核心特点</h3>
+                        <p>一行命令部署、标准 REST API、支持 DeepSeek / Llama 4 等主流开源模型、自动调用 CUDA / Metal / AVX 硬件加速。</p>
+                        <h3>主要缺点</h3>
+                        <p>运行大参数模型对硬件要求较高：模型权重需要尽量完整加载进显存（VRAM），显存不足时会降速使用系统内存，延迟会显著上升。没有独立显卡的设备运行 70B 以上模型基本不可用。</p>
+                        <h3>适用人群</h3>
+                        <p>需要处理机密代码的研发部门、做本地 RAG 研究的学者、受制于网络环境无法稳定调用云端 API 的开发者。</p>
+                        <h3>下载与安装</h3>
+                        <p>macOS：<code>brew install ollama</code><br>Linux：<code>curl -fsSL https://ollama.com/install.sh | sh</code><br>Windows：前往 <a href="https://ollama.com" target="_blank">ollama.com</a> 下载可视化安装包。<br>安装后运行 <code>ollama run llama3.2</code> 验证是否正常工作。</p>
+                        <h3>避雷要点</h3>
+                        <p>1. Docker 安装时必须挂载数据卷（<code>-v ollama:/root/.ollama</code>），否则容器重启后模型文件会丢失，需重新下载。<br>2. 默认 11434 端口只监听本地回环地址，局域网内其他设备无法直接调用，需手动配置端口转发。</p>
+                    </div>
+                    <div class="doc-section" id="section-vscode">
+                        <h2>VSCode + GitHub Copilot</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">可扩展代码编辑器 + AI 编程助手</p>
+                        <h3>它是什么</h3>
+                        <p>VS Code 基于 Electron 和 Monaco 编辑器内核构建，通过语言服务器协议（LSP）和调试适配器协议（DAP）将 UI 层与语言解析层解耦，所有插件运行在独立的 Node.js 扩展宿主中，不阻塞主编辑器。2026 年版本引入了后台 Agent（Background Agents）和 Agent Skills 机制，可通过 <code>/create-skill</code> 等斜杠命令将重复工作流打包为可复用插件。</p>
+                        <h3>核心特点</h3>
+                        <p>$10/月的 Copilot Pro 订阅、后台 Agent 执行、<code>/create-skill</code> 命令、庞大的插件生态。</p>
+                        <h3>主要缺点</h3>
+                        <p>Copilot 背靠微软大量企业客户，个人 Pro 用户在高峰期容易触发限流，服务会被暂时锁定。处理跨文件复杂逻辑时，平均任务解决时间比 Cursor 慢约 30%。</p>
+                        <h3>适用人群</h3>
+                        <p>不想切换主力 IDE 的企业开发者、初学者、对成本敏感的个人开发者。</p>
+                        <h3>下载与安装</h3>
+                        <p>下载标准版 VS Code 或 VS Code Insiders，在扩展商店搜索安装 <code>GitHub.copilot-chat</code>。</p>
+                        <h3>避雷要点</h3>
+                        <p>1. 单纯依赖聊天对话框时，Copilot 缺乏对整体编译常量和依赖树的理解，需要在项目中维护一份架构说明文档供其检索。<br>2. 触发后台 Agent 前清理不必要的测试文件和日志，避免上下文污染导致请求被拒绝。</p>
+                    </div>
+                </section>
+                <!-- Tab 3: 基座大模型（原版文案） -->
+                <section class="tab-panel" id="panel-tab3">
+                    <header class="doc-header">
+                        <h1 class="doc-title">基座大模型</h1>
+                        <p class="doc-subtitle">主流基座大模型全面介绍</p>
+                    </header>
+                    <div class="doc-section" id="section-vendors">
+                        <h2>厂商生态全景</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">AI 基础设施与模型生态的七大公司</p>
+                        <div class="vendor-ecosystem">
+                            <div class="vendor-item">
+                                <h5>Nvidia</h5>
+                                <p>AI 算力的基础设施层。GPU 硬件加上 CUDA 软件生态形成强绑定，绝大多数深度学习框架的默认加速后端都是 CUDA。</p>
+                            </div>
+                            <div class="vendor-item">
+                                <h5>Microsoft</h5>
+                                <p>OpenAI 的主要投资方，持有 OpenAI 部分股权。通过 GitHub Copilot 和 Azure OpenAI Service 将 AI 能力直接嵌入企业开发和云服务管道。</p>
+                            </div>
+                            <div class="vendor-item">
+                                <h5>Alphabet / Google</h5>
+                                <p>从芯片到应用的全栈布局：自研 TPU 芯片 → Gemini 模型系列 → Antigravity IDE。同时拥有 DeepMind 的基础研究积累。</p>
+                            </div>
+                            <div class="vendor-item">
+                                <h5>OpenAI</h5>
+                                <p>GPT 和 o 系列模型的发布者，API 接口事实上成为行业标准格式，大量第三方工具和推理平台都兼容 OpenAI 的接口规范。</p>
+                            </div>
+                            <div class="vendor-item">
+                                <h5>Anthropic</h5>
+                                <p>Claude 系列模型的发布者，以安全对齐研究和超长上下文窗口见长。Claude 在软件工程评测（SWE-Bench）上长期保持高位。</p>
+                            </div>
+                            <div class="vendor-item">
+                                <h5>Meta</h5>
+                                <p>Llama 系列的发布者，采用开放权重策略，允许商业使用（有条件限制）。Llama 是目前被微调和二次分发最广泛的基础模型之一。</p>
+                            </div>
+                            <div class="vendor-item">
+                                <h5>DeepSeek</h5>
+                                <p>以极低训练成本发布高性能开源模型，MoE 架构的激活参数控制使推理成本大幅低于同级别稠密模型，推动了行业对算力效率预期的重新评估。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doc-section" id="section-openai">
+                        <h2>OpenAI</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">GPT 家族及强化学习推理模型</p>
+                        <div class="model-list">
+                            <div class="model-item">
+                                <h5>GPT-5.4 Thinking <span class="badge closed">闭源</span></h5>
+                                <p>2026年3月发布的最新推理巅峰，专为极高难度的逻辑链路设计。通过大幅进化的隐式链式思考，它在处理跨学科科研、高级架构设计及复杂法律推演时的准确率，已经将前代模型远远甩在身后。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>GPT-5.4 Pro <span class="badge closed">闭源</span></h5>
+                                <p>现阶段最强的旗舰通用模型，主打生产环境中的"零误差"指令遵循。其最大的进化在于对Agent工作流的深度适配，能够稳定处理长达数周的异步任务，是目前专业领域最可靠的全能选母。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>o3 <span class="badge closed">闭源</span></h5>
+                                <p>强化学习推理路线的"扫地僧"，核心优势依然是测试时动态计算（Test-Time Compute）。在纯数学竞赛、算法竞赛等不需要常识辅助、仅凭纯逻辑硬碰硬的领域，它依然保有极高的统治力。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>GPT-5.4 mini <span class="badge closed">闭源</span></h5>
+                                <p>性价比与性能平衡的怪物级别产品。虽然定位是"小型"模型，但其在代码编写和逻辑常识上的得分已经超越了去年的 GPT-4.5 旗舰版，且响应延迟极低，。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>GPT-OSS-120B <span class="badge open">开源</span></h5>
+                                <p>OpenAI 发布的 120B 参数开源模型，面向科研社区和有私有化部署需求的企业。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doc-section" id="section-google">
+                        <h2>Google</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">Gemini 多模态系列及 Gemma 开放权重模型</p>
+                        <div class="model-list">
+                            <div class="model-item">
+                                <h5>Gemini 3.1 Pro <span class="badge closed">闭源</span></h5>
+                                <p>Google 目前最强的旗舰通用模型。采用全新的稀疏混合专家（MoE）架构，支持 200 万 token 超长上下文，在处理长视频分析、女男复杂协作文档以及大规模跨模态检索时表现极佳。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>Gemini 3 Deep Think <span class="badge closed">闭源</span></h5>
+                                <p>专门对标深度推理路线的模型。通过强化学习与搜索算法结合，在解决奥数级数学、高难度系统架构及前沿生物化学模拟等领域具备惊人的逻辑深度。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>Gemini 3.1 Flash <span class="badge closed">闭源</span></h5>
+                                <p>兼顾性能与极致响应速度的模型。支持高频实时交互，其文字与图像的端到端理解能力相比前代有质的飞跃，是目前低延迟应用场景的首选。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>Gemma 4 (31B Dense) <span class="badge open">开源</span></h5>
+                                <p>2026 年 4 月发布的顶级开源模型，协议已转为 Apache 2.0。在数学和逻辑指标上超越了诸多 70B 级模型，并首次在开源阵列中实现了原生视觉与音频理解能力。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>Gemma 4 (26B MoE) <span class="badge open">开源</span></h5>
+                                <p>采用混合专家架构的高效率开源标杆。运行时仅激活约 4B 参数，使得普通的开发者在单张家用级显卡上也能运行具备顶级逻辑能力的智能体任务。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doc-section" id="section-anthropic">
+                        <h2>Anthropic</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">Claude 宪法 AI 模型矩阵</p>
+                        <div class="model-list">
+                            <div class="model-item">
+                                <h5>Claude 4.6 Opus <span class="badge closed">闭源</span></h5>
+                                <p>2026 年最新旗舰模型，适用于高复杂度逻辑推理、多步 API 集成和长周期规划任务。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>Claude 4.6 Sonnet <span class="badge closed">闭源</span></h5>
+                                <p>在代码生成和 AST 重构任务上速度与精度平衡较好，是 Cursor 等编辑器的主要集成模型之一。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>Claude 4.0 Haiku <span class="badge closed">闭源</span></h5>
+                                <p>针对大规模并行处理和轻量级文本提取优化的快速模型，延迟和成本在 Claude 系列中最低。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>Claude 3.5 Sonnet <span class="badge closed">闭源</span></h5>
+                                <p>上一代软件工程任务的主力模型，SWE-Bench 评分曾长期领先，目前被广泛集成于自动代码审查流水线中。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>Claude 3.5 Haiku <span class="badge closed">闭源</span></h5>
+                                <p>上一代低延迟模型，成本效益在当时的 Claude 系列中最高。Anthropic 目前不开放模型权重。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doc-section" id="section-deepseek">
+                        <h2>DeepSeek（深度求索）</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">高性能开源混合专家架构模型</p>
+                        <div class="model-list">
+                            <div class="model-item">
+                                <h5>DeepSeek-V3 <span class="badge open">开源</span></h5>
+                                <p>671B 总参数的 MoE 架构模型，每次推理只激活约 37B 参数。采用无辅助损失负载均衡和 FP8 混合精度训练，将训练成本控制在远低于同规模稠密模型的水平。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>DeepSeek-R1 <span class="badge open">开源</span></h5>
+                                <p>通过大规模强化学习训练的推理模型，完整开源了链式思考机制和奖励模型细节，是目前少数公开推理训练细节的模型之一。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>DeepSeek-Coder-V2 <span class="badge open">开源</span></h5>
+                                <p>针对代码任务微调，支持 80+ 种编程语言，在跨文件上下文关联和库级代码理解方面表现较好。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>DeepSeek-VL2 <span class="badge open">开源</span></h5>
+                                <p>多模态视觉语言模型，可用于 UI 截图反解和图表数据提取任务。</p>
+                            </div>
+                            <div class="model-item">
+                                <h5>DeepSeek-Math <span class="badge open">开源</span></h5>
+                                <p>专注数学任务的小参数模型，针对定理证明、LaTeX 公式推导和符号计算环境优化。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doc-section" id="section-pricing">
+                        <h2>闭源模型定价表</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">主流闭源模型的 API 调用成本对比</p>
+                        <div class="pricing-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>模型</th>
+                                        <th>厂商</th>
+                                        <th>核心优势</th>
+                                        <th>输入价格 / 百万 Token</th>
+                                        <th>输出价格 / 百万 Token</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>GPT-5.4</td>
+                                        <td>OpenAI</td>
+                                        <td>编码 + 计算机操控 + 知识工作三合一旗舰（SWE-Bench Pro 57.7%）</td>
+                                        <td>$2.50</td>
+                                        <td>$15.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GPT-5.3 Codex</td>
+                                        <td>OpenAI</td>
+                                        <td>终端与 CLI 密集型工程任务，输入成本低于 GPT-5.4</td>
+                                        <td>$1.75</td>
+                                        <td>$14.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gemini 3.1 Pro</td>
+                                        <td>Google</td>
+                                        <td>百万 Token 上下文，ARC-AGI-2 77.1%，Antigravity 底层驱动</td>
+                                        <td>$2.00</td>
+                                        <td>$12.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Claude Opus 4.6</td>
+                                        <td>Anthropic</td>
+                                        <td>软件工程与多步推理（SWE-Bench Verified 领先）</td>
+                                        <td>$15.00</td>
+                                        <td>$75.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Grok 4</td>
+                                        <td>xAI</td>
+                                        <td>内置 X 实时搜索，256K 上下文，always-on 推理</td>
+                                        <td>$3.00</td>
+                                        <td>$15.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="doc-section" id="section-opensource">
+                        <h2>开源模型对比表</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">主流开源模型的架构与性能对比</p>
+                        <div class="opensource-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>模型</th>
+                                        <th>厂商</th>
+                                        <th>架构 / 参数</th>
+                                        <th>核心优势</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>DeepSeek V3.2</td>
+                                        <td>DeepSeek</td>
+                                        <td>MoE 671B 总 / 37B 激活</td>
+                                        <td>低训练成本，GSM8K 96.0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MiniMax-M2.5</td>
+                                        <td>MiniMax</td>
+                                        <td>MoE 229B 总 / 10B 激活</td>
+                                        <td>推理能效高，SWE-Bench 80.2%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Llama 4 Scout</td>
+                                        <td>Meta</td>
+                                        <td>109B 总 / 17B 激活</td>
+                                        <td>1000 万 Token 上下文窗口</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Qwen3 VL 235B</td>
+                                        <td>Alibaba</td>
+                                        <td>235B 多模态</td>
+                                        <td>GUI 自动化视觉识别</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kimi K2.5</td>
+                                        <td>Moonshot AI</td>
+                                        <td>MoE 1T 总 / 32B 激活</td>
+                                        <td>UI 设计稿转 React 代码</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gemma 4 31B</td>
+                                        <td>Google</td>
+                                        <td>31B 稠密，Apache 2.0</td>
+                                        <td>Arena AI 排行 #3，AIME 2026 89.2%，LiveCodeBench 80.0%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="doc-section" id="section-channels">
+                        <h2>模型获取渠道</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">三种主流分发方式与使用建议</p>
+                        <div class="distribution-channels">
+                            <div class="channel-item">
+                                <h5>官方直接订阅与 API</h5>
+                                <p>在厂商官网注册并绑卡获取 API Key，适合需要稳定 SLA 保障的生产环境。延迟和可用性通常优于中转服务，但各厂商接口格式不统一，多模型切换需要适配。</p>
+                            </div>
+                            <div class="channel-item">
+                                <h5>AI 聚合中转平台</h5>
+                                <p>通过 OpenRouter、Fireworks.ai 等平台调用，统一接口格式，支持按需切换多家厂商模型，统一计费。适合需要频繁对比模型或降低接入成本的场景，但多一层中转意味着多一个延迟节点。</p>
+                            </div>
+                            <div class="channel-item">
+                                <h5>本地部署</h5>
+                                <p>HuggingFace <code>https://huggingface.co/</code> 或 Ollama 可以下载开源模型权重到本地运行，数据不离开本机。适合隐私敏感或离线场景，但需要匹配的硬件资源，大参数模型对显存要求较高。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <aside class="doc-toc">
+                <div class="toc-title">目录</div>
+                <ul class="toc-list" id="toc-list">
+                </ul>
+            </aside>
+        </div>
+        <!-- ===================================
+             电脑端 - Tab4: 教程资源
+             =================================== -->
+        <div class="desktop-only main-content">
+            <div class="doc-content">
+                <section class="tab-panel" id="panel-tab4">
+                    <header class="doc-header">
+                        <h1 class="doc-title">教程资源</h1>
+                        <p class="doc-subtitle">学习 AI Engineer 的核心教程与指南</p>
+                    </header>
+                    <div class="doc-section" id="section-vibe-tutorial">
+                        <h2>vibe 教程</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">掌握自然语言驱动的编程范式</p>
+                        <h3>什么是 Vibe Coding</h3>
+                        <p>Vibe Coding 是由 Andrej Karpathy 在 2025 年初提出的全新编程范式。它的核心理念是：开发者完全使用自然语言描述意图，让 AI 生成并迭代代码，开发者不直接编写也不逐行审查源码。模型足够强大时，人工介入的边际价值在许多场景下低于让模型自行迭代的成本。</p>
+                        <h3>入门路径</h3>
+                        <p>1. 选择合适的 AI 编程工具（推荐 Cursor 或 Claude Code）<br>2. 从简单的需求开始：修复 bug、添加小功能、重构代码<br>3. 学会用自然语言精确描述你的需求<br>4. 理解工具的能力边界，不在复杂逻辑上过度依赖 AI</p>
+                        <h3>最佳实践</h3>
+                        <p>使用 Spec-Driven Development 方法，在让 AI 写代码之前先写一份规格文档（Spec），明确定义系统行为、边界条件、数据结构和验收标准。这能确保 AI 的输出符合预期，避免无谓的迭代。</p>
+                    </div>
+                    <div class="doc-section" id="section-install-tutorial">
+                        <h2>工具安装教程</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">主流 AI 编程工具的安装与配置指南</p>
+                        <h3>Cursor 安装</h3>
+                        <p>1. 访问 <a href="https://cursor.sh" target="_blank">cursor.sh</a> 下载对应平台的安装包<br>2. 安装后首次启动时可选择导入现有 VS Code 的扩展、快捷键和配置<br>3. 注册账号并选择订阅计划（Pro 计划 $20/月）<br>4. 在设置中配置 API Key 或使用内置积分</p>
+                        <h3>Claude Code 安装</h3>
+                        <p>1. 确保已安装 Node.js 18+<br>2. 执行 <code>npm install -g @anthropic-ai/claude-code</code><br>3. 在项目目录运行 <code>claude</code> 启动<br>4. 首次使用需要通过 Anthropic 账号完成授权，或设置环境变量 <code>ANTHROPIC_API_KEY</code></p>
+                        <h3>Ollama 安装</h3>
+                        <p>macOS: <code>brew install ollama</code><br>Linux: <code>curl -fsSL https://ollama.com/install.sh | sh</code><br>Windows: 前往 <a href="https://ollama.com" target="_blank">ollama.com</a> 下载可视化安装包<br>安装后运行 <code>ollama run llama3.2</code> 验证</p>
+                        <h3>OpenClaw 安装</h3>
+                        <p>终端执行官方安装脚本：<code>curl -fsSL https://openclaw.bot/install.sh | bash</code><br>Windows 用户需先安装 WSL2</p>
+                    </div>
+                </section>
+            </div>
+            <aside class="doc-toc">
+                <div class="toc-title">目录</div>
+                <ul class="toc-list" id="toc-list-tab4">
+                </ul>
+            </aside>
+        </div>
+        <!-- ===================================
+             电脑端 - Tab5: 项目分享
+             =================================== -->
+        <div class="desktop-only main-content">
+            <div class="doc-content">
+                <section class="tab-panel" id="panel-tab5">
+                    <header class="doc-header">
+                        <h1 class="doc-title">项目分享</h1>
+                        <p class="doc-subtitle">社区成员的优秀项目与案例</p>
+                    </header>
+                    <div class="doc-section" id="section-group-projects">
+                        <h2>群友项目</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">社区成员使用 AI 编程工具开发的优秀项目</p>
+                        <h3>如何提交项目</h3>
+                        <p>如果你使用 vibe coding 方法完成了有趣的项目，欢迎在社区分享。项目类型不限，可以是网站、应用、工具、脚本等。分享时请包含：项目简介、技术栈、实现思路、使用效果截图。</p>
+                        <h3>优质项目标准</h3>
+                        <p>1. 项目完整可运行<br>2. 代码结构清晰，有 README 说明<br>3. 展示了 AI 编程的独特优势<br>4. 对其他成员有学习参考价值</p>
+                    </div>
+                    <div class="doc-section" id="section-platform-projects">
+                        <h2>其它平台项目</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">来自 GitHub、HuggingFace 等平台的开源项目</p>
+                        <h3>推荐关注的开源项目</h3>
+                        <p>1. <strong>OpenClaw</strong> - 跨平台 AI Agent 网关<br>2. <strong>Ollama</strong> - 本地大模型运行时<br>3. <strong>DeepSeek 系列</strong> - 高性能开源模型<br>4. <strong>各模型的微调项目</strong> - 针对特定场景优化的模型</p>
+                        <h3>项目发现渠道</h3>
+                        <p>GitHub Trending、HuggingFace Models、Reddit r/MachineLearning、技术博客等都是发现优质项目的好地方。关注这些渠道可以了解 AI 编程的最新发展趋势。</p>
+                    </div>
+                </section>
+            </div>
+            <aside class="doc-toc">
+                <div class="toc-title">目录</div>
+                <ul class="toc-list" id="toc-list-tab5">
+                </ul>
+            </aside>
+        </div>
+        <!-- ===================================
+             电脑端 - Tab6: 社区分享
+             =================================== -->
+        <div class="desktop-only main-content">
+            <div class="doc-content">
+                <section class="tab-panel" id="panel-tab6">
+                    <header class="doc-header">
+                        <h1 class="doc-title">社区分享</h1>
+                        <p class="doc-subtitle">AI Engineer 学习社区资源汇总</p>
+                    </header>
+                    <div class="doc-section" id="section-community">
+                        <h2>社区资源</h2>
+                        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">学习交流与资源共享</p>
+                        <h3>加入社区</h3>
+                        <p>欢迎加入 AI Engineer 学习群，与志同道合的开发者一起交流学习。这里可以讨论 AI 编程工具的使用技巧、分享项目经验、解决遇到的问题。</p>
+                        <h3>社区规则</h3>
+                        <p>1. 友善交流，尊重他人<br>2. 鼓励分享，乐于助人<br>3. 禁止广告、刷屏等行为<br>4. 积极讨论技术问题，共同进步</p>
+                        <h3>学习建议</h3>
+                        <p>AI 编程是一个快速发展的领域，保持学习的最好方式是：多用工具解决实际问题、多阅读优质项目源码、多参与社区讨论、多关注行业动态。</p>
+                    </div>
+                </section>
+            </div>
+            <aside class="doc-toc">
+                <div class="toc-title">目录</div>
+                <ul class="toc-list" id="toc-list-tab6">
+                </ul>
+            </aside>
+        </div>
+        <!-- ===================================
+             手机端 - 原版折叠卡片布局（100%原版文案）
+             =================================== -->
+        <div class="mobile-only">
+            <header class="mobile-header">
+                <div class="mobile-header-content">
+                    <div class="logo-text">AI Engineer 上车！</div>
+                    <button class="menu-toggle" id="mobileMenuToggle" aria-label="菜单">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </header>
+            <main class="mobile-main-content">
+                <!-- 原版Tab1 -->
+                <div id="tab1" class="tab-content active">
+                    <header>
+                        <h1>名词概念</h1>
+                    </header>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>LLM (Large Language Model)</h3>
+                                <p>大语言模型</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它做什么</h4>
+                            <p>LLM 是一个文字预测系统，训练目标只有一个：给定前面所有的词，预测下一个词的概率分布。这个任务在足够大的数据和参数规模下，会涌现出推理、翻译、代码生成等能力。</p>
+                            <h4>训练过程</h4>
+                            <p>分两阶段。预训练阶段用海量文本做无监督学习，让模型建立语言的统计规律；随后通过 SFT（监督微调）喂给它正确示范，再用 RLHF（基于人类反馈的强化学习）纠正行为偏差，使输出符合人类意图。</p>
+                            <h4>推理时发生了什么</h4>
+                            <p>输入文本先被分词器切成 Token 序列，每个 Token 映射为高维向量。Transformer 的自注意力机制（Self-Attention）让每个位置的向量都能"看见"序列中其他所有位置，捕捉远距离依赖关系。模型随后逐个生成输出 Token，每步都是一次概率采样。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>API (Application Programming Interface)</h3>
+                                <p>应用程序编程接口</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它是什么</h4>
+                            <p>API 是两个程序之间约定好的通信接口。调用方按照接口规范发送请求，提供方处理后返回结果，双方不需要知道对方内部的实现细节。对于 LLM 来说，API 是外部程序访问模型推理能力的唯一入口。</p>
+                            <h4>一次 API 调用发生了什么</h4>
+                            <p>客户端向服务端发送一个 HTTP POST 请求，请求体是 JSON 格式，包含模型名称、消息列表、温度等参数。服务端收到后将消息转成 Token 序列，送入模型推理，再将输出 Token 解码为文本，以 JSON 格式返回。整个过程是无状态的——服务端不记录上下文，每次调用都是独立的。</p>
+                            <h4>REST vs Streaming</h4>
+                            <p>默认的 REST 模式下，客户端等待模型生成完毕后一次性收到完整响应。Streaming 模式下，服务端通过 SSE（Server-Sent Events）逐 Token 推送，客户端可以边收边显示，适合对延迟敏感的场景。大多数 LLM API 两种模式都支持，通过请求参数 <code>stream: true</code> 切换。</p>
+                            <h4>鉴权与限流</h4>
+                            <p>调用时需要在请求头中携带 API Key（<code>Authorization: Bearer sk-...</code>），服务端以此识别调用方身份并记账。每个 Key 有 RPM（每分钟请求数）和 TPM（每分钟 Token 数）两个维度的限流，超出后返回 429 错误。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Agent (Autonomous Agent)</h3>
+                                <p>自治智能体</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它做什么</h4>
+                            <p>Agent 是把 LLM 放进一个循环里的架构。单次调用 LLM 只能回答一个问题；Agent 让它在每次回答后决定下一步行动，直到任务完成。</p>
+                            <h4>循环结构</h4>
+                            <p>每轮循环包含：观察当前状态 → 推理下一步 → 选择并执行工具（搜索、读文件、写代码、调 API）→ 将执行结果写回上下文 → 进入下一轮。终止条件由任务目标或最大步数限制决定。</p>
+                            <h4>记忆系统</h4>
+                            <p>短期记忆是当前对话的 Context 窗口，有长度上限；长期记忆依赖外部 Vector DB，通过相似度检索按需加载。两者组合决定了 Agent 在多轮任务中能记住多少信息。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>MCP (Model Context Protocol)</h3>
+                                <p>模型上下文协议</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它解决什么问题</h4>
+                            <p>LLM 本身无法主动读取文件、查询数据库或执行代码，每个工具都需要定制集成，维护成本高。MCP 定义了一套标准接口，让任何工具只需实现一次协议，就能被所有支持 MCP 的客户端调用。</p>
+                            <h4>架构</h4>
+                            <p>分为三层：Host（如 IDE 或 Claude Desktop）管理整体生命周期；Client 负责与 Server 建立连接；Server 向外暴露具体工具和资源。LLM 通过 JSON-RPC 与 Server 通信，在授权范围内执行操作。</p>
+                            <h4>与 A2A / ACP 的关系</h4>
+                            <p>MCP 处理的是模型与工具之间的连接；A2A（Agent-to-Agent）处理的是多个 Agent 之间的协作分工；ACP（Agent Communication Protocol）处理分布式 Agent 网络中的异步消息传递。三个协议各自负责不同层级。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Token</h3>
+                                <p>语言模型的基本计算单元</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>什么是 Token</h4>
+                            <p>Token 是分词器将原始文本切分后的最小单位，可以是一个完整的词、一个词的一部分、一个标点或几个字节。英文大约每 4 个字符对应 1 个 Token；中文因为字符密度更高，比例会有所不同。</p>
+                            <h4>计费方式</h4>
+                            <p>API 调用会计费两次：输入时按发送给模型的 Token 数计算一次，模型生成回复后再按输出 Token 数计算一次。输出 Token 的单价是输入的 3 到 10 倍，因为每个输出 Token 都需要完整执行一次前向传播。</p>
+                            <h4>对系统设计的影响</h4>
+                            <p>Context 窗口有 Token 上限，超出即被截断。输出成本更高的定价结构，使得"让模型少说话、精确说"成为降本的核心方向，也是 Prompt 工程和输出格式控制的主要动机之一。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Prompt & Context</h3>
+                                <p>提示词与上下文工程</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>Prompt 是什么</h4>
+                            <p>Prompt 是发送给模型的完整输入，通常分为 System Prompt（设定角色、规则、输出格式）和 User Message（当次用户指令）。System Prompt 在每次调用时都会发送，直接占用 Context 配额并产生计费。</p>
+                            <h4>Context 的限制</h4>
+                            <p>Context 窗口是模型在单次推理中能处理的最大 Token 数。窗口内的所有内容——系统指令、历史对话、工具返回值、RAG 文档——共享同一个上限。信息量超过窗口后，早期内容会被截断丢失。</p>
+                            <h4>Lost in the Middle 效应</h4>
+                            <p>研究表明，模型对 Context 首尾的内容注意力最强，对中间段落的处理精度明显下降。这意味着重要信息的位置会影响模型的实际表现，不能假设放进 Context 就等于模型会正确使用。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Workflow</h3>
+                                <p>智能体工作流</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它做什么</h4>
+                            <p>Workflow 是将多个 LLM 调用和工具执行串联成有序流程的架构模式。与单次对话不同，Workflow 可以跨越多步、多模型、多工具完成一个完整任务。</p>
+                            <h4>两种主要模式</h4>
+                            <p>确定性 Workflow 的执行路径由代码预先定义，每步的输入输出都有明确规范，适合流程固定的生产场景；自主 Workflow 让 Agent 自行决定每步调用什么、何时终止，灵活性更高但结果稳定性更低。</p>
+                            <h4>错误处理</h4>
+                            <p>多步任务中，单步失败会级联影响后续步骤。工程上通常设置重试机制、步骤级回滚和最大循环次数限制，防止 Agent 在错误状态中无限迭代。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Skills</h3>
+                                <p>技能模块</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它解决什么问题</h4>
+                            <p>Agent 在执行特定任务时需要专项知识，比如如何操作某个 API、遵守哪些代码规范。如果把所有知识都写入 System Prompt，Context 会迅速膨胀，且大部分内容在当前任务中用不到。</p>
+                            <h4>工作方式</h4>
+                            <p>技能以独立文件（通常是 .md 或 .json）存储，每个文件描述一种能力的操作规范。Agent 在判断当前任务需要某项技能时，才将对应文件加载进 Context，其余时间不占用窗口空间。</p>
+                            <h4>设计原则</h4>
+                            <p>每个技能文件应当职责单一、边界清晰，便于 Agent 准确判断何时加载。过度宽泛的技能描述会导致误加载，反而增加无效 Token 消耗。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>A2A & ACP</h3>
+                                <p>智能体间通信协议</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>为什么需要 Agent 间协议</h4>
+                            <p>单个 Agent 的能力受 Context 窗口和专项知识的限制。将复杂任务拆分给多个专职 Agent 并行处理，再汇总结果，是突破单 Agent 上限的主要方式。但多 Agent 协作需要标准化的通信接口，否则每对 Agent 之间都要定制集成。</p>
+                            <h4>A2A 与 ACP 的区别</h4>
+                            <p>A2A（Agent-to-Agent Protocol）定义的是 Agent 之间如何协商任务分工、传递子任务和返回结果；ACP（Agent Communication Protocol）更偏向底层，处理分布式环境中异步消息的格式、路由和确认机制。</p>
+                            <h4>与 MCP 的分层关系</h4>
+                            <p>MCP 负责 Agent 与外部工具的连接，A2A/ACP 负责 Agent 与 Agent 之间的连接。三者在不同层级各自工作，组合使用可以构建跨模型、跨工具的多智能体系统。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Vibe Coding</h3>
+                                <p>自然语言驱动的编程范式</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它是什么</h4>
+                            <p>Vibe Coding 指完全用自然语言描述意图，让 AI 生成并迭代代码，开发者不直接编写也不逐行审查源码的编程方式。由 Andrej Karpathy 在 2025 年初提出并命名。核心前提是：模型的代码能力已经足够强，人工介入的边际价值在许多场景下低于让模型自行迭代的成本。</p>
+                            <h4>工作方式</h4>
+                            <p>开发者描述想要的功能或行为，Agent 生成代码并运行，将报错和输出反馈给模型，模型再修正，循环直到结果符合预期。开发者的主要工作从"写代码"变成"描述目标、验证结果、决定是否接受"。</p>
+                            <h4>适用边界</h4>
+                            <p>在原型验证、个人工具、一次性脚本等场景效率显著。在需要长期维护、多人协作或强安全约束的生产代码库中，完全不审查代码会积累隐性技术债，且模型生成的代码在跨文件依赖复杂时容易引入难以回滚的错误。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Spec-Driven Development</h3>
+                                <p>规格驱动开发</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它是什么</h4>
+                            <p>Spec-Driven Development 是在让 AI 写代码之前，先用自然语言写一份结构化的规格文档（Spec），明确定义系统行为、边界条件、数据结构和验收标准，再将 Spec 作为 Agent 的执行依据。它是对 Vibe Coding 的约束层——保留了自然语言驱动的效率，同时给 Agent 的行为划定了可验证的边界。</p>
+                            <h4>Spec 包含什么</h4>
+                            <p>通常包括：功能目标与非目标（明确排除什么）、输入输出的数据契约、错误处理策略、禁止修改的文件或模块范围、验收测试的通过条件。Codex 的 <code>AGENTS.md</code> 和 Cursor 的 Rules 文件本质上都是这一思路的具体实现。</p>
+                            <h4>为什么需要它</h4>
+                            <p>Agent 在没有明确约束时倾向于以"让测试通过"为目标，而不是"实现正确行为"——它可能删除测试、硬编码返回值、或修改不该动的文件。Spec 的作用是在任务开始前把"什么算对"说清楚，使 Agent 的自主决策空间收窄到可接受的范围内。</p>
+                        </div>
+                    </details>
+                </div>
+                <!-- 原版Tab2 -->
+                <div id="tab2" class="tab-content">
+                    <header>
+                        <h1>PC工具分析</h1>
+                    </header>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>OpenClaw</h3>
+                                <p>跨平台 AI Agent 网关</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它是什么</h4>
+                            <p>2026开年最火爆的小龙虾，腾讯甚至在深圳给人批量免费安装。开源的 Agent 网关服务，以后台守护进程方式运行，接管消息通讯平台（如 Telegram、Discord）的传入载荷，解析用户意图后将指令分发给本地 Ollama 实例或云端 API，执行完成后回传结果。内置基于 <code>SKILL.md</code> 的技能编排树和工具调用鉴权模块。</p>
+                            <h4>核心特点</h4>
+                            <p>完全本地化运行，数据不经过第三方服务器。支持 x402 协议的微支付模块用于推理路由计费。通过技能插件可接管操作系统底层权限，实现文件操作、命令执行等系统级任务。</p>
+                            <h4>主要缺点</h4>
+                            <p>底层架构复杂，运行环境配置容易出错，对非技术用户不友好。深度系统访问权限在配置不当时存在安全风险。</p>
+                            <h4>适用人群</h4>
+                            <p>注重数据隐私的个人开发者、需要在内网搭建自动化工作流的中小团队、偏好完全自托管方案的工程师。</p>
+                            <h4>下载与安装</h4>
+                            <p>终端执行官方安装脚本：<code>curl -fsSL https://openclaw.bot/install.sh | bash</code>。Windows 用户需先安装 WSL2。</p>
+                            <h4>避雷要点</h4>
+                            <p>1. 安装时注意环境变量 PATH 配置，否则会出现 "command not found" 错误。<br>2. Docker 安装需分配至少 2GB RAM，防止内存溢出。<br>3. 网关端口不要暴露于公网，必须绑定到 <code>127.0.0.1</code> 回环地址。<br>4. 从 ClawHub 安装第三方技能时存在供应链攻击风险，建议开启"仅限工作区文件系统访问"权限。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Claude Code</h3>
+                                <p>Anthropic 发布的终端原生 AI 编程 Agent</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它是什么</h4>
+                            <p>Claude Code 是运行在终端里的命令行 Agent，直接操作本地文件系统、执行 Shell 命令、读写代码库，不依赖 IDE 界面。与 Cursor 等编辑器集成方案不同，它以 CLI 为主交互面，适合在任何环境下（包括 SSH 远程服务器、CI 流水线）运行。</p>
+                            <h4>工作方式</h4>
+                            <p>在项目根目录启动后，Claude Code 会读取目录结构和相关文件作为上下文，接收自然语言任务描述，自主决定读哪些文件、改哪些文件、执行什么命令。每次涉及写操作时默认要求人工确认，可通过 <code>--dangerously-skip-permissions</code> 参数跳过（适合在隔离沙盒中使用）。</p>
+                            <h4>CLAUDE.md</h4>
+                            <p>项目根目录的 <code>CLAUDE.md</code> 文件是 Claude Code 的行为约束文件，等同于 Spec-Driven Development 中的 Spec。可在其中定义禁止修改的文件范围、测试命令、代码风格要求、架构说明。Claude Code 在每次任务开始前会优先读取这个文件。</p>
+                            <h4>与其他工具的定位差异</h4>
+                            <p>Cursor 和 VSCode Copilot 的使用场景是"边写边看"，适合需要同步审查代码的开发者；Claude Code 更接近"交代任务、异步验收"，适合处理范围明确的重构、批量修改、跨文件联动等任务。两者可以配合使用而非互斥。<br>和Openclaw一样有强大的skill目录册，规划能力极强。</p>
+                            <h4>安装</h4>
+                            <p>需要 Node.js 18+。执行 <code>npm install -g @anthropic-ai/claude-code</code> 安装，在项目目录运行 <code>claude</code> 启动。首次使用需要通过 Anthropic 账号完成授权。</p>
+                            <h4>绕过登录方法</h4>
+                            <p>在终端的环境变量设置了 ANTHROPIC_API_KEY，Claude Code 在启动时会检测到它，并优先使用 API 计费模式，跳过浏览器登录流程。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Cursor</h3>
+                                <p>深度集成 LLM 的 AI 代码编辑器</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它是什么</h4>
+                            <p>基于 VS Code 开源分支构建的编辑器，在代码库中内嵌了向量数据库（Vector DB），使模型能够检索整个项目的相关代码片段作为上下文。编辑器会隐式捕获光标位置、LSP 诊断信息和相邻文件变更，将其打包发送给推理服务器，返回差异补丁（Diff）并直接应用到源码中。</p>
+                            <h4>核心特点</h4>
+                            <p>Composer 多文件编辑引擎、本地向量库索引、支持在同一工作区灵活切换底层模型（如用 Claude 处理复杂逻辑，用其他模型处理简单补全）。</p>
+                            <h4>主要缺点</h4>
+                            <p>Pro 计划名义上 $20/月，但开启后台 Agent 或调用高级模型后实际费用经常达到 $40–50。平台闭源，存在供应商锁定风险。代码会发送至第三方 API，处理机密源码时需注意。</p>
+                            <h4>适用人群</h4>
+                            <p>追求高效率的独立开发者、初创团队、习惯同步审查代码的学生群体。</p>
+                            <h4>下载与安装</h4>
+                            <p>前往 <a href="https://cursor.sh" target="_blank">cursor.sh</a> 下载对应平台的安装包，首次启动时可选择导入现有 VS Code 的扩展、快捷键和配置。</p>
+                            <h4>避雷要点</h4>
+                            <p>1. 默认 "Auto" 模式虽然调用内部轻量模型不额外计费，但一旦触发后台 Agent 或手动切换到 Claude / GPT 系列模型执行任务，高级积分会快速消耗。<br>2. 重度使用时需持续关注后台请求状态，避免不知情的超额扣费。<br>3. 涉及机密源码时，应评估代码发送至第三方 API 的数据风险。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Antigravity</h3>
+                                <p>Google 发布的 Agent 优先异步协同 IDE</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它是什么</h4>
+                            <p>Google 发布的编辑器，底层引入了任务编排与状态机逻辑，依托 Gemini 3.1 Pro 的超长上下文窗口实现多 Agent 并行调度。用户通过"控制中心（Manager Surface）"发布高层任务需求，系统实例化多个专职 Agent 并行执行（编码、测试、文档阅读等），生成截图、执行日志、计划书等可验证产出供人工异步审核。</p>
+                            <h4>核心特点</h4>
+                            <p>Agent 优先的管理器界面、无头 Chrome 预览、多 Agent 并行调度、可验证产出供异步审核。</p>
+                            <h4>主要缺点</h4>
+                            <p>产品仍处于预览阶段，存在"过度自治"问题——Agent 有时会自行删除大量关联代码。目前缺乏轻量级对话模式，处理简单任务时显得臃肿。</p>
+                            <h4>适用人群</h4>
+                            <p>全栈开发者、深耕 Google Cloud 生态的工程师、需要多 Agent 协同处理复杂工程的团队。</p>
+                            <h4>下载与安装</h4>
+                            <p>访问 <a href="https://antigravity.google/download" target="_blank">antigravity.google/download</a> 下载 x64 或 ARM64 的 .exe 安装包。安装时可能触发 Windows Defender 警告，点击"更多信息"后选择"仍要运行"。</p>
+                            <h4>避雷要点</h4>
+                            <p>1. 使用前确保 Git 工作区处于干净的已提交状态，防止 Agent 产生幻觉后大面积改写代码导致无法回滚。<br>2. Agent 具有较高的代码修改自主权，授权前需明确任务边界。<br>3. 目前仅对个人 Gmail 账号提供免费预览，企业场景需注意权限限制。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Codex</h3>
+                                <p>OpenAI 云端代码 Agent</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它是什么</h4>
+                            <p>OpenAI 的云端代码执行 Agent，在隔离的云端沙盒虚拟机中异步运行，能够自主执行代码、运行测试、提交 Pull Request。任务约束通过项目根目录的 <code>AGENTS.md</code> 文件定义，Agent 在整个执行周期内依照该文件的规则行事。</p>
+                            <h4>核心特点</h4>
+                            <p>云端沙盒异步执行、支持无限并发 VM、自动提交 PR、通过 <code>AGENTS.md</code> 约束架构规范和测试规则。</p>
+                            <h4>主要缺点</h4>
+                            <p>黑盒运行，开发者无法在执行过程中介入学习。<code>AGENTS.md</code> 配置不当会导致 Agent 在云端陷入无限报错重试循环，消耗大量 Token 配额。订阅费用高，ChatGPT Pro 计划每月 $200。</p>
+                            <h4>适用人群</h4>
+                            <p>资金充足的企业团队、需要大规模重构庞大代码库的架构师、追求全自动化开发流程的组织。</p>
+                            <h4>下载与安装</h4>
+                            <p>无需本地安装。在 OpenAI 平台注册并订阅对应计划后，通过网页端或 API 使用。解锁高并发能力需订阅 ChatGPT Pro（$200/月）。</p>
+                            <h4>避雷要点</h4>
+                            <p>1. 必须在项目根目录严谨配置 <code>AGENTS.md</code>，明确测试命令、Lint 规则和禁止修改的文件范围。<br>2. 测试环境或 Lint 规则配置有误时，Agent 会在云端反复重试失败任务，Token 消耗难以预估。<br>3. 黑盒机制意味着执行过程不透明，不适合需要理解代码变更逻辑的学习场景。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Ollama</h3>
+                                <p>本地大模型运行时</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它是什么</h4>
+                            <p>基于 <code>llama.cpp</code> 构建的本地模型运行工具，用一条命令完成模型下载和启动。对模型权重做 GGUF 格式的量化压缩（如 4-bit 量化），在显存不足时也能以较低精度运行。对外暴露兼容 OpenAI 格式的 REST API，端口默认为 11434。</p>
+                            <h4>核心特点</h4>
+                            <p>一行命令部署、标准 REST API、支持 DeepSeek / Llama 4 等主流开源模型、自动调用 CUDA / Metal / AVX 硬件加速。</p>
+                            <h4>主要缺点</h4>
+                            <p>运行大参数模型对硬件要求较高：模型权重需要尽量完整加载进显存（VRAM），显存不足时会降速使用系统内存，延迟会显著上升。没有独立显卡的设备运行 70B 以上模型基本不可用。</p>
+                            <h4>适用人群</h4>
+                            <p>需要处理机密代码的研发部门、做本地 RAG 研究的学者、受制于网络环境无法稳定调用云端 API 的开发者。</p>
+                            <h4>下载与安装</h4>
+                            <p>macOS：<code>brew install ollama</code><br>Linux：<code>curl -fsSL https://ollama.com/install.sh | sh</code><br>Windows：前往 <a href="https://ollama.com" target="_blank">ollama.com</a> 下载可视化安装包。<br>安装后运行 <code>ollama run llama3.2</code> 验证是否正常工作。</p>
+                            <h4>避雷要点</h4>
+                            <p>1. Docker 安装时必须挂载数据卷（<code>-v ollama:/root/.ollama</code>），否则容器重启后模型文件会丢失，需重新下载。<br>2. 默认 11434 端口只监听本地回环地址，局域网内其他设备无法直接调用，需手动配置端口转发。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>VSCode + GitHub Copilot</h3>
+                                <p>可扩展代码编辑器 + AI 编程助手</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>它是什么</h4>
+                            <p>VS Code 基于 Electron 和 Monaco 编辑器内核构建，通过语言服务器协议（LSP）和调试适配器协议（DAP）将 UI 层与语言解析层解耦，所有插件运行在独立的 Node.js 扩展宿主中，不阻塞主编辑器。2026 年版本引入了后台 Agent（Background Agents）和 Agent Skills 机制，可通过 <code>/create-skill</code> 等斜杠命令将重复工作流打包为可复用插件。</p>
+                            <h4>核心特点</h4>
+                            <p>$10/月的 Copilot Pro 订阅、后台 Agent 执行、<code>/create-skill</code> 命令、庞大的插件生态。</p>
+                            <h4>主要缺点</h4>
+                            <p>Copilot 背靠微软大量企业客户，个人 Pro 用户在高峰期容易触发限流，服务会被暂时锁定。处理跨文件复杂逻辑时，平均任务解决时间比 Cursor 慢约 30%。</p>
+                            <h4>适用人群</h4>
+                            <p>不想切换主力 IDE 的企业开发者、初学者、对成本敏感的个人开发者。</p>
+                            <h4>下载与安装</h4>
+                            <p>下载标准版 VS Code 或 VS Code Insiders，在扩展商店搜索安装 <code>GitHub.copilot-chat</code>。</p>
+                            <h4>避雷要点</h4>
+                            <p>1. 单纯依赖聊天对话框时，Copilot 缺乏对整体编译常量和依赖树的理解，需要在项目中维护一份架构说明文档供其检索。<br>2. 触发后台 Agent 前清理不必要的测试文件和日志，避免上下文污染导致请求被拒绝。</p>
+                        </div>
+                    </details>
+                </div>
+                <!-- 原版Tab3 -->
+                <div id="tab3" class="tab-content">
+                    <header>
+                        <h1>基座大模型</h1>
+                    </header>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>厂商生态全景</h3>
+                                <p>AI 基础设施与模型生态的七大公司</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <div class="vendor-ecosystem">
+                                <div class="vendor-item">
+                                    <h5>Nvidia</h5>
+                                    <p>AI 算力的基础设施层。GPU 硬件加上 CUDA 软件生态形成强绑定，绝大多数深度学习框架的默认加速后端都是 CUDA。</p>
+                                </div>
+                                <div class="vendor-item">
+                                    <h5>Microsoft</h5>
+                                    <p>OpenAI 的主要投资方，持有 OpenAI 部分股权。通过 GitHub Copilot 和 Azure OpenAI Service 将 AI 能力直接嵌入企业开发和云服务管道。</p>
+                                </div>
+                                <div class="vendor-item">
+                                    <h5>Alphabet / Google</h5>
+                                    <p>从芯片到应用的全栈布局：自研 TPU 芯片 → Gemini 模型系列 → Antigravity IDE。同时拥有 DeepMind 的基础研究积累。</p>
+                                </div>
+                                <div class="vendor-item">
+                                    <h5>OpenAI</h5>
+                                    <p>GPT 和 o 系列模型的发布者，API 接口事实上成为行业标准格式，大量第三方工具和推理平台都兼容 OpenAI 的接口规范。</p>
+                                </div>
+                                <div class="vendor-item">
+                                    <h5>Anthropic</h5>
+                                    <p>Claude 系列模型的发布者，以安全对齐研究和超长上下文窗口见长。Claude 在软件工程评测（SWE-Bench）上长期保持高位。</p>
+                                </div>
+                                <div class="vendor-item">
+                                    <h5>Meta</h5>
+                                    <p>Llama 系列的发布者，采用开放权重策略，允许商业使用（有条件限制）。Llama 是目前被微调和二次分发最广泛的基础模型之一。</p>
+                                </div>
+                                <div class="vendor-item">
+                                    <h5>DeepSeek</h5>
+                                    <p>以极低训练成本发布高性能开源模型，MoE 架构的激活参数控制使推理成本大幅低于同级别稠密模型，推动了行业对算力效率预期的重新评估。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>OpenAI</h3>
+                                <p>GPT 家族及强化学习推理模型</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <div class="model-list">
+                                <div class="model-item">
+                                    <h5>GPT-5.4 Thinking <span class="badge closed">闭源</span></h5>
+                                    <p>2026年3月发布的最新推理巅峰，专为极高难度的逻辑链路设计。通过大幅进化的隐式链式思考，它在处理跨学科科研、高级架构设计及复杂法律推演时的准确率，已经将前代模型远远甩在身后。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>GPT-5.4 Pro <span class="badge closed">闭源</span></h5>
+                                    <p>现阶段最强的旗舰通用模型，主打生产环境中的"零误差"指令遵循。其最大的进化在于对Agent工作流的深度适配，能够稳定处理长达数周的异步任务，是目前专业领域最可靠的全能选母。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>o3 <span class="badge closed">闭源</span></h5>
+                                    <p>强化学习推理路线的"扫地僧"，核心优势依然是测试时动态计算（Test-Time Compute）。在纯数学竞赛、算法竞赛等不需要常识辅助、仅凭纯逻辑硬碰硬的领域，它依然保有极高的统治力。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>GPT-5.4 mini <span class="badge closed">闭源</span></h5>
+                                    <p>性价比与性能平衡的怪物级别产品。虽然定位是"小型"模型，但其在代码编写和逻辑常识上的得分已经超越了去年的 GPT-4.5 旗舰版，且响应延迟极低，。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>GPT-OSS-120B <span class="badge open">开源</span></h5>
+                                    <p>OpenAI 发布的 120B 参数开源模型，面向科研社区和有私有化部署需求的企业。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Google</h3>
+                                <p>Gemini 多模态系列及 Gemma 开放权重模型</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <div class="model-list">
+                                <div class="model-item">
+                                    <h5>Gemini 3.1 Pro <span class="badge closed">闭源</span></h5>
+                                    <p>Google 目前最强的旗舰通用模型。采用全新的稀疏混合专家（MoE）架构，支持 200 万 token 超长上下文，在处理长视频分析、女男复杂协作文档以及大规模跨模态检索时表现极佳。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>Gemini 3 Deep Think <span class="badge closed">闭源</span></h5>
+                                    <p>专门对标深度推理路线的模型。通过强化学习与搜索算法结合，在解决奥数级数学、高难度系统架构及前沿生物化学模拟等领域具备惊人的逻辑深度。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>Gemini 3.1 Flash <span class="badge closed">闭源</span></h5>
+                                    <p>兼顾性能与极致响应速度的模型。支持高频实时交互，其文字与图像的端到端理解能力相比前代有质的飞跃，是目前低延迟应用场景的首选。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>Gemma 4 (31B Dense) <span class="badge open">开源</span></h5>
+                                    <p>2026 年 4 月发布的顶级开源模型，协议已转为 Apache 2.0。在数学和逻辑指标上超越了诸多 70B 级模型，并首次在开源阵列中实现了原生视觉与音频理解能力。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>Gemma 4 (26B MoE) <span class="badge open">开源</span></h5>
+                                    <p>采用混合专家架构的高效率开源标杆。运行时仅激活约 4B 参数，使得普通的开发者在单张家用级显卡上也能运行具备顶级逻辑能力的智能体任务。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>Anthropic</h3>
+                                <p>Claude 宪法 AI 模型矩阵</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <div class="model-list">
+                                <div class="model-item">
+                                    <h5>Claude 4.6 Opus <span class="badge closed">闭源</span></h5>
+                                    <p>2026 年最新旗舰模型，适用于高复杂度逻辑推理、多步 API 集成和长周期规划任务。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>Claude 4.6 Sonnet <span class="badge closed">闭源</span></h5>
+                                    <p>在代码生成和 AST 重构任务上速度与精度平衡较好，是 Cursor 等编辑器的主要集成模型之一。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>Claude 4.0 Haiku <span class="badge closed">闭源</span></h5>
+                                    <p>针对大规模并行处理和轻量级文本提取优化的快速模型，延迟和成本在 Claude 系列中最低。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>Claude 3.5 Sonnet <span class="badge closed">闭源</span></h5>
+                                    <p>上一代软件工程任务的主力模型，SWE-Bench 评分曾长期领先，目前被广泛集成于自动代码审查流水线中。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>Claude 3.5 Haiku <span class="badge closed">闭源</span></h5>
+                                    <p>上一代低延迟模型，成本效益在当时的 Claude 系列中最高。Anthropic 目前不开放模型权重。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>DeepSeek（深度求索）</h3>
+                                <p>高性能开源混合专家架构模型</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <div class="model-list">
+                                <div class="model-item">
+                                    <h5>DeepSeek-V3 <span class="badge open">开源</span></h5>
+                                    <p>671B 总参数的 MoE 架构模型，每次推理只激活约 37B 参数。采用无辅助损失负载均衡和 FP8 混合精度训练，将训练成本控制在远低于同规模稠密模型的水平。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>DeepSeek-R1 <span class="badge open">开源</span></h5>
+                                    <p>通过大规模强化学习训练的推理模型，完整开源了链式思考机制和奖励模型细节，是目前少数公开推理训练细节的模型之一。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>DeepSeek-Coder-V2 <span class="badge open">开源</span></h5>
+                                    <p>针对代码任务微调，支持 80+ 种编程语言，在跨文件上下文关联和库级代码理解方面表现较好。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>DeepSeek-VL2 <span class="badge open">开源</span></h5>
+                                    <p>多模态视觉语言模型，可用于 UI 截图反解和图表数据提取任务。</p>
+                                </div>
+                                <div class="model-item">
+                                    <h5>DeepSeek-Math <span class="badge open">开源</span></h5>
+                                    <p>专注数学任务的小参数模型，针对定理证明、LaTeX 公式推导和符号计算环境优化。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>闭源模型定价表</h3>
+                                <p>主流闭源模型的 API 调用成本对比</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <div class="pricing-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>模型</th>
+                                            <th>厂商</th>
+                                            <th>核心优势</th>
+                                            <th>输入价格 / 百万 Token</th>
+                                            <th>输出价格 / 百万 Token</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>GPT-5.4</td>
+                                            <td>OpenAI</td>
+                                            <td>编码 + 计算机操控 + 知识工作三合一旗舰（SWE-Bench Pro 57.7%）</td>
+                                            <td>$2.50</td>
+                                            <td>$15.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>GPT-5.3 Codex</td>
+                                            <td>OpenAI</td>
+                                            <td>终端与 CLI 密集型工程任务，输入成本低于 GPT-5.4</td>
+                                            <td>$1.75</td>
+                                            <td>$14.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gemini 3.1 Pro</td>
+                                            <td>Google</td>
+                                            <td>百万 Token 上下文，ARC-AGI-2 77.1%，Antigravity 底层驱动</td>
+                                            <td>$2.00</td>
+                                            <td>$12.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Claude Opus 4.6</td>
+                                            <td>Anthropic</td>
+                                            <td>软件工程与多步推理（SWE-Bench Verified 领先）</td>
+                                            <td>$15.00</td>
+                                            <td>$75.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Grok 4</td>
+                                            <td>xAI</td>
+                                            <td>内置 X 实时搜索，256K 上下文，always-on 推理</td>
+                                            <td>$3.00</td>
+                                            <td>$15.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>开源模型对比表</h3>
+                                <p>主流开源模型的架构与性能对比</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <div class="opensource-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>模型</th>
+                                            <th>厂商</th>
+                                            <th>架构 / 参数</th>
+                                            <th>核心优势</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>DeepSeek V3.2</td>
+                                            <td>DeepSeek</td>
+                                            <td>MoE 671B 总 / 37B 激活</td>
+                                            <td>低训练成本，GSM8K 96.0%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MiniMax-M2.5</td>
+                                            <td>MiniMax</td>
+                                            <td>MoE 229B 总 / 10B 激活</td>
+                                            <td>推理能效高，SWE-Bench 80.2%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Llama 4 Scout</td>
+                                            <td>Meta</td>
+                                            <td>109B 总 / 17B 激活</td>
+                                            <td>1000 万 Token 上下文窗口</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Qwen3 VL 235B</td>
+                                            <td>Alibaba</td>
+                                            <td>235B 多模态</td>
+                                            <td>GUI 自动化视觉识别</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kimi K2.5</td>
+                                            <td>Moonshot AI</td>
+                                            <td>MoE 1T 总 / 32B 激活</td>
+                                            <td>UI 设计稿转 React 代码</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gemma 4 31B</td>
+                                            <td>Google</td>
+                                            <td>31B 稠密，Apache 2.0</td>
+                                            <td>Arena AI 排行 #3，AIME 2026 89.2%，LiveCodeBench 80.0%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>模型获取渠道</h3>
+                                <p>三种主流分发方式与使用建议</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <div class="distribution-channels">
+                                <div class="channel-item">
+                                    <h5>官方直接订阅与 API</h5>
+                                    <p>在厂商官网注册并绑卡获取 API Key，适合需要稳定 SLA 保障的生产环境。延迟和可用性通常优于中转服务，但各厂商接口格式不统一，多模型切换需要适配。</p>
+                                </div>
+                                <div class="channel-item">
+                                    <h5>AI 聚合中转平台</h5>
+                                    <p>通过 OpenRouter、Fireworks.ai 等平台调用，统一接口格式，支持按需切换多家厂商模型，统一计费。适合需要频繁对比模型或降低接入成本的场景，但多一层中转意味着多一个延迟节点。</p>
+                                </div>
+                                <div class="channel-item">
+                                    <h5>本地部署</h5>
+                                    <p>HuggingFace <code>https://huggingface.co/</code> 或 Ollama 可以下载开源模型权重到本地运行，数据不离开本机。适合隐私敏感或离线场景，但需要匹配的硬件资源，大参数模型对显存要求较高。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                <!-- Tab4: 教程资源 -->
+                <div id="tab4" class="tab-content">
+                    <header>
+                        <h1>教程资源</h1>
+                    </header>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>vibe 教程</h3>
+                                <p>掌握自然语言驱动的编程范式</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>什么是 Vibe Coding</h4>
+                            <p>Vibe Coding 是由 Andrej Karpathy 在 2025 年初提出的全新编程范式。它的核心理念是：开发者完全使用自然语言描述意图，让 AI 生成并迭代代码，开发者不直接编写也不逐行审查源码。模型足够强大时，人工介入的边际价值在许多场景下低于让模型自行迭代的成本。</p>
+                            <h4>入门路径</h4>
+                            <p>1. 选择合适的 AI 编程工具（推荐 Cursor 或 Claude Code）<br>2. 从简单的需求开始：修复 bug、添加小功能、重构代码<br>3. 学会用自然语言精确描述你的需求<br>4. 理解工具的能力边界，不在复杂逻辑上过度依赖 AI</p>
+                            <h4>最佳实践</h4>
+                            <p>使用 Spec-Driven Development 方法，在让 AI 写代码之前先写一份规格文档（Spec），明确定义系统行为、边界条件、数据结构和验收标准。这能确保 AI 的输出符合预期，避免无谓的迭代。</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>工具安装教程</h3>
+                                <p>主流 AI 编程工具的安装与配置指南</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>Cursor 安装</h4>
+                            <p>1. 访问 <a href="https://cursor.sh" target="_blank">cursor.sh</a> 下载对应平台的安装包<br>2. 安装后首次启动时可选择导入现有 VS Code 的扩展、快捷键和配置<br>3. 注册账号并选择订阅计划（Pro 计划 $20/月）<br>4. 在设置中配置 API Key 或使用内置积分</p>
+                            <h4>Claude Code 安装</h4>
+                            <p>1. 确保已安装 Node.js 18+<br>2. 执行 <code>npm install -g @anthropic-ai/claude-code</code><br>3. 在项目目录运行 <code>claude</code> 启动<br>4. 首次使用需要通过 Anthropic 账号完成授权，或设置环境变量 <code>ANTHROPIC_API_KEY</code></p>
+                            <h4>Ollama 安装</h4>
+                            <p>macOS: <code>brew install ollama</code><br>Linux: <code>curl -fsSL https://ollama.com/install.sh | sh</code><br>Windows: 前往 <a href="https://ollama.com" target="_blank">ollama.com</a> 下载可视化安装包<br>安装后运行 <code>ollama run llama3.2</code> 验证</p>
+                            <h4>OpenClaw 安装</h4>
+                            <p>终端执行官方安装脚本：<code>curl -fsSL https://openclaw.bot/install.sh | bash</code><br>Windows 用户需先安装 WSL2</p>
+                        </div>
+                    </details>
+                </div>
+                <!-- Tab5: 项目分享 -->
+                <div id="tab5" class="tab-content">
+                    <header>
+                        <h1>项目分享</h1>
+                        <p class="subtitle">社区成员的优秀项目与案例</p>
+                    </header>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>群友项目</h3>
+                                <p>社区成员使用 AI 编程工具开发的优秀项目</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>如何提交项目</h4>
+                            <p>如果你使用 vibe coding 方法完成了有趣的项目，欢迎在社区分享。项目类型不限，可以是网站、应用、工具、脚本等。分享时请包含：项目简介、技术栈、实现思路、使用效果截图。</p>
+                            <h4>优质项目标准</h4>
+                            <p>1. 项目完整可运行<br>2. 代码结构清晰，有 README 说明<br>3. 展示了 AI 编程的独特优势<br>4. 对其他成员有学习参考价值</p>
+                        </div>
+                    </details>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>其它平台项目</h3>
+                                <p>来自 GitHub、HuggingFace 等平台的开源项目</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>推荐关注的开源项目</h4>
+                            <p>1. <strong>OpenClaw</strong> - 跨平台 AI Agent 网关<br>2. <strong>Ollama</strong> - 本地大模型运行时<br>3. <strong>DeepSeek 系列</strong> - 高性能开源模型<br>4. <strong>各模型的微调项目</strong> - 针对特定场景优化的模型</p>
+                            <h4>项目发现渠道</h4>
+                            <p>GitHub Trending、HuggingFace Models、Reddit r/MachineLearning、技术博客等都是发现优质项目的好地方。关注这些渠道可以了解 AI 编程的最新发展趋势。</p>
+                        </div>
+                    </details>
+                </div>
+                <!-- Tab6: 社区分享 -->
+                <div id="tab6" class="tab-content">
+                    <header>
+                        <h1>社区分享</h1>
+                        <p class="subtitle">AI Engineer 学习社区资源汇总</p>
+                    </header>
+                    <details class="tech-card">
+                        <summary>
+                            <div class="summary-info">
+                                <h3>社区资源</h3>
+                                <p>学习交流与资源共享</p>
+                            </div>
+                        </summary>
+                        <div class="details-content">
+                            <h4>加入社区</h4>
+                            <p>欢迎加入 AI Engineer 学习群，与志同道合的开发者一起交流学习。这里可以讨论 AI 编程工具的使用技巧、分享项目经验、解决遇到的问题。</p>
+                            <h4>社区规则</h4>
+                            <p>1. 友善交流，尊重他人<br>2. 鼓励分享，乐于助人<br>3. 禁止广告、刷屏等行为<br>4. 积极讨论技术问题，共同进步</p>
+                            <h4>学习建议</h4>
+                            <p>AI 编程是一个快速发展的领域，保持学习的最好方式是：多用工具解决实际问题、多阅读优质项目源码、多参与社区讨论、多关注行业动态。</p>
+                        </div>
+                    </details>
+                </div>
+            </main>
+        </div>
     </div>
-
-    <div class="container">
-        <header>
-            <h1>AI Engineer 上车！</h1>
-            <p class="subtitle">这就是这个时代的风口吗，怎么抓不住啊...</p>
-        </header>
-
-        <div id="tab1" class="tab-content active">
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>LLM (Large Language Model)</h3>
-                        <p>大语言模型</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它做什么</h4>
-                    <p>LLM 是一个文字预测系统，训练目标只有一个：给定前面所有的词，预测下一个词的概率分布。这个任务在足够大的数据和参数规模下，会涌现出推理、翻译、代码生成等能力。</p>
-                    <h4>训练过程</h4>
-                    <p>分两阶段。预训练阶段用海量文本做无监督学习，让模型建立语言的统计规律；随后通过 SFT（监督微调）喂给它正确示范，再用 RLHF（基于人类反馈的强化学习）纠正行为偏差，使输出符合人类意图。
-                    </p>
-                    <h4>推理时发生了什么</h4>
-                    <p>输入文本先被分词器切成 Token 序列，每个 Token 映射为高维向量。Transformer
-                        的自注意力机制（Self-Attention）让每个位置的向量都能"看见"序列中其他所有位置，捕捉远距离依赖关系。模型随后逐个生成输出 Token，每步都是一次概率采样。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>API (Application Programming Interface)</h3>
-                        <p>应用程序编程接口</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它是什么</h4>
-                    <p>API 是两个程序之间约定好的通信接口。调用方按照接口规范发送请求，提供方处理后返回结果，双方不需要知道对方内部的实现细节。对于 LLM 来说，API 是外部程序访问模型推理能力的唯一入口。
-                    </p>
-                    <h4>一次 API 调用发生了什么</h4>
-                    <p>客户端向服务端发送一个 HTTP POST 请求，请求体是 JSON 格式，包含模型名称、消息列表、温度等参数。服务端收到后将消息转成 Token 序列，送入模型推理，再将输出 Token
-                        解码为文本，以 JSON 格式返回。整个过程是无状态的——服务端不记录上下文，每次调用都是独立的。</p>
-                    <h4>REST vs Streaming</h4>
-                    <p>默认的 REST 模式下，客户端等待模型生成完毕后一次性收到完整响应。Streaming 模式下，服务端通过 SSE（Server-Sent Events）逐 Token
-                        推送，客户端可以边收边显示，适合对延迟敏感的场景。大多数 LLM API 两种模式都支持，通过请求参数 <code>stream: true</code> 切换。</p>
-                    <h4>鉴权与限流</h4>
-                    <p>调用时需要在请求头中携带 API Key（<code>Authorization: Bearer sk-...</code>），服务端以此识别调用方身份并记账。每个 Key 有
-                        RPM（每分钟请求数）和 TPM（每分钟 Token 数）两个维度的限流，超出后返回 429 错误。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Agent (Autonomous Agent)</h3>
-                        <p>自治智能体</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它做什么</h4>
-                    <p>Agent 是把 LLM 放进一个循环里的架构。单次调用 LLM 只能回答一个问题；Agent 让它在每次回答后决定下一步行动，直到任务完成。</p>
-                    <h4>循环结构</h4>
-                    <p>每轮循环包含：观察当前状态 → 推理下一步 → 选择并执行工具（搜索、读文件、写代码、调 API）→ 将执行结果写回上下文 → 进入下一轮。终止条件由任务目标或最大步数限制决定。</p>
-                    <h4>记忆系统</h4>
-                    <p>短期记忆是当前对话的 Context 窗口，有长度上限；长期记忆依赖外部 Vector DB，通过相似度检索按需加载。两者组合决定了 Agent 在多轮任务中能记住多少信息。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>MCP (Model Context Protocol)</h3>
-                        <p>模型上下文协议</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它解决什么问题</h4>
-                    <p>LLM 本身无法主动读取文件、查询数据库或执行代码，每个工具都需要定制集成，维护成本高。MCP 定义了一套标准接口，让任何工具只需实现一次协议，就能被所有支持 MCP 的客户端调用。</p>
-                    <h4>架构</h4>
-                    <p>分为三层：Host（如 IDE 或 Claude Desktop）管理整体生命周期；Client 负责与 Server 建立连接；Server 向外暴露具体工具和资源。LLM 通过
-                        JSON-RPC 与 Server 通信，在授权范围内执行操作。</p>
-                    <h4>与 A2A / ACP 的关系</h4>
-                    <p>MCP 处理的是模型与工具之间的连接；A2A（Agent-to-Agent）处理的是多个 Agent 之间的协作分工；ACP（Agent Communication Protocol）处理分布式
-                        Agent 网络中的异步消息传递。三个协议各自负责不同层级。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Token</h3>
-                        <p>语言模型的基本计算单元</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>什么是 Token</h4>
-                    <p>Token 是分词器将原始文本切分后的最小单位，可以是一个完整的词、一个词的一部分、一个标点或几个字节。英文大约每 4 个字符对应 1 个 Token；中文因为字符密度更高，比例会有所不同。
-                    </p>
-                    <h4>计费方式</h4>
-                    <p>API 调用会计费两次：输入时按发送给模型的 Token 数计算一次，模型生成回复后再按输出 Token 数计算一次。输出 Token 的单价是输入的 3 到 10 倍，因为每个输出 Token
-                        都需要完整执行一次前向传播。</p>
-                    <h4>对系统设计的影响</h4>
-                    <p>Context 窗口有 Token 上限，超出即被截断。输出成本更高的定价结构，使得"让模型少说话、精确说"成为降本的核心方向，也是 Prompt 工程和输出格式控制的主要动机之一。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Prompt &amp; Context</h3>
-                        <p>提示词与上下文工程</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>Prompt 是什么</h4>
-                    <p>Prompt 是发送给模型的完整输入，通常分为 System Prompt（设定角色、规则、输出格式）和 User Message（当次用户指令）。System Prompt
-                        在每次调用时都会发送，直接占用 Context 配额并产生计费。</p>
-                    <h4>Context 的限制</h4>
-                    <p>Context 窗口是模型在单次推理中能处理的最大 Token 数。窗口内的所有内容——系统指令、历史对话、工具返回值、RAG 文档——共享同一个上限。信息量超过窗口后，早期内容会被截断丢失。
-                    </p>
-                    <h4>Lost in the Middle 效应</h4>
-                    <p>研究表明，模型对 Context 首尾的内容注意力最强，对中间段落的处理精度明显下降。这意味着重要信息的位置会影响模型的实际表现，不能假设放进 Context 就等于模型会正确使用。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Workflow</h3>
-                        <p>智能体工作流</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它做什么</h4>
-                    <p>Workflow 是将多个 LLM 调用和工具执行串联成有序流程的架构模式。与单次对话不同，Workflow 可以跨越多步、多模型、多工具完成一个完整任务。</p>
-                    <h4>两种主要模式</h4>
-                    <p>确定性 Workflow 的执行路径由代码预先定义，每步的输入输出都有明确规范，适合流程固定的生产场景；自主 Workflow 让 Agent
-                        自行决定每步调用什么、何时终止，灵活性更高但结果稳定性更低。</p>
-                    <h4>错误处理</h4>
-                    <p>多步任务中，单步失败会级联影响后续步骤。工程上通常设置重试机制、步骤级回滚和最大循环次数限制，防止 Agent 在错误状态中无限迭代。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Skills</h3>
-                        <p>技能模块</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它解决什么问题</h4>
-                    <p>Agent 在执行特定任务时需要专项知识，比如如何操作某个 API、遵守哪些代码规范。如果把所有知识都写入 System Prompt，Context
-                        会迅速膨胀，且大部分内容在当前任务中用不到。</p>
-                    <h4>工作方式</h4>
-                    <p>技能以独立文件（通常是 .md 或 .json）存储，每个文件描述一种能力的操作规范。Agent 在判断当前任务需要某项技能时，才将对应文件加载进 Context，其余时间不占用窗口空间。
-                    </p>
-                    <h4>设计原则</h4>
-                    <p>每个技能文件应当职责单一、边界清晰，便于 Agent 准确判断何时加载。过度宽泛的技能描述会导致误加载，反而增加无效 Token 消耗。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>A2A &amp; ACP</h3>
-                        <p>智能体间通信协议</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>为什么需要 Agent 间协议</h4>
-                    <p>单个 Agent 的能力受 Context 窗口和专项知识的限制。将复杂任务拆分给多个专职 Agent 并行处理，再汇总结果，是突破单 Agent 上限的主要方式。但多 Agent
-                        协作需要标准化的通信接口，否则每对 Agent 之间都要定制集成。</p>
-                    <h4>A2A 与 ACP 的区别</h4>
-                    <p>A2A（Agent-to-Agent Protocol）定义的是 Agent 之间如何协商任务分工、传递子任务和返回结果；ACP（Agent Communication
-                        Protocol）更偏向底层，处理分布式环境中异步消息的格式、路由和确认机制。</p>
-                    <h4>与 MCP 的分层关系</h4>
-                    <p>MCP 负责 Agent 与外部工具的连接，A2A/ACP 负责 Agent 与 Agent 之间的连接。三者在不同层级各自工作，组合使用可以构建跨模型、跨工具的多智能体系统。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Vibe Coding</h3>
-                        <p>自然语言驱动的编程范式</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它是什么</h4>
-                    <p>Vibe Coding 指完全用自然语言描述意图，让 AI 生成并迭代代码，开发者不直接编写也不逐行审查源码的编程方式。由 Andrej Karpathy 在 2025
-                        年初提出并命名。核心前提是：模型的代码能力已经足够强，人工介入的边际价值在许多场景下低于让模型自行迭代的成本。</p>
-                    <h4>工作方式</h4>
-                    <p>开发者描述想要的功能或行为，Agent 生成代码并运行，将报错和输出反馈给模型，模型再修正，循环直到结果符合预期。开发者的主要工作从"写代码"变成"描述目标、验证结果、决定是否接受"。</p>
-                    <h4>适用边界</h4>
-                    <p>在原型验证、个人工具、一次性脚本等场景效率显著。在需要长期维护、多人协作或强安全约束的生产代码库中，完全不审查代码会积累隐性技术债，且模型生成的代码在跨文件依赖复杂时容易引入难以回滚的错误。
-                    </p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Spec-Driven Development</h3>
-                        <p>规格驱动开发</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它是什么</h4>
-                    <p>Spec-Driven Development 是在让 AI 写代码之前，先用自然语言写一份结构化的规格文档（Spec），明确定义系统行为、边界条件、数据结构和验收标准，再将 Spec 作为
-                        Agent 的执行依据。它是对 Vibe Coding 的约束层——保留了自然语言驱动的效率，同时给 Agent 的行为划定了可验证的边界。</p>
-                    <h4>Spec 包含什么</h4>
-                    <p>通常包括：功能目标与非目标（明确排除什么）、输入输出的数据契约、错误处理策略、禁止修改的文件或模块范围、验收测试的通过条件。Codex 的 <code>AGENTS.md</code> 和
-                        Cursor 的 Rules 文件本质上都是这一思路的具体实现。</p>
-                    <h4>为什么需要它</h4>
-                    <p>Agent 在没有明确约束时倾向于以"让测试通过"为目标，而不是"实现正确行为"——它可能删除测试、硬编码返回值、或修改不该动的文件。Spec 的作用是在任务开始前把"什么算对"说清楚，使
-                        Agent 的自主决策空间收窄到可接受的范围内。</p>
-                </div>
-            </details>
-        </div>
-
-        <div id="tab2" class="tab-content">
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>OpenClaw</h3>
-                        <p>跨平台 AI Agent 网关</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它是什么</h4>
-                    <p>2026开年最火爆的小龙虾，腾讯甚至在深圳给人批量免费安装。开源的 Agent 网关服务，以后台守护进程方式运行，接管消息通讯平台（如 Telegram、Discord）的传入载荷，解析用户意图后将指令分发给本地 Ollama 实例或云端
-                        API，执行完成后回传结果。内置基于 <code>SKILL.md</code> 的技能编排树和工具调用鉴权模块。</p>
-                    <h4>核心特点</h4>
-                    <p>完全本地化运行，数据不经过第三方服务器。支持 x402 协议的微支付模块用于推理路由计费。通过技能插件可接管操作系统底层权限，实现文件操作、命令执行等系统级任务。</p>
-                    <h4>主要缺点</h4>
-                    <p>底层架构复杂，运行环境配置容易出错，对非技术用户不友好。深度系统访问权限在配置不当时存在安全风险。</p>
-                    <h4>适用人群</h4>
-                    <p>注重数据隐私的个人开发者、需要在内网搭建自动化工作流的中小团队、偏好完全自托管方案的工程师。</p>
-                    <h4>下载与安装</h4>
-                    <p>终端执行官方安装脚本：<code>curl -fsSL https://openclaw.bot/install.sh | bash</code>。Windows 用户需先安装 WSL2。
-                    </p>
-                    <h4>避雷要点</h4>
-                    <p>1. 安装时注意环境变量 PATH 配置，否则会出现 "command not found" 错误。<br>2. Docker 安装需分配至少 2GB RAM，防止内存溢出。<br>3.
-                        网关端口不要暴露于公网，必须绑定到 <code>127.0.0.1</code> 回环地址。<br>4. 从 ClawHub
-                        安装第三方技能时存在供应链攻击风险，建议开启"仅限工作区文件系统访问"权限。</p>
-                </div>
-            </details>
-<details class="tech-card">
-    <summary>
-        <div class="summary-info">
-            <h3>Claude Code</h3>
-            <p>Anthropic 发布的终端原生 AI 编程 Agent</p>
-        </div>
-    </summary>
-    <div class="details-content">
-        <h4>它是什么</h4>
-        <p>Claude Code 是运行在终端里的命令行 Agent，直接操作本地文件系统、执行 Shell 命令、读写代码库，不依赖 IDE 界面。与 Cursor 等编辑器集成方案不同，它以 CLI 为主交互面，适合在任何环境下（包括 SSH 远程服务器、CI 流水线）运行。</p>
-        <h4>工作方式</h4>
-        <p>在项目根目录启动后，Claude Code 会读取目录结构和相关文件作为上下文，接收自然语言任务描述，自主决定读哪些文件、改哪些文件、执行什么命令。每次涉及写操作时默认要求人工确认，可通过 <code>--dangerously-skip-permissions</code> 参数跳过（适合在隔离沙盒中使用）。</p>
-        <h4>CLAUDE.md</h4>
-        <p>项目根目录的 <code>CLAUDE.md</code> 文件是 Claude Code 的行为约束文件，等同于 Spec-Driven Development 中的 Spec。可在其中定义禁止修改的文件范围、测试命令、代码风格要求、架构说明。Claude Code 在每次任务开始前会优先读取这个文件。</p>
-        <h4>与其他工具的定位差异</h4>
-        <p>Cursor 和 VSCode Copilot 的使用场景是"边写边看"，适合需要同步审查代码的开发者；Claude Code 更接近"交代任务、异步验收"，适合处理范围明确的重构、批量修改、跨文件联动等任务。两者可以配合使用而非互斥。
-            <br>和Openclaw一样有强大的skill目录册，规划能力极强。</p>
-        <h4>安装</h4>
-        <p>需要 Node.js 18+。执行 <code>npm install -g @anthropic-ai/claude-code</code> 安装，在项目目录运行 <code>claude</code> 启动。首次使用需要通过 Anthropic 账号完成授权。</p>
-        <h4>绕过登录方法</h4>
-        <p>在终端的环境变量设置了 ANTHROPIC_API_KEY，Claude Code 在启动时会检测到它，并优先使用 API 计费模式，跳过浏览器登录流程。
-    </div>
-</details>
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Cursor</h3>
-                        <p>深度集成 LLM 的 AI 代码编辑器</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它是什么</h4>
-                    <p>基于 VS Code 开源分支构建的编辑器，在代码库中内嵌了向量数据库（Vector DB），使模型能够检索整个项目的相关代码片段作为上下文。编辑器会隐式捕获光标位置、LSP
-                        诊断信息和相邻文件变更，将其打包发送给推理服务器，返回差异补丁（Diff）并直接应用到源码中。</p>
-                    <h4>核心特点</h4>
-                    <p>Composer 多文件编辑引擎、本地向量库索引、支持在同一工作区灵活切换底层模型（如用 Claude 处理复杂逻辑，用其他模型处理简单补全）。</p>
-                    <h4>主要缺点</h4>
-                    <p>Pro 计划名义上 $20/月，但开启后台 Agent 或调用高级模型后实际费用经常达到 $40–50。平台闭源，存在供应商锁定风险。代码会发送至第三方 API，处理机密源码时需注意。</p>
-                    <h4>适用人群</h4>
-                    <p>追求高效率的独立开发者、初创团队、习惯同步审查代码的学生群体。</p>
-                    <h4>下载与安装</h4>
-                    <p>前往 <a href="https://cursor.sh" target="_blank">cursor.sh</a> 下载对应平台的安装包，首次启动时可选择导入现有 VS Code
-                        的扩展、快捷键和配置。</p>
-                    <h4>避雷要点</h4>
-                    <p>1. 默认 "Auto" 模式虽然调用内部轻量模型不额外计费，但一旦触发后台 Agent 或手动切换到 Claude / GPT 系列模型执行任务，高级积分会快速消耗。<br>2.
-                        重度使用时需持续关注后台请求状态，避免不知情的超额扣费。<br>3. 涉及机密源码时，应评估代码发送至第三方 API 的数据风险。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Antigravity</h3>
-                        <p>Google 发布的 Agent 优先异步协同 IDE</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它是什么</h4>
-                    <p>Google 发布的编辑器，底层引入了任务编排与状态机逻辑，依托 Gemini 3.1 Pro 的超长上下文窗口实现多 Agent 并行调度。用户通过"控制中心（Manager
-                        Surface）"发布高层任务需求，系统实例化多个专职 Agent 并行执行（编码、测试、文档阅读等），生成截图、执行日志、计划书等可验证产出供人工异步审核。</p>
-                    <h4>核心特点</h4>
-                    <p>Agent 优先的管理器界面、无头 Chrome 预览、多 Agent 并行调度、可验证产出供异步审核。</p>
-                    <h4>主要缺点</h4>
-                    <p>产品仍处于预览阶段，存在"过度自治"问题——Agent 有时会自行删除大量关联代码。目前缺乏轻量级对话模式，处理简单任务时显得臃肿。</p>
-                    <h4>适用人群</h4>
-                    <p>全栈开发者、深耕 Google Cloud 生态的工程师、需要多 Agent 协同处理复杂工程的团队。</p>
-                    <h4>下载与安装</h4>
-                    <p>访问 <a href="https://antigravity.google/download" target="_blank">antigravity.google/download</a>
-                        下载 x64 或 ARM64 的 .exe 安装包。安装时可能触发 Windows Defender 警告，点击"更多信息"后选择"仍要运行"。</p>
-                    <h4>避雷要点</h4>
-                    <p>1. 使用前确保 Git 工作区处于干净的已提交状态，防止 Agent 产生幻觉后大面积改写代码导致无法回滚。<br>2. Agent
-                        具有较高的代码修改自主权，授权前需明确任务边界。<br>3. 目前仅对个人 Gmail 账号提供免费预览，企业场景需注意权限限制。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Codex</h3>
-                        <p>OpenAI 云端代码 Agent</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它是什么</h4>
-                    <p>OpenAI 的云端代码执行 Agent，在隔离的云端沙盒虚拟机中异步运行，能够自主执行代码、运行测试、提交 Pull Request。任务约束通过项目根目录的
-                        <code>AGENTS.md</code> 文件定义，Agent 在整个执行周期内依照该文件的规则行事。
-                    </p>
-                    <h4>核心特点</h4>
-                    <p>云端沙盒异步执行、支持无限并发 VM、自动提交 PR、通过 <code>AGENTS.md</code> 约束架构规范和测试规则。</p>
-                    <h4>主要缺点</h4>
-                    <p>黑盒运行，开发者无法在执行过程中介入学习。<code>AGENTS.md</code> 配置不当会导致 Agent 在云端陷入无限报错重试循环，消耗大量 Token
-                        配额。订阅费用高，ChatGPT Pro 计划每月 $200。</p>
-                    <h4>适用人群</h4>
-                    <p>资金充足的企业团队、需要大规模重构庞大代码库的架构师、追求全自动化开发流程的组织。</p>
-                    <h4>下载与安装</h4>
-                    <p>无需本地安装。在 OpenAI 平台注册并订阅对应计划后，通过网页端或 API 使用。解锁高并发能力需订阅 ChatGPT Pro（$200/月）。</p>
-                    <h4>避雷要点</h4>
-                    <p>1. 必须在项目根目录严谨配置 <code>AGENTS.md</code>，明确测试命令、Lint 规则和禁止修改的文件范围。<br>2. 测试环境或 Lint 规则配置有误时，Agent
-                        会在云端反复重试失败任务，Token 消耗难以预估。<br>3. 黑盒机制意味着执行过程不透明，不适合需要理解代码变更逻辑的学习场景。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Ollama</h3>
-                        <p>本地大模型运行时</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它是什么</h4>
-                    <p>基于 <code>llama.cpp</code> 构建的本地模型运行工具，用一条命令完成模型下载和启动。对模型权重做 GGUF 格式的量化压缩（如 4-bit
-                        量化），在显存不足时也能以较低精度运行。对外暴露兼容 OpenAI 格式的 REST API，端口默认为 11434。</p>
-                    <h4>核心特点</h4>
-                    <p>一行命令部署、标准 REST API、支持 DeepSeek / Llama 4 等主流开源模型、自动调用 CUDA / Metal / AVX 硬件加速。</p>
-                    <h4>主要缺点</h4>
-                    <p>运行大参数模型对硬件要求较高：模型权重需要尽量完整加载进显存（VRAM），显存不足时会降速使用系统内存，延迟会显著上升。没有独立显卡的设备运行 70B 以上模型基本不可用。</p>
-                    <h4>适用人群</h4>
-                    <p>需要处理机密代码的研发部门、做本地 RAG 研究的学者、受制于网络环境无法稳定调用云端 API 的开发者。</p>
-                    <h4>下载与安装</h4>
-                    <p>macOS：<code>brew install ollama</code><br>Linux：<code>curl -fsSL https://ollama.com/install.sh | sh</code><br>Windows：前往
-                        <a href="https://ollama.com" target="_blank">ollama.com</a> 下载可视化安装包。<br>安装后运行
-                        <code>ollama run llama3.2</code> 验证是否正常工作。
-                    </p>
-                    <h4>避雷要点</h4>
-                    <p>1. Docker 安装时必须挂载数据卷（<code>-v ollama:/root/.ollama</code>），否则容器重启后模型文件会丢失，需重新下载。<br>2. 默认 11434
-                        端口只监听本地回环地址，局域网内其他设备无法直接调用，需手动配置端口转发。</p>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>VSCode + GitHub Copilot</h3>
-                        <p>可扩展代码编辑器 + AI 编程助手</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <h4>它是什么</h4>
-                    <p>VS Code 基于 Electron 和 Monaco 编辑器内核构建，通过语言服务器协议（LSP）和调试适配器协议（DAP）将 UI 层与语言解析层解耦，所有插件运行在独立的 Node.js
-                        扩展宿主中，不阻塞主编辑器。2026 年版本引入了后台 Agent（Background Agents）和 Agent Skills 机制，可通过
-                        <code>/create-skill</code> 等斜杠命令将重复工作流打包为可复用插件。
-                    </p>
-                    <h4>核心特点</h4>
-                    <p>$10/月的 Copilot Pro 订阅、后台 Agent 执行、<code>/create-skill</code> 命令、庞大的插件生态。</p>
-                    <h4>主要缺点</h4>
-                    <p>Copilot 背靠微软大量企业客户，个人 Pro 用户在高峰期容易触发限流，服务会被暂时锁定。处理跨文件复杂逻辑时，平均任务解决时间比 Cursor 慢约 30%。</p>
-                    <h4>适用人群</h4>
-                    <p>不想切换主力 IDE 的企业开发者、初学者、对成本敏感的个人开发者。</p>
-                    <h4>下载与安装</h4>
-                    <p>下载标准版 VS Code 或 VS Code Insiders，在扩展商店搜索安装 <code>GitHub.copilot-chat</code>。</p>
-                    <h4>避雷要点</h4>
-                    <p>1. 单纯依赖聊天对话框时，Copilot 缺乏对整体编译常量和依赖树的理解，需要在项目中维护一份架构说明文档供其检索。<br>2. 触发后台 Agent
-                        前清理不必要的测试文件和日志，避免上下文污染导致请求被拒绝。</p>
-                </div>
-            </details>
-        </div>
-
-        <div id="tab3" class="tab-content">
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>厂商生态全景</h3>
-                        <p>AI 基础设施与模型生态的七大公司</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <div class="vendor-ecosystem">
-                        <div class="vendor-item">
-                            <h5>Nvidia</h5>
-                            <p>AI 算力的基础设施层。GPU 硬件加上 CUDA 软件生态形成强绑定，绝大多数深度学习框架的默认加速后端都是 CUDA。</p>
-                        </div>
-                        <div class="vendor-item">
-                            <h5>Microsoft</h5>
-                            <p>OpenAI 的主要投资方，持有 OpenAI 部分股权。通过 GitHub Copilot 和 Azure OpenAI Service 将 AI
-                                能力直接嵌入企业开发和云服务管道。</p>
-                        </div>
-                        <div class="vendor-item">
-                            <h5>Alphabet / Google</h5>
-                            <p>从芯片到应用的全栈布局：自研 TPU 芯片 → Gemini 模型系列 → Antigravity IDE。同时拥有 DeepMind 的基础研究积累。</p>
-                        </div>
-                        <div class="vendor-item">
-                            <h5>OpenAI</h5>
-                            <p>GPT 和 o 系列模型的发布者，API 接口事实上成为行业标准格式，大量第三方工具和推理平台都兼容 OpenAI 的接口规范。</p>
-                        </div>
-                        <div class="vendor-item">
-                            <h5>Anthropic</h5>
-                            <p>Claude 系列模型的发布者，以安全对齐研究和超长上下文窗口见长。Claude 在软件工程评测（SWE-Bench）上长期保持高位。</p>
-                        </div>
-                        <div class="vendor-item">
-                            <h5>Meta</h5>
-                            <p>Llama 系列的发布者，采用开放权重策略，允许商业使用（有条件限制）。Llama 是目前被微调和二次分发最广泛的基础模型之一。</p>
-                        </div>
-                        <div class="vendor-item">
-                            <h5>DeepSeek</h5>
-                            <p>以极低训练成本发布高性能开源模型，MoE 架构的激活参数控制使推理成本大幅低于同级别稠密模型，推动了行业对算力效率预期的重新评估。</p>
-                        </div>
-                    </div>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>OpenAI</h3>
-                        <p>GPT 家族及强化学习推理模型</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <div class="model-list">
-                        <div class="model-item">
-                            <h5>GPT-5.4 Thinking <span class="badge closed">闭源</span></h5>
-                            <p>2026年3月发布的最新推理巅峰，专为极高难度的逻辑链路设计。通过大幅进化的隐式链式思考，它在处理跨学科科研、高级架构设计及复杂法律推演时的准确率，已经将前代模型远远甩在身后。
-                            </p>
-                        </div>
-                        <div class="model-item">
-                            <h5>GPT-5.4 Pro <span class="badge closed">闭源</span></h5>
-                            <p>现阶段最强的旗舰通用模型，主打生产环境中的“零误差”指令遵循。其最大的进化在于对Agent工作流的深度适配，能够稳定处理长达数周的异步任务，是目前专业领域最可靠的全能选母。
-                            </p>
-                        </div>
-                        <div class="model-item">
-                            <h5>o3 <span class="badge closed">闭源</span></h5>
-                            <p>强化学习推理路线的“扫地僧”，核心优势依然是测试时动态计算（Test-Time
-                                Compute）。在纯数学竞赛、算法竞赛等不需要常识辅助、仅凭纯逻辑硬碰硬的领域，它依然保有极高的统治力。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>GPT-5.4 mini <span class="badge closed">闭源</span></h5>
-                            <p>性价比与性能平衡的怪物级别产品。虽然定位是“小型”模型，但其在代码编写和逻辑常识上的得分已经超越了去年的 GPT-4.5 旗舰版，且响应延迟极低，。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>GPT-OSS-120B <span class="badge open">开源</span></h5>
-                            <p>OpenAI 发布的 120B 参数开源模型，面向科研社区和有私有化部署需求的企业。</p>
-                        </div>
-                    </div>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Google</h3>
-                        <p>Gemini 多模态系列及 Gemma 开放权重模型</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <div class="model-list">
-                        <div class="model-item">
-                            <h5>Gemini 3.1 Pro <span class="badge closed">闭源</span></h5>
-                            <p>Google 目前最强的旗舰通用模型。采用全新的稀疏混合专家（MoE）架构，支持 200 万 token
-                                超长上下文，在处理长视频分析、女男复杂协作文档以及大规模跨模态检索时表现极佳。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>Gemini 3 Deep Think <span class="badge closed">闭源</span></h5>
-                            <p>专门对标深度推理路线的模型。通过强化学习与搜索算法结合，在解决奥数级数学、高难度系统架构及前沿生物化学模拟等领域具备惊人的逻辑深度。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>Gemini 3.1 Flash <span class="badge closed">闭源</span></h5>
-                            <p>兼顾性能与极致响应速度的模型。支持高频实时交互，其文字与图像的端到端理解能力相比前代有质的飞跃，是目前低延迟应用场景的首选。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>Gemma 4 (31B Dense) <span class="badge open">开源</span></h5>
-                            <p>2026 年 4 月发布的顶级开源模型，协议已转为 Apache 2.0。在数学和逻辑指标上超越了诸多 70B 级模型，并首次在开源阵列中实现了原生视觉与音频理解能力。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>Gemma 4 (26B MoE) <span class="badge open">开源</span></h5>
-                            <p>采用混合专家架构的高效率开源标杆。运行时仅激活约 4B 参数，使得普通的开发者在单张家用级显卡上也能运行具备顶级逻辑能力的智能体任务。</p>
-                        </div>
-                    </div>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>Anthropic</h3>
-                        <p>Claude 宪法 AI 模型矩阵</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <div class="model-list">
-                        <div class="model-item">
-                            <h5>Claude 4.6 Opus <span class="badge closed">闭源</span>
-                            </h5>
-                            <p>2026 年最新旗舰模型，适用于高复杂度逻辑推理、多步 API 集成和长周期规划任务。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>Claude 4.6 Sonnet <span class="badge closed">闭源</span>
-                            </h5>
-                            <p>在代码生成和 AST 重构任务上速度与精度平衡较好，是 Cursor 等编辑器的主要集成模型之一。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>Claude 4.0 Haiku <span class="badge closed">闭源</span>
-                            </h5>
-                            <p>针对大规模并行处理和轻量级文本提取优化的快速模型，延迟和成本在 Claude 系列中最低。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>Claude 3.5 Sonnet <span class="badge closed">闭源</span>
-                            </h5>
-                            <p>上一代软件工程任务的主力模型，SWE-Bench 评分曾长期领先，目前被广泛集成于自动代码审查流水线中。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>Claude 3.5 Haiku <span class="badge closed">闭源</span>
-                            </h5>
-                            <p>上一代低延迟模型，成本效益在当时的 Claude 系列中最高。Anthropic 目前不开放模型权重。</p>
-                        </div>
-                    </div>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>DeepSeek（深度求索）</h3>
-                        <p>高性能开源混合专家架构模型</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <div class="model-list">
-                        <div class="model-item">
-                            <h5>DeepSeek-V3 <span class="badge open">开源</span></h5>
-                            <p>671B 总参数的 MoE 架构模型，每次推理只激活约 37B 参数。采用无辅助损失负载均衡和 FP8
-                                混合精度训练，将训练成本控制在远低于同规模稠密模型的水平。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>DeepSeek-R1 <span class="badge open">开源</span></h5>
-                            <p>通过大规模强化学习训练的推理模型，完整开源了链式思考机制和奖励模型细节，是目前少数公开推理训练细节的模型之一。
-                            </p>
-                        </div>
-                        <div class="model-item">
-                            <h5>DeepSeek-Coder-V2 <span class="badge open">开源</span>
-                            </h5>
-                            <p>针对代码任务微调，支持 80+ 种编程语言，在跨文件上下文关联和库级代码理解方面表现较好。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>DeepSeek-VL2 <span class="badge open">开源</span></h5>
-                            <p>多模态视觉语言模型，可用于 UI 截图反解和图表数据提取任务。</p>
-                        </div>
-                        <div class="model-item">
-                            <h5>DeepSeek-Math <span class="badge open">开源</span></h5>
-                            <p>专注数学任务的小参数模型，针对定理证明、LaTeX 公式推导和符号计算环境优化。</p>
-                        </div>
-                    </div>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>闭源模型定价表</h3>
-                        <p>主流闭源模型的 API 调用成本对比</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <div class="pricing-table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>模型</th>
-                                    <th>厂商</th>
-                                    <th>核心优势</th>
-                                    <th>输入价格 / 百万 Token</th>
-                                    <th>输出价格 / 百万 Token</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>GPT-5.4</td>
-                                    <td>OpenAI</td>
-                                    <td>编码 + 计算机操控 + 知识工作三合一旗舰（SWE-Bench Pro 57.7%）</td>
-                                    <td>$2.50</td>
-                                    <td>$15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>GPT-5.3 Codex</td>
-                                    <td>OpenAI</td>
-                                    <td>终端与 CLI 密集型工程任务，输入成本低于 GPT-5.4</td>
-                                    <td>$1.75</td>
-                                    <td>$14.00</td>
-                                </tr>
-                                <tr>
-                                    <td>Gemini 3.1 Pro</td>
-                                    <td>Google</td>
-                                    <td>百万 Token 上下文，ARC-AGI-2 77.1%，Antigravity 底层驱动
-                                    </td>
-                                    <td>$2.00</td>
-                                    <td>$12.00</td>
-                                </tr>
-                                <tr>
-                                    <td>Claude Opus 4.6</td>
-                                    <td>Anthropic</td>
-                                    <td>软件工程与多步推理（SWE-Bench Verified 领先）</td>
-                                    <td>$15.00</td>
-                                    <td>$75.00</td>
-                                </tr>
-                                <tr>
-                                    <td>Grok 4</td>
-                                    <td>xAI</td>
-                                    <td>内置 X 实时搜索，256K 上下文，always-on 推理</td>
-                                    <td>$3.00</td>
-                                    <td>$15.00</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>开源模型对比表</h3>
-                        <p>主流开源模型的架构与性能对比</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <div class="opensource-table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>模型</th>
-                                    <th>厂商</th>
-                                    <th>架构 / 参数</th>
-                                    <th>核心优势</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>DeepSeek V3.2</td>
-                                    <td>DeepSeek</td>
-                                    <td>MoE 671B 总 / 37B 激活</td>
-                                    <td>低训练成本，GSM8K 96.0%</td>
-                                </tr>
-                                <tr>
-                                    <td>MiniMax-M2.5</td>
-                                    <td>MiniMax</td>
-                                    <td>MoE 229B 总 / 10B 激活</td>
-                                    <td>推理能效高，SWE-Bench 80.2%</td>
-                                </tr>
-                                <tr>
-                                    <td>Llama 4 Scout</td>
-                                    <td>Meta</td>
-                                    <td>109B 总 / 17B 激活</td>
-                                    <td>1000 万 Token 上下文窗口</td>
-                                </tr>
-                                <tr>
-                                    <td>Qwen3 VL 235B</td>
-                                    <td>Alibaba</td>
-                                    <td>235B 多模态</td>
-                                    <td>GUI 自动化视觉识别</td>
-                                </tr>
-                                <tr>
-                                    <td>Kimi K2.5</td>
-                                    <td>Moonshot AI</td>
-                                    <td>MoE 1T 总 / 32B 激活</td>
-                                    <td>UI 设计稿转 React 代码</td>
-                                </tr>
-                                <tr>
-                                    <td>Gemma 4 31B</td>
-                                    <td>Google</td>
-                                    <td>31B 稠密，Apache 2.0</td>
-                                    <td>Arena AI 排行 #3，AIME 2026 89.2%，LiveCodeBench
-                                        80.0%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </details>
-
-            <details class="tech-card">
-                <summary>
-                    <div class="summary-info">
-                        <h3>模型获取渠道</h3>
-                        <p>三种主流分发方式与使用建议</p>
-                    </div>
-                </summary>
-                <div class="details-content">
-                    <div class="distribution-channels">
-                        <div class="channel-item">
-                            <h5>官方直接订阅与 API</h5>
-                            <p>在厂商官网注册并绑卡获取 API Key，适合需要稳定 SLA
-                                保障的生产环境。延迟和可用性通常优于中转服务，但各厂商接口格式不统一，多模型切换需要适配。</p>
-                        </div>
-                        <div class="channel-item">
-                            <h5>AI 聚合中转平台</h5>
-                            <p>通过 OpenRouter、Fireworks.ai
-                                等平台调用，统一接口格式，支持按需切换多家厂商模型，统一计费。适合需要频繁对比模型或降低接入成本的场景，但多一层中转意味着多一个延迟节点。
-                            </p>
-                        </div>
-                        <div class="channel-item">
-                            <h5>本地部署</h5>
-                            <p>HuggingFace <code> https://huggingface.co/</code> 或
-                                Ollama
-                                可以下载开源模型权重到本地运行，数据不离开本机。适合隐私敏感或离线场景，但需要匹配的硬件资源，大参数模型对显存要求较高。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </details>
-        </div>
-    </div>
-
-
     <script>
-        function switchTab(tabId, clickedBtn) {
-            // 切换内容可见性
-            document.querySelectorAll('.tab-content').forEach(function (content) {
-                content.classList.remove('active');
-            });
-            document.getElementById(tabId).classList.add('active');
+        // 👇 3. 在这里粘贴粒子动效引擎核心 👇
+        const ParticleSystem = (function() {
+            let canvas, ctx;
+            let particles = [];
+            let mouse = { x: null, y: null, radius: 150 };
+            let config = { 
+                particleCount: 70, // 粒子数量
+                lineDistance: 130, // 自动连线的最大距离
+                rgb: '0, 198, 255' // 默认颜色RGB
+            };
 
-            // 切换导航按钮高亮状态
-            document.querySelectorAll('.nav-btn').forEach(function (button) {
-                button.classList.remove('active');
-            });
-            clickedBtn.classList.add('active');
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * window.innerWidth;
+                    this.y = Math.random() * window.innerHeight;
+                    this.size = Math.random() * 2 + 1;
+                    this.vx = (Math.random() - 0.5) * 1.2;
+                    this.vy = (Math.random() - 0.5) * 1.2;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+                    if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+                }
+                draw() {
+                    ctx.fillStyle = `rgba(${config.rgb}, 0.5)`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            function init() {
+                canvas = document.getElementById('bg-canvas');
+                if (!canvas) return;
+                ctx = canvas.getContext('2d');
+                resize();
+                window.addEventListener('resize', resize);
+                window.addEventListener('mousemove', (e) => {
+                    mouse.x = e.x;
+                    mouse.y = e.y;
+                });
+                window.addEventListener('mouseout', () => {
+                    mouse.x = null;
+                    mouse.y = null;
+                });
+                for (let i = 0; i < config.particleCount; i++) {
+                    particles.push(new Particle());
+                }
+                animate();
+            }
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    
+                    for (let j = i; j < particles.length; j++) {
+                        let dx = particles[i].x - particles[j].x;
+                        let dy = particles[i].y - particles[j].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < config.lineDistance) {
+                            let opacity = 1 - (distance / config.lineDistance);
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(${config.rgb}, ${opacity * 0.4})`;
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                    if (mouse.x != null) {
+                        let dx = particles[i].x - mouse.x;
+                        let dy = particles[i].y - mouse.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < mouse.radius) {
+                            let opacity = 1 - (distance / mouse.radius);
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(${config.rgb}, ${opacity * 0.8})`;
+                            ctx.lineWidth = 1.5;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+
+            return {
+                init,
+                setTheme: function(themeId) {
+                    if (themeId === 'cyber') config.rgb = '0, 198, 255'; // 赛博青蓝色
+                    if (themeId === 'wireframe') config.rgb = '16, 185, 129'; // 矩阵黑客绿
+                }
+            };
+        })();
+        /* 👆 结束 👆 */
+        const themes = [
+            { id: 'default', name: '默认模式', icon: '✨' },
+            { id: 'cyber', name: '赛博极光', icon: '🌌' },
+            { id: 'wireframe', name: '极简矩阵', icon: '⚗️' }
+        ];
+        let currentThemeIndex = 0;
+
+        function applyTheme(index) {
+            const theme = themes[index];
+            document.body.setAttribute('data-theme', theme.id);
+            
+            const btnText = document.getElementById('themeText');
+            const btnIcon = document.getElementById('themeIcon');
+            if (btnText) btnText.textContent = theme.name;
+            if (btnIcon) btnIcon.textContent = theme.icon;
+
+            localStorage.setItem('user-theme', theme.id);
         }
 
-        // 页面加载动画 - 卡片依次淡入
-        document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.tech-card');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-                card.classList.add('fade-in-up');
-            });
+        function initThemeSystem() {
+            const savedTheme = localStorage.getItem('user-theme');
+            if (savedTheme) {
+                const index = themes.findIndex(t => t.id === savedTheme);
+                if (index !== -1) {
+                    currentThemeIndex = index;
+                }
+            }
+            applyTheme(currentThemeIndex);
 
-            // 为折叠面板添加平滑展开动画
-            const details = document.querySelectorAll('details.tech-card');
-            details.forEach(detail => {
-                detail.addEventListener('toggle', function () {
-                    if (this.open) {
-                        const content = this.querySelector('.details-content');
-                        content.style.animation = 'contentFadeIn 0.4s ease';
+            const themeBtn = document.getElementById('themeSwitcher');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', () => {
+                    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+                    applyTheme(currentThemeIndex);
+                });
+            }
+        }
+
+        function switchTab(tabId, clickedBtn) {
+            var sidebarItems = document.querySelectorAll('.sidebar .nav-item');
+            sidebarItems.forEach(function(item) { item.classList.remove('active'); });
+            if (clickedBtn && clickedBtn.classList.contains('nav-item')) {
+                clickedBtn.classList.add('active');
+            } else {
+                var targetSidebarItem = document.querySelector('.sidebar .nav-item[data-tab="' + tabId + '"]');
+                if (targetSidebarItem) targetSidebarItem.classList.add('active');
+            }
+            
+            var desktopPanels = document.querySelectorAll('.desktop-only .tab-panel');
+            desktopPanels.forEach(function(panel) { panel.classList.remove('active'); });
+            var targetDesktopPanel = document.getElementById('panel-' + tabId);
+            if (targetDesktopPanel) targetDesktopPanel.classList.add('active');
+            
+            var desktopLayouts = document.querySelectorAll('.desktop-only');
+            desktopLayouts.forEach(function(layout) { layout.classList.remove('active'); });
+            var targetDesktopLayout = document.querySelector('.desktop-only:has(#panel-' + tabId + ')');
+            if (targetDesktopLayout) targetDesktopLayout.classList.add('active');
+            
+            var mobileTabs = document.querySelectorAll('.mobile-only .tab-content');
+            mobileTabs.forEach(function(tab) { tab.classList.remove('active'); });
+            var targetMobileTab = document.getElementById(tabId);
+            if (targetMobileTab) targetMobileTab.classList.add('active');
+            var sidebar = document.getElementById('sidebar');
+            if (sidebar) sidebar.classList.remove('open');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(generateTOC, 100);
+        }
+        function generateTOC() {
+            var activeLayout = document.querySelector('.desktop-only.active');
+            if (!activeLayout) return;
+
+            var tocList = activeLayout.querySelector('.toc-list');
+            var activePanel = activeLayout.querySelector('.tab-panel.active');
+            
+            if (!tocList || !activePanel) return;
+            
+            tocList.innerHTML = '';
+            
+            var sections = activePanel.querySelectorAll('.doc-section h2');
+            sections.forEach(function(heading) {
+                var id = heading.id || heading.textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+                heading.id = id;
+                
+                var li = document.createElement('li');
+                li.className = 'toc-item';
+                var a = document.createElement('a');
+                a.href = '#' + id;
+                a.className = 'toc-link';
+                a.textContent = heading.textContent;
+                
+                a.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var target = document.getElementById(id);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 });
+                
+                li.appendChild(a);
+                tocList.appendChild(li);
             });
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            initThemeSystem();
+
+            document.querySelectorAll('.sidebar .nav-item').forEach(function(item) {
+                item.addEventListener('click', function() {
+                    var tabId = this.dataset.tab;
+                    if (tabId) switchTab(tabId, this);
+                });
+            });
+            var menuToggle = document.getElementById('menuToggle');
+            var sidebar = document.getElementById('sidebar');
+            var mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            if (menuToggle && sidebar) {
+                menuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                });
+            }
+            if (mobileMenuToggle && sidebar) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                });
+            }
+            if (sidebar) {
+                sidebar.addEventListener('click', function(e) {
+                    if (e.target === sidebar) {
+                        sidebar.classList.remove('open');
+                    }
+                });
+            }
+            generateTOC();
+        });
+        
+        window.addEventListener('load', function() {
+            setTimeout(generateTOC, 100);
         });
     </script>
-
 </body>
-
 </html>
