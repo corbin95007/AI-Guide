@@ -1,0 +1,39 @@
+/* ===================================
+   响应式布局 & 移动端适配
+   =================================== */
+
+.desktop-only { display: none; }
+.desktop-only.active { display: flex; }
+.mobile-only { display: none; }
+
+@media (max-width: 1024px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+    .desktop-only { display: none !important; }
+    .mobile-only { display: block !important; }
+    .mobile-header { display: flex; }
+    .main-content {
+        margin-left: 0;
+        display: block;
+    }
+    .doc-content {
+        display: none;
+    }
+    .doc-toc {
+        display: none;
+    }
+    .mobile-only .tab-content {
+        display: none;
+    }
+    .mobile-only .tab-content.active {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-main-content { padding: 16px; padding-top: calc(var(--header-height) + 16px); padding-bottom: 16px; }
+    details.tech-card summary { padding: 18px; }
+    .summary-info h3 { font-size: 1.1rem; }
+    .details-content { padding: 0 18px 18px 18px; }
+    .model-item { padding: 14px 16px; }
+}

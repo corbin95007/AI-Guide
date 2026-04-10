@@ -1,0 +1,348 @@
+/* ===================================
+   组件样式：卡片、徽章、表格、列表等
+   =================================== */
+
+/* 标签样式 - 现代化徽章 */
+.badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    border: none;
+    color: white;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+.badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0.5;
+}
+.badge.open {
+    background: linear-gradient(135deg, var(--accent-green), #059669);
+}
+.badge.closed {
+    background: linear-gradient(135deg, var(--accent-blue), #2563EB);
+}
+
+/* 大模型内部列表样式 */
+.model-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
+}
+.model-item {
+    background: var(--card-bg);
+    padding: 16px 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-blue);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+.model-item:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+    border-left-color: var(--accent-purple);
+}
+.model-item h5 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+}
+.model-item p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* 厂商生态系统样式 */
+.vendor-ecosystem {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
+}
+.vendor-item {
+    background: var(--card-bg);
+    padding: 16px 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-green);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+.vendor-item:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+    border-left-color: var(--accent-orange);
+}
+.vendor-item h5 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+}
+.vendor-item p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* 定价表格样式 */
+.pricing-table {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+.pricing-table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+.pricing-table thead {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: white;
+}
+.pricing-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.pricing-table tbody tr {
+    border-bottom: 1px solid var(--border-light);
+    transition: background-color 0.2s ease;
+}
+.pricing-table tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+.pricing-table tbody tr:hover {
+    background-color: var(--card-hover);
+}
+.pricing-table td {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.pricing-table td:first-child {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+.pricing-table .price {
+    font-weight: 600;
+    color: var(--accent-green);
+}
+
+/* 开源模型对比表格样式 */
+.opensource-table {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+.opensource-table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+.opensource-table thead {
+    background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+    color: white;
+}
+.opensource-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.opensource-table tbody tr {
+    border-bottom: 1px solid var(--border-light);
+    transition: background-color 0.2s ease;
+}
+.opensource-table tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+.opensource-table tbody tr:hover {
+    background-color: var(--card-hover);
+}
+.opensource-table td {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.opensource-table td:first-child {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+.opensource-table .license {
+    font-family: var(--font-mono);
+    color: var(--accent-orange);
+}
+.opensource-table .size {
+    font-family: var(--font-mono);
+    color: var(--accent-purple);
+}
+
+/* 模型获取渠道样式 */
+.distribution-channels {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
+}
+.channel-item {
+    background: var(--card-bg);
+    padding: 16px 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-orange);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+.channel-item:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+    border-left-color: var(--accent-blue);
+}
+.channel-item h5 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+}
+.channel-item p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* 折叠卡片 - 统一组件（桌面端展开，移动端折叠） */
+details.tech-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    position: relative;
+}
+details.tech-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    border-color: var(--accent-purple);
+}
+details.tech-card[open] {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-blue);
+    background: var(--card-hover);
+}
+details.tech-card[open] summary {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+details.tech-card summary {
+    padding: 24px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+details.tech-card summary::-webkit-details-marker {
+    display: none;
+}
+details.tech-card summary::after {
+    content: "›";
+    font-family: var(--font-mono);
+    font-size: 1.8rem;
+    color: var(--accent-purple);
+    margin-left: 15px;
+    transition: transform 0.3s ease;
+    font-weight: bold;
+    transform: rotate(90deg);
+}
+details.tech-card[open] summary::after {
+    content: "‹";
+    transform: rotate(-90deg);
+    color: var(--accent-blue);
+}
+.summary-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+.summary-info p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+.details-content {
+    padding: 0 24px 24px 24px;
+    border-top: 1px solid var(--border-light);
+    margin-top: 0;
+    padding-top: 24px;
+    animation: contentFadeIn 0.4s ease;
+}
+.details-content h4 {
+    font-size: 1rem;
+    color: var(--accent-blue);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+.details-content p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.7;
+    text-align: justify;
+}
+.details-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* 移动端标题样式 */
+.mobile-only header {
+    margin-bottom: 40px;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 15px;
+}
+.mobile-only header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+.mobile-only header .subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    line-height: 1.6;
+}

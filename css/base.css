@@ -1,0 +1,346 @@
+/* ===================================
+   全局重置 & 基础排版
+   =================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 30px;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+#app {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* 代码样式 */
+code {
+    font-family: var(--font-mono);
+    background: rgba(99, 102, 241, 0.12);
+    padding: 2.5px 7px;
+    border-radius: 5px;
+    font-size: 0.88em;
+    color: var(--accent-purple);
+}
+
+a {
+    color: var(--accent-blue);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color 0.2s ease;
+}
+a:hover {
+    color: var(--accent-purple);
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+/* 动画 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes contentFadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* 底层粒子画布样式*/
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0; /* 保证在所有内容的最底层 */
+    pointer-events: none; /* 穿透鼠标点击，绝对不影响阅读和滚动 */
+    transition: opacity 0.6s ease;
+    opacity: 0; /* 默认模式下安静地隐藏 */
+}
+
+/* 只有在切换到赛博和极简线框模式时，才唤醒粒子特效 */
+body[data-theme="cyber"] #bg-canvas,
+body[data-theme="wireframe"] #bg-canvas {
+    opacity: 1;
+}
+/* ===================================
+   🌌 赛博极光 (Cyber) - 专属交互动效
+   =================================== */
+/* 菜单按钮悬停：霓虹发光 + 玻璃透光 */
+body[data-theme="cyber"] .nav-item:hover,
+body[data-theme="cyber"] .theme-btn:hover {
+    box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
+    background: rgba(0, 198, 255, 0.1);
+    color: #00c6ff;
+}
+/* 卡片悬停：边框亮起电光蓝 */
+body[data-theme="cyber"] .tech-card:hover {
+    border-color: #00c6ff;
+    box-shadow: 0 0 20px rgba(0, 198, 255, 0.15);
+}
+
+/* ===================================
+    极简矩阵 (Wireframe) - 专属交互动效
+   =================================== */
+
+/* 1. 光标方案：全局强制十字准星，极客感拉满 */
+body[data-theme="wireframe"], 
+body[data-theme="wireframe"] * {
+    cursor: crosshair !important;
+}
+
+/* 2. 按钮方案：干脆的黑白反色 (取消平滑渐变，追求瞬间响应) */
+body[data-theme="wireframe"] .nav-item,
+body[data-theme="wireframe"] .theme-btn {
+    transition: none !important; 
+    border: 1px solid transparent;
+}
+body[data-theme="wireframe"] .nav-item:hover,
+body[data-theme="wireframe"] .theme-btn:hover {
+    background: #070000 !important;
+    color: #FFFFFF !important;
+    border-color: #000000;
+}
+
+/* 3. 交互方案：局部缩放偏移 (硬阴影 + 机械位移) */
+/* 给卡片和文本加上生硬的阶梯式过渡 (step-end) */
+body[data-theme="wireframe"] .tech-card,
+body[data-theme="wireframe"] .doc-section p,
+body[data-theme="wireframe"] .doc-section h2 {
+    transition: transform 0.15s cubic-bezier(0, 1.05, 0.8, 1), box-shadow 0.15s ease;
+}
+
+/* 卡片悬停：向左上角偏移，并在右下角砸出纯黑色的粗犷硬阴影 */
+body[data-theme="wireframe"] .tech-card:hover {
+    transform: scale(1.005) translate(-4px, -4px) !important;
+    box-shadow: 6px 6px 0px #000000 !important; 
+    border-color: #000000;
+}
+
+/* 正文与标题悬停：轻微的缩放和底色反馈，模拟文本区块被 "选中" */
+body[data-theme="wireframe"] .doc-section p:hover,
+body[data-theme="wireframe"] .doc-section h2:hover {
+    transform: translate(-2px, -2px);
+    background-color: rgba(0, 0, 0, 0.04);
+    box-shadow: -4px 0 0 #000000; /* 左侧出现黑色标记线 */
+    padding-left: 8px; /* 配合左侧粗线做一个微推效果 */
+}
+
+/* 折叠卡片展开时光标闪烁保留 */
+body[data-theme="wireframe"] details.tech-card[open] summary .summary-info h3::before {
+    content: "█ ";
+    color: #000000;
+    animation: terminal-blink 1s step-end infinite;
+    margin-right: 8px;
+}
+
+/* ===================================
+    赛博故障 (Glitch) - 专属交互特效
+   =================================== */
+
+/* 1. CRT 全屏扫描线 (仅在赛博模式生效) */
+body[data-theme="cyber"]::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 9999; /* 盖在最顶层 */
+    background-size: 100% 3px, 4px 100%;
+    pointer-events: none; /* 绝对不能阻挡鼠标点击 */
+}
+
+/* 2. 文字 Hover 故障闪烁特效 (RGB Split) */
+@keyframes glitch-skew {
+    0% { transform: skew(0deg); }
+    20% { transform: skew(-8deg); }
+    40% { transform: skew(8deg); }
+    60% { transform: skew(-3deg); }
+    80% { transform: skew(3deg); }
+    100% { transform: skew(0deg); }
+}
+
+body[data-theme="cyber"] h1:hover,
+body[data-theme="cyber"] h2:hover,
+body[data-theme="cyber"] .nav-item:hover .nav-text {
+    animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    /* 红色和青色的重影错位 */
+    text-shadow: 2px 0 var(--accent-purple), -2px 0 var(--accent-blue);
+    color: #FFFFFF; /* 闪烁时变白 */
+}
+
+/* 3. 卡片 Hover 边框错位断裂特效 */
+body[data-theme="cyber"] .tech-card {
+    border-left: 2px solid var(--accent-green);
+}
+body[data-theme="cyber"] .tech-card:hover {
+    border-color: var(--accent-blue);
+    /* 产生锯齿状的高对比度位移 */
+    box-shadow: 4px 4px 0 var(--accent-purple), -4px -4px 0 var(--accent-blue);
+    transform: translate(-2px, -2px);
+    transition: all 0.1s steps(3, end); /* 机械卡顿感过渡，拒绝平滑 */
+}
+/* ===================================
+   🖥️ 赛博故障 (Glitch) - 细节修正与轻量交互
+   =================================== */
+
+/* 1. 拯救“额头”：取消暗色渐变，变为高亮荧光绿+发光 */
+body[data-theme="cyber"] .brand-title {
+    background: none;
+    -webkit-text-fill-color: var(--accent-green);
+    color: var(--accent-green);
+    text-shadow: 0 0 12px rgba(0, 255, 65, 0.6);
+    letter-spacing: 1px;
+}
+body[data-theme="cyber"] .brand-subtitle {
+    color: var(--accent-blue);
+    opacity: 0.8;
+}
+
+/* 2. 正文段落 (p)：轻量级色彩分离 (不扭曲文字，保证阅读) */
+body[data-theme="cyber"] .doc-section p {
+    transition: all 0.2s ease;
+}
+body[data-theme="cyber"] .doc-section p:hover {
+    color: #ffffff;
+    text-shadow: 1px 0 var(--accent-purple), -1px 0 var(--accent-blue);
+}
+
+/* 3. 代码块与链接：干脆的色彩反转 (黑客终端选中效果) */
+body[data-theme="cyber"] code {
+    background: rgba(0, 255, 65, 0.1);
+    color: var(--accent-green);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+}
+body[data-theme="cyber"] code:hover,
+body[data-theme="cyber"] a:hover {
+    background-color: var(--accent-green);
+    color: #000000;
+    text-shadow: none;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+/* ===================================
+   ⚗️ 极简矩阵 (Wireframe) - 视觉与交互重塑
+   =================================== */
+
+/* 1. 拯救额头：纯正锐利的黑色，去掉所有模糊发光 */
+body[data-theme="wireframe"] .brand-title {
+    color: #000000 !important;
+    text-shadow: none !important;
+    font-weight: 900;
+}
+body[data-theme="wireframe"] .brand-subtitle {
+    color: #555555;
+}
+
+/* 2. 强化区块分割：硬核实线边框 (Brutalism风格) */
+body[data-theme="wireframe"] .tech-card,
+body[data-theme="wireframe"] .doc-section {
+    border: 1px solid #000000; /* 强制纯黑边框 */
+    background: #ffffff;
+    padding: 24px;
+    margin-bottom: 30px;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.05); /* 默认带极弱硬阴影区分层级 */
+}
+body[data-theme="wireframe"] .doc-header {
+    border-bottom: 2px solid rgba(32, 122, 55, 0.5);
+    margin-bottom: 30px;
+}
+
+/* 3. 按钮干脆反色 */
+body[data-theme="wireframe"] .nav-item,
+body[data-theme="wireframe"] .theme-btn {
+    transition: none !important; 
+    border: 1px solid transparent;
+}
+body[data-theme="wireframe"] .nav-item:hover,
+body[data-theme="wireframe"] .theme-btn:hover {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #000000;
+}
+
+/* 悬停区块时加深硬阴影 */
+body[data-theme="wireframe"] .tech-card:hover {
+    transform: translate(-2px, -2px) !important;
+    box-shadow: 6px 6px 0px #000000 !important; 
+    transition: transform 0.1s step-end, box-shadow 0.1s step-end;
+}
+
+/* 4. 终极全屏十字准星 (复刻示范图) */
+/* 隐藏原生光标 */
+body[data-theme="wireframe"], 
+body[data-theme="wireframe"] * {
+    cursor: none !important; 
+}
+
+/* 准星 - 竖线 */
+body[data-theme="wireframe"]::before {
+    content: '';
+    position: fixed;
+    /* 这里的 var(--mx) 会由 JS 实时传递过来 */
+    left: var(--mx, -100px); 
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.5); /* 黑色半透明坐标轴 */
+    z-index: 99999;
+    pointer-events: none; /* 穿透点击，绝不影响网页使用 */
+}
+
+/* 准星 - 横线 */
+body[data-theme="wireframe"]::after {
+    content: '';
+    position: fixed;
+    top: var(--my, -100px);
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+    pointer-events: none;
+}
+
+/* 准星 - 中心小方块 (挂载在 #app 容器上) */
+body[data-theme="wireframe"] #app::after {
+    content: '';
+    position: fixed;
+    /* 居中偏移 */
+    left: calc(var(--mx, -100px) - 6px);
+    top: calc(var(--my, -100px) - 6px);
+    width: 12px;
+    height: 12px;
+    border: 1px solid #000000;
+    background-color: transparent;
+    z-index: 100000;
+    pointer-events: none;
+}

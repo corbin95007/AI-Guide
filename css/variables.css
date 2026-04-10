@@ -1,0 +1,132 @@
+/* ===================================
+   CSS 变量 & 主题定义
+   在这里统一管理颜色、字号、间距等设计令牌
+   =================================== */
+
+/* 浅色模式（默认） */
+:root {
+    --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-secondary: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --card-hover: #FAFBFC;
+    --text-primary: #1A202C;
+    --text-secondary: #718096;
+    --accent-blue: #3B82F6;
+    --accent-purple: #8B5CF6;
+    --accent-green: #10B981;
+    --accent-orange: #F59E0B;
+    --border-light: #E2E8F0;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+    --bg-color: var(--bg-secondary);
+    --text-main: var(--text-primary);
+    --border-color: var(--border-light);
+    --accent-color: var(--accent-blue);
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sidebar-width: 260px;
+    --toc-width: 220px;
+    --header-height: 64px;
+}
+
+/* ===================================
+   🌌 赛博故障主题 (Glitch & Matrix)
+   =================================== */
+body[data-theme="cyber"] {
+    --bg-primary: #000000; /* 真正的绝对纯黑 */
+    --bg-secondary: #050505; 
+    --card-bg: rgba(0, 20, 10, 0.6); /* 带有极客绿的半透明背景 */
+    --card-hover: rgba(0, 40, 20, 0.9);
+    
+    --text-primary: #00FF41; /* 经典矩阵荧光绿 */
+    --text-secondary: #008F11; /* 稍暗的绿色 */
+    
+    /* 故障艺术核心三原色 */
+    --accent-blue: #00FFFF; /* 故障青色 */
+    --accent-purple: #FF003C; /* 故障红色（警告色） */
+    --accent-green: #00FF41;
+    --accent-orange: #FF003C;
+    
+    --border-light: rgba(0, 255, 65, 0.25);
+    
+    /* 抹杀所有现代感阴影，换成发光特效 */
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+}
+
+/* 强制抹除赛博模式下的所有圆角，带来极致硬切机械感 */
+body[data-theme="cyber"] * {
+    border-radius: 0 !important;
+}
+body[data-theme="cyber"] .sidebar,
+body[data-theme="cyber"] .mobile-header,
+body[data-theme="cyber"] .doc-toc,
+body[data-theme="cyber"] .tech-card,
+body[data-theme="cyber"] .model-item,
+body[data-theme="cyber"] .vendor-item,
+body[data-theme="cyber"] .channel-item {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* ===================================
+   ⚗️ 极简矩阵 (Wireframe) 主题变量
+   =================================== */
+body[data-theme="wireframe"] {
+    --bg-primary:  #10B981;
+    --bg-secondary: #FAFAFA;
+    --card-bg: #FFFFFF;
+    
+    /* 核心点缀色不变，依然是科技青绿 */
+    --accent-blue: #000000; /* 极简模式下使用纯黑点缀，与赛博区分 */
+    --accent-purple: #10B981; /* 黑客绿 */
+    --accent-green: #10B981;
+    
+    /* 文本颜色：回归极简的黑灰组合 */
+    --text-primary: #000000; 
+    --text-secondary: #555555;
+    
+    --border-light: #E0E0E0;
+    
+    /* 定义网格专用的颜色变量 */
+    --grid-line-color: rgba(16, 185, 129, 0.4); /* 墨绿色，半透明 */
+    --grid-active-line-color: #10B981; /* 鼠标悬停时的全亮绿色 */
+    --grid-card-shadow: rgba(0, 0, 0, 0.15); /* 用于卡片投影的颜色 */
+}
+body[data-theme="wireframe"] * {
+    box-shadow: none !important;
+}
+body[data-theme="wireframe"] .tech-card,
+body[data-theme="wireframe"] .model-item,
+body[data-theme="wireframe"] .vendor-item,
+body[data-theme="wireframe"] .channel-item {
+    border-radius: 0;
+    border: 1px solid var(--border-light);
+}
+body[data-theme="wireframe"] .tech-card:hover,
+body[data-theme="wireframe"] .model-item:hover {
+    border-color: var(--accent-purple);
+    transform: none;
+}
+body[data-theme="wireframe"] .badge {
+    border-radius: 2px;
+}
+
+/* 背景动画画布 */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    opacity: 0;
+}
+body[data-theme="cyber"] #bg-canvas,
+body[data-theme="wireframe"] #bg-canvas {
+    opacity: 1;
+}
